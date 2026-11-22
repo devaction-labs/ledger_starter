@@ -1,0 +1,162 @@
+# Tests on every PR/push; image build + Openship deploy on main.
+#
+#   push / PR                                        -> test (Postgres service)
+#   push main                                        -> test -> image (GHCR) -> deploy-image (Openship)
+#   push release/** or dispatch with build_image     -> test -> image (no deploy)
+#   dispatch with deploy_version                     -> deploy-version (rollback to an existing tag)
+#
+# Production runs the prebuilt image: `image` publishes
+# ghcr.io/devaction-labs/ledger_starter:sha-<sha> and the deploy job only pins
+# that tag in Openship and polls until the rollout is ready (see
+# .github/scripts/openship-deploy.sh). Secrets: OPENSHIP_CLOUD_API_URL,
+# OPENSHIP_CLOUD_API_TOKEN, OPENSHIP_CLOUD_PROJECT_ID.
+name: Main
+
+on:
+  push:
+    branches: [main, "release/**"]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deploy_version:
+        description: "Rollback: image tag already in GHCR to redeploy (e.g. sha-abc123). Leave empty otherwise."
+        required: false
+        type: string
+      build_image:
+        description: "Build and push the image to GHCR without deploying."
+        required: false
+        default: false
+        type: boolean
+
+permissions: {}
+
+env:
+  MIX_ENV: test
+  OTP_VERSION: "29"
+  ELIXIR_VERSION: "1.20"
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+
+      - name: Cache deps and _build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            deps
+            _build/test
+          key: v1-${{ runner.os }}-otp-${{ env.OTP_VERSION }}-elixir-${{ env.ELIXIR_VERSION }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            v1-${{ runner.os }}-otp-${{ env.OTP_VERSION }}-elixir-${{ env.ELIXIR_VERSION }}-
+
+      - run: mix deps.get --only test
+      - run: mix format --check-formatted
+      - run: mix compile --warnings-as-errors
+      - run: mix test
+
+  image:
+    name: Build & push image (GHCR)
+    needs: [test]
+    if: ${{ !cancelled() && needs.test.result == 'success' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.build_image)) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: sha-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
+        with:
+          context: .
+          push: true
+          provenance: false
+          platforms: linux/amd64
+          build-args: |
+            APK_REFRESH=${{ github.run_id }}
+          tags: |
+            ghcr.io/${{ github.repository }}:sha-${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Only main deploys. The POST returns 202 "accepted", not "running": the
+  # script polls the deployment until a terminal status.
+  deploy-image:
+    name: Deploy prebuilt image (Openship)
+    needs: [image]
+    if: ${{ !cancelled() && needs.image.result == 'success' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Pin the pushed image and roll it out
+        env:
+          OPENSHIP_API_URL: ${{ secrets.OPENSHIP_CLOUD_API_URL }}
+          OPENSHIP_API_TOKEN: ${{ secrets.OPENSHIP_CLOUD_API_TOKEN }}
+          OPENSHIP_PROJECT_ID: ${{ secrets.OPENSHIP_CLOUD_PROJECT_ID }}
+          IMAGE_VERSION: ${{ needs.image.outputs.image_tag }}
+        run: bash .github/scripts/openship-deploy.sh
+
+  deploy-version:
+    name: Deploy specific image version (manual rollback)
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.deploy_version != '' }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Pin that version and roll it out
+        env:
+          OPENSHIP_API_URL: ${{ secrets.OPENSHIP_CLOUD_API_URL }}
+          OPENSHIP_API_TOKEN: ${{ secrets.OPENSHIP_CLOUD_API_TOKEN }}
+          OPENSHIP_PROJECT_ID: ${{ secrets.OPENSHIP_CLOUD_PROJECT_ID }}
+          IMAGE_VERSION: ${{ inputs.deploy_version }}
+        run: bash .github/scripts/openship-deploy.sh

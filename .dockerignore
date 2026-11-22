@@ -1,0 +1,14 @@
+.git
+.github
+.elixir_ls
+.dialyzer_ignore.exs
+deps
+_build
+cover
+priv/plts
+test
+*.md
+erl_crash.dump
+node_modules
+.env*
+!.env.example

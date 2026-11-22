@@ -10,6 +10,7 @@ defmodule LedgerStarter.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      releases: [ledger_starter: [include_executables_for: [:unix]]],
       compilers: [:phoenix_live_view, :ledger_ui_skill] ++ Mix.compilers(),
       listeners: [Phoenix.CodeReloader]
     ]
