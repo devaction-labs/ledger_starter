@@ -54,7 +54,7 @@ defmodule LedgerStarterWeb.Layouts do
         <.navbar>
           <.navbar_crumbs items={[%{label: @company.name}, %{label: @crumb}]} />
           <:end>
-            <.theme_switch id="theme" variant="icons" size="sm" />
+            <.theme_switch id="theme" size="sm" />
             <.navbar_user id="me" user={@user_map}>
               <:menu>
                 <.navbar_menu_head user={@user_map} />

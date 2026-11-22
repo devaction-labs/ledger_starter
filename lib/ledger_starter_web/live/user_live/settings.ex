@@ -13,7 +13,7 @@ defmodule LedgerStarterWeb.UserLive.Settings do
       <.navbar>
         <.navbar_brand name="StartKit" logo="S" />
         <:end>
-          <.theme_switch id="theme" variant="icons" size="sm" />
+          <.theme_switch id="theme-settings" size="sm" />
           <.button navigate={~p"/workspaces"} variant="ghost" size="sm">Meus workspaces</.button>
         </:end>
       </.navbar>
