@@ -23,7 +23,7 @@ defmodule LedgerStarterWeb.DashboardLive do
         <div class="flex flex-col gap-5 px-7 py-6">
           <.hero_card
             id="dashboard-hero"
-            eyebrow={"Bom dia, #{first_name(@current_scope.user)}"}
+            eyebrow={"Olá, #{first_name(@current_scope.user)}"}
             title={hero_title(data)}
             description={hero_description(data)}
             steps={hero_steps(data)}
