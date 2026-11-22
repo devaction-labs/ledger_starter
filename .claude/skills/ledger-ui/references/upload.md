@@ -163,7 +163,7 @@ Renders the drop panel and the list of chosen files.
 | `on_cancel` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `previews` | `:boolean` | `true` |  |
-| `error_texts` | `:map` | `%{too_large: "File is too large", external_client_failure: "Upload failed", not_accepted: "File of invalid type", too_many_files: "Too many files"}` |  |
+| `error_texts` | `:map` | `%{too_large: "File is too large", too_many_files: "Too many files", external_client_failure: "Upload failed", not_accepted: "File of invalid type"}` |  |
 | `browse_label` | `:string` | `"Browse"` |  |
 | `drop_label` | `:string` | `"Drag & Drop your files or"` |  |
 | `remove_label` | `:string` | `"Remove"` |  |

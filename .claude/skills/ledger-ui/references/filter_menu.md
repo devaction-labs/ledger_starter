@@ -31,6 +31,16 @@ opens two date fields; the value is then `"custom:FROM..TO"` (ISO days), parsed 
 `custom_range/1`. A `:group` slot takes the same attributes as a group and your own content
 (any checkbox/radio inputs with a `name`, and `data-lu-count` for what Apply counts).
 
+With no groups and no `:group` slot the panel shows a small empty state (`empty_label`, default
+"No filters available" / "Nenhum filtro disponível") and hides the Clear/Apply footer.
+
+## Locale
+
+The texts (Filters, Clear, Apply, Custom…, From, To, results, empty state) follow the `locale`
+attr: `"en"` (the default) or `"pt_BR"`. There is no application-wide locale config
+(`config :ledger_ui, locale:` does not exist): pass `locale="pt_BR"` on every `filter_menu`
+of a pt-BR page, or wrap it in your own function component that sets it.
+
 ## `<.filter_menu>`
 
 | Attr | Type | Default | Values / notes |
@@ -38,6 +48,7 @@ opens two date fields; the value is then `"custom:FROM..TO"` (ISO days), parsed 
 | `id` (required) | `:string` |  |  |
 | `label` | `:string` | `nil` |  |
 | `icon` | `:string` | `nil` |  |
+| `empty_label` | `:string` | `nil` | Text of the empty panel (no groups, no `:group` slot). |
 | `groups` | `:list` | `[]` |  |
 | `mode` | `:string` | `"apply"` | `apply`, `live` |
 | `locale` | `:string` | `"en"` | `en`, `pt_BR` |

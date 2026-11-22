@@ -27,13 +27,23 @@ Texts come from outside (`label`, `label_plural`, `select_all_label` with `%{tot
 ## Looks
 
   * `inverse` (default), `soft` and `solid`: the selection pill (dark, accent-soft and accent).
-  * `inline`: the strip at the top of a table (a panel tinted with the accent): a checkbox
-    that clears the selection, the count, "select all" and the buttons.
+  * `inline`: the strip at the top of a table (a panel tinted with the accent, no wrap), in
+    this order: an indeterminate checkbox that clears the selection, the count, "select all", a
+    rule, the `:field`s, the actions, a rule and a close (`clear_label` as `aria-label` and
+    `title`; only with `on_clear`). Every `:action` is a ghost button (no border); `danger` (or
+    `neg`) is ghost with the negative colour (`data-neg`). A `:field` is ghost too: the strip
+    strips border, fill and shadow from the buttons inside it (not from `role="menuitem"`), so a
+    dropdown toggle looks ghost; if the control is not a plain button, pass `variant="ghost"`
+    to the inner `<.button>`.
 
   * `float` (the canvas template's bar): a dark pill absolutely positioned at the
     bottom center of the closest positioned ancestor (the app shell), with the count, one
     `:action` per button (`variant="danger"` is red and set apart by a rule) and the close. It
     ignores `floating`, `progress` and the `confirm` of an action (the action runs at once).
+
+An `:action` takes `variant` `default`, `primary`, `danger`, `ghost` or `neg` in every look
+(`ghost` is the same as `default`, `neg` the same as `danger`: the pills keep their ghost
+buttons, the `danger` one set apart by a rule).
 
 `floating` (default) pins a pill to the bottom center of the viewport; `floating={false}` lays
 it out where it is (a bar inside a card or a toolbar). `progress`/`progress_max` turn the bar
