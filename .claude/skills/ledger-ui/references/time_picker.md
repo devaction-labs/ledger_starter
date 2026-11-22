@@ -52,7 +52,7 @@ Renders a time input.
 | `hour_step` | `:integer` | `1` |  |
 | `default_hour` | `:integer` | `12` |  |
 | `display_format` | `:string` | `nil` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `labels` | `:map` | `%{}` |  |
 | `variant` | `:string` | `"input"` | `input`, `list` |
 | `show_icon` | `:boolean` | `true` |  |

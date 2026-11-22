@@ -66,7 +66,7 @@ Below 768px the menu is a top bar with a hamburger.
 | `current` | `:any` | `nil` | The current path, matched against the items' links; or, with `<:item>` slots, an item's `name`. |
 | `brand` | `:map` | `nil` |  |
 | `workspace` | `:map` | `nil` | The workspace the menu belongs to, `%{name:, context:}`: a `brand` (the chart mark, the name and the muted context line) when `brand` is not given. |
-| `views_label` | `:string` | `"Views"` | The caption of the group of the `<:view>` items. |
+| `views_label` | `:string` | `nil` | The caption of the group of the `<:view>` items. |
 | `user` | `:map` | `nil` |  |
 | `footer` | `:any` | `nil` |  |
 | `show_user` | `:boolean` | `nil` |  |
@@ -84,12 +84,13 @@ Below 768px the menu is a top bar with a hamburger.
 | `target` | `:any` | `nil` |  |
 | `shortcut` | `:string` | `"b"` |  |
 | `variant` | `:string` | `"floating"` | `floating`, `sidebar`, `inset` |
-| `label` | `:any` | `"Main menu"` |  |
-| `collapse_label` | `:string` | `"Collapse menu"` |  |
-| `mobile_label` | `:string` | `"Menu"` |  |
+| `label` | `:any` | `:default` |  |
+| `collapse_label` | `:string` | `nil` |  |
+| `mobile_label` | `:string` | `nil` |  |
 | `nav_class` | `:any` | `nil` | Classes of the column that holds the items (an `animate-[…]` utility can highlight them in turn). |
 | `flat` | `:boolean` | `false` | Draws the items straight in the menu, without the column that wraps a run of them. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

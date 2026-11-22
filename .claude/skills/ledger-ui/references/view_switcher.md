@@ -40,17 +40,18 @@ triggers carry `aria-haspopup`/`aria-expanded`/`aria-controls` (rendered by `dro
 | `options` | `:list` | `[]` |  |
 | `saved` | `:list` | `[]` |  |
 | `saved_value` | `:any` | `nil` |  |
-| `saved_label` | `:string` | `"Saved views"` |  |
+| `saved_label` | `:string` | `nil` |  |
 | `on_change` | `:any` | `nil` |  |
 | `on_add` | `:any` | `nil` |  |
 | `on_saved` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `add_label` | `:string` | `"View"` |  |
-| `menu_title` | `:string` | `"Add a new view"` |  |
+| `add_label` | `:string` | `nil` |  |
+| `menu_title` | `:string` | `nil` |  |
 | `stretch` | `:boolean` | `false` | The views share the width of the control equally (each `flex-1`, content centered). |
 | `loop` | `:boolean` | `false` | The canvas demo animation: a highlight slides over the views, 6s per round. It implies `stretch`. |
 | `columns` | `:integer` | `2` | `1`, `2` |
 | `placement` | `:string` | `"bottom-start"` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

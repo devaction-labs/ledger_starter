@@ -42,14 +42,15 @@ answers by re-rendering `options`. Options may carry `:hint` (a dimmed note at t
 | `target` | `:any` | `nil` |  |
 | `open_on_focus` | `:boolean` | `false` |  |
 | `clearable` | `:boolean` | `false` |  |
-| `clear_label` | `:string` | `"Clear"` |  |
-| `no_results` | `:string` | `"No results found"` |  |
-| `loading_text` | `:string` | `"Searching…"` |  |
+| `clear_label` | `:string` | `nil` |  |
+| `no_results` | `:string` | `nil` |  |
+| `loading_text` | `:string` | `nil` |  |
 | `create` | `:string` | `nil` |  |
 | `on_create` | `:any` | `nil` |  |
 | `size` | `:string` | `"md"` | `sm`, `md`, `lg` |
 | `open` | `:boolean` | `false` | Renders the list open (static previews). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `autofocus`, `form`, `required`.
 

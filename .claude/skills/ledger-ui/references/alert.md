@@ -32,10 +32,11 @@ same for a button placed by hand: `<button phx-click={dismiss_alert()}>Later</bu
 | `dismissible` | `:boolean` | `false` |  |
 | `on_dismiss` | `:any` | `nil` | Event name or `%JS{}` run when the alert is closed. |
 | `target` | `:any` | `nil` | `phx-target` of `on_dismiss`. |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `open` | `:boolean` | `true` |  |
 | `loop` | `:boolean` | `false` | The canvas loop (`mo-alin`): the alert slides in, stays, leaves, forever (demos). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

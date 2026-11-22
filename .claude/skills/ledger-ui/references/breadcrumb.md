@@ -34,12 +34,13 @@ staggered animations).
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `variant` | `:string` | `nil` | `nil`, `canvas`, `plain`, `bordered` |
-| `label` | `:string` | `"Breadcrumb"` |  |
+| `label` | `:string` | `nil` |  |
 | `max_items` | `:integer` | `nil` |  |
 | `loop` | `:boolean` | `false` | The canvas demo animation: the steps come in one after the other, 0.5s apart, every 6s (each step takes a `--dl` delay). |
-| `more_label` | `:string` | `"Show hidden steps"` |  |
+| `more_label` | `:string` | `nil` |  |
 | `id` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

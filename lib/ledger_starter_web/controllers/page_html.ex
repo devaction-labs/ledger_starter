@@ -28,7 +28,9 @@ defmodule LedgerStarterWeb.PageHTML do
         icon: "users",
         title: gettext("Time e papéis"),
         text:
-          gettext("Convites por e-mail, papéis Dono, Admin e Membro com permissões por empresa.")
+          gettext(
+            "Convites por e-mail, papéis Dono, Admin, Vendas e Leitura com permissões por empresa."
+          )
       },
       %{
         icon: "kanban",

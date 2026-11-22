@@ -16,8 +16,8 @@ Renders the field and the eye.
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `id` | `:string` | `nil` | Defaults to the field id, then `name`; characters that break a CSS selector are replaced. |
-| `show_label` | `:string` | `"Show the password"` |  |
-| `hide_label` | `:string` | `"Hide the password"` |  |
+| `show_label` | `:string` | `nil` |  |
+| `hide_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
 | `field` | `{:struct, Phoenix.HTML.FormField}` | `nil` |  |
 | `name` | `:string` | `nil` |  |
@@ -38,6 +38,7 @@ Renders the field and the eye.
 | `minlength` | `:integer` | `nil` |  |
 | `maxlength` | `:integer` | `nil` |  |
 | `form` | `:string` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `label_hint`, `layout`, `wrapper_class`, `shape`, `align`, `readonly`.
 

@@ -70,7 +70,7 @@ to `layout="page"`. `sheet/1` takes the same; note that its `placement` is `bott
 | `variant` | `:string` | `nil` | `nil`, ``, `float`, `flush` |
 | `description` | `:string` | `nil` |  |
 | `close_button` | `:boolean` | `true` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `floating` | `:boolean` | `false` | A sheet that floats with margins around it, the look of `variant="float"`; makes a bare drawer a sheet. |
 | `overlay` | `:boolean` | `true` |  |
 | `lock_scroll` | `:boolean` | `false` |  |
@@ -82,6 +82,7 @@ to `layout="page"`. `sheet/1` takes the same; note that its `placement` is `bott
 | `panel_class` | `:any` | `nil` |  |
 | `body_class` | `:any` | `nil` |  |
 | `inline` | `:boolean` | `false` | Static preview: in the page flow, always open, no hook. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -110,7 +111,7 @@ Same as `drawer/1` (same attributes and slots), under the name the design vitrin
 | `variant` | `:string` | `nil` | `nil`, ``, `float`, `flush` |
 | `description` | `:string` | `nil` |  |
 | `close_button` | `:boolean` | `true` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `floating` | `:boolean` | `false` | A sheet that floats with margins around it, the look of `variant="float"`; makes a bare drawer a sheet. |
 | `overlay` | `:boolean` | `true` |  |
 | `lock_scroll` | `:boolean` | `false` |  |
@@ -122,6 +123,7 @@ Same as `drawer/1` (same attributes and slots), under the name the design vitrin
 | `panel_class` | `:any` | `nil` |  |
 | `body_class` | `:any` | `nil` |  |
 | `inline` | `:boolean` | `false` | Static preview: in the page flow, always open, no hook. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -145,9 +147,10 @@ The header of a sheet: title and description (or `:content`), a back arrow, butt
 | `title` | `:string` | `nil` |  |
 | `description` | `:string` | `nil` |  |
 | `close_button` | `:boolean` | `true` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
 | `style` | `:string` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

@@ -35,23 +35,24 @@ listed options can be chosen and `on_search` pushes `%{"id" => id, "query" => te
 | `debounce` | `:integer` | `300` |  |
 | `removable` | `:boolean` | `false` |  |
 | `clearable` | `:boolean` | `false` |  |
-| `clear_label` | `:string` | `"Clear"` |  |
-| `remove_label` | `:string` | `"Remove"` |  |
-| `create_label` | `:string` | `"Add"` |  |
+| `clear_label` | `:string` | `nil` |  |
+| `remove_label` | `:string` | `nil` |  |
+| `create_label` | `:string` | `nil` |  |
 | `persist` | `:boolean` | `true` |  |
 | `restore_on_backspace` | `:boolean` | `false` |  |
-| `create_hint` | `:string` | `"Enter"` |  |
+| `create_hint` | `:string` | `nil` |  |
 | `max` | `:integer` | `nil` |  |
 | `counter` | `:boolean` | `true` |  |
-| `limit_placeholder` | `:string` | `"Limit reached"` |  |
+| `limit_placeholder` | `:string` | `nil` |  |
 | `create_position` | `:string` | `"top"` | `top`, `bottom` |
 | `compact` | `:boolean` | `false` |  |
 | `loop` | `:boolean` | `false` | Demo animation (CSS only): the last tag fades in and `loop_text` is typed after it, over and over. |
 | `loop_text` | `:string` | `nil` | The text typed by `loop`. |
-| `no_results` | `:string` | `"No results found"` |  |
+| `no_results` | `:string` | `nil` |  |
 | `disabled` | `:boolean` | `false` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `form`.
 

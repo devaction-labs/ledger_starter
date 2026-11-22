@@ -33,9 +33,10 @@ Any other HTML/phx attribute goes to the root element.
 
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
-| `label` | `:string` | `"Loading…"` | Read by screen readers; not drawn. |
+| `label` | `:string` | `nil` | Read by screen readers; not drawn. |
 | `loop` | `:boolean` | `false` | The canvas loop (`lu-sw-a`/`lu-sw-b`): the placeholder, then the `:loaded` content, forever (demos). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

@@ -76,8 +76,9 @@ Slots:
 | `title` | `:string` | `nil` |  |
 | `sub` | `:string` | `nil` |  |
 | `unread` | `:boolean` | `false` |  |
-| `unread_label` | `:string` | `"Unread"` |  |
+| `unread_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `href`, `navigate`, `patch`, `method`, `download`, `replace`.
 

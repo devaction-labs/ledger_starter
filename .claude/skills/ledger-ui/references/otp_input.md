@@ -50,9 +50,10 @@ Renders the boxes, with their caption, help and errors when given.
 | `separator` | `:any` | `nil` |  |
 | `on_complete` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `aria_label` | `:string` | `"One-time code"` |  |
-| `digit_label` | `:string` | `"Digit"` |  |
+| `aria_label` | `:string` | `nil` |  |
+| `digit_label` | `:string` | `nil` |  |
 | `wrapper_class` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

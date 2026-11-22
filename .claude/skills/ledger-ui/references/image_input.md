@@ -30,13 +30,14 @@ Renders the image field.
 | `accept` | `:string` | `".png,.jpg,.jpeg,.webp"` |  |
 | `size` | `:string` | `nil` | `nil`, `lg`, `md`, `sm`, `xl` |
 | `shape` | `:string` | `"circle"` | `circle`, `rounded`, `square`, `wide` |
-| `label` | `:string` | `"Choose a picture"` |  |
-| `remove_label` | `:string` | `"Remove or revert the picture"` |  |
+| `label` | `:string` | `nil` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `initials` | `:string` | `nil` | Letters on a filled frame when there is no picture. |
 | `hover` | `:boolean` | `false` | Draws the edit overlay (the hover state). |
 | `loop` | `:string` | `nil` | `nil`, `hover`, `ring` - Animated demo of a state: `hover` loops the edit overlay, `ring` loops the upload ring. |
 | `progress` | `:integer` | `nil` | An upload ring, 0 to 100. |
 | `disabled` | `:boolean` | `false` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

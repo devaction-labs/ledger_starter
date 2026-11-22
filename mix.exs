@@ -53,7 +53,7 @@ defmodule LedgerStarter.MixProject do
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.5", runtime: Mix.env() == :dev},
-      {:ledger_ui, "~> 0.6.1"},
+      {:ledger_ui, "~> 0.7.0"},
       {:permit_ex, "~> 0.3.1"},
       {:assent, "~> 0.3"},
       {:swoosh, "~> 1.16"},

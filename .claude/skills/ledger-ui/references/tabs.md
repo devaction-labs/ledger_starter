@@ -52,11 +52,12 @@ Additive tab attrs: `role` (pass `nil` to drop it) and `count_tone` (`acc`, `neg
 | `loop` | `:boolean` | `false` | The canvas demo (`variant="line"`, up to 3 tabs): the indicator slides under the tabs, the tab text follows it and the panels come in (`transition` left or up) every 6s, by themselves. |
 | `loop_widths` | `:list` | `~c"nnn"` | `loop`: the widths in px of the tabs (set them yourself, e.g. `class="w-[110px]"`) to place the indicator; the gap is the 22px of the line list. |
 | `on_change` | `:any` | `nil` |  |
-| `soon_label` | `:string` | `"Em breve"` |  |
+| `soon_label` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `list_class` | `:any` | `nil` |  |
 | `panels_class` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

@@ -25,14 +25,15 @@ behaviour): `state` is `off` (no connection), `re` (reconnecting, with a turning
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `id` | `:string` | `"ledger-connection-banner"` |  |
-| `title` | `:string` | `"Connection lost"` |  |
-| `description` | `:string` | `"Trying to reconnect..."` |  |
+| `title` | `:string` | `nil` |  |
+| `description` | `:string` | `nil` |  |
 | `color` | `:string` | `"warning"` | `assistant`, `primary`, `secondary`, `info`, `success`, `warning`, `error` - The light of the ring. |
 | `position` | `:string` | `nil` | `nil`, `top`, `bottom` - Where the toast sits: `top` (`center-top`) or `bottom` (`center-bottom`); the toaster's own when `nil`. |
 | `preview` | `:boolean` | `false` | Draw the strip of `state` where it is written (no hooks, no toast). |
 | `state` | `:string` | `"off"` | `off`, `re`, `on`, `cycle` - Only with `preview`: lost, reconnecting, connected, or all three in a loop. |
 | `label` | `:string` | `nil` | Only with `preview`: the text of the strip (default by state; not for `cycle`). |
-| `cycle_labels` | `:list` | `["Connection lost. Your changes are kept here.", "Reconnecting…", "Connected again."]` | Only with `preview` and `state="cycle"`: the three texts, in order. |
+| `cycle_labels` | `:list` | `nil` | Only with `preview` and `state="cycle"`: the three texts, in order. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

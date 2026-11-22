@@ -33,8 +33,8 @@ The dashed drop area: icon, label with the browse link, and a hint.
 
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
-| `drop_label` | `:string` | `"Drag & Drop your files or"` |  |
-| `browse_label` | `:string` | `"Browse"` |  |
+| `drop_label` | `:string` | `nil` |  |
+| `browse_label` | `:string` | `nil` |  |
 | `hint` | `:string` | `nil` |  |
 | `over` | `:boolean` | `false` | Draws the drag-over state. |
 | `error` | `:boolean` | `false` |  |
@@ -43,6 +43,7 @@ The dashed drop area: icon, label with the browse link, and a hint.
 | `for` | `:string` | `nil` | Id of the file input: the area becomes its `<label>`. |
 | `icon_path` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -81,7 +82,7 @@ A file card: badge, name, status, progress bar and the remove (or retry) button.
 | `progress` | `:integer` | `0` |  |
 | `loop` | `:boolean` | `false` | The canvas demo animation: the progress bar fills from 0 to 100%, every 4s. |
 | `state` | `:string` | `"progress"` | `progress`, `done`, `error` |
-| `remove_label` | `:string` | `"Remove"` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `retry_label` | `:string` | `nil` | On an error: a retry button with this text. |
 | `removable` | `:boolean` | `true` |  |
 | `on_remove` | `:any` | `nil` | An event name or a `%JS{}` for the remove button. It also shows next to the check on finished (`done`) cards. |
@@ -89,6 +90,7 @@ A file card: badge, name, status, progress bar and the remove (or retry) button.
 | `ref` | `:string` | `nil` | Sent as `phx-value-ref` with the events. |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -163,13 +165,14 @@ Renders the drop panel and the list of chosen files.
 | `on_cancel` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `previews` | `:boolean` | `true` |  |
-| `error_texts` | `:map` | `%{too_large: "File is too large", too_many_files: "Too many files", external_client_failure: "Upload failed", not_accepted: "File of invalid type"}` |  |
-| `browse_label` | `:string` | `"Browse"` |  |
-| `drop_label` | `:string` | `"Drag & Drop your files or"` |  |
-| `remove_label` | `:string` | `"Remove"` |  |
-| `uploading_label` | `:string` | `"Uploading"` |  |
-| `complete_label` | `:string` | `"Upload complete"` |  |
+| `error_texts` | `:map` | `nil` | Texts of the upload errors (`:too_large`, `:too_many_files`, `:external_client_failure`, `:not_accepted`), over the locale ones. |
+| `browse_label` | `:string` | `nil` |  |
+| `drop_label` | `:string` | `nil` |  |
+| `remove_label` | `:string` | `nil` |  |
+| `uploading_label` | `:string` | `nil` |  |
+| `complete_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

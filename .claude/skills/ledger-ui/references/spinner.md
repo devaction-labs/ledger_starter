@@ -17,7 +17,8 @@ are for spinners inside filled buttons.
 | `variant` | `:string` | `"canvas"` | `canvas`, `border`, `soft`, `grow`, `svg` |
 | `size` | `:string` | `"sm"` | `xs`, `sm`, `md`, `lg`, `xl` |
 | `elastic` | `:boolean` | `false` | An elastic easing instead of the default one. |
-| `label` | `:any` | `"Loading"` | Accessible name; `nil` for a decorative spinner. |
+| `label` | `:any` | `:default` | Accessible name; `nil` for a decorative spinner. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

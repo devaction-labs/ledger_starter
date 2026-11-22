@@ -35,6 +35,7 @@ round trip; `collapsed` and `open` set where the state starts. `loop` plays the 
 | `steps` | `:list` | `[]` | The steps as data, instead of `<:step>` slots: maps with `:title` and optionally `:status`, `:result`, `:id`. (No log: use the slots for that.) |
 | `current` | `:integer` | `nil` | With `steps`: the position (from 1) of the step in progress; the ones before it are `:ok`, the ones after `:waiting` (unless a step has its own `:status`). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

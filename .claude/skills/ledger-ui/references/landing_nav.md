@@ -90,9 +90,10 @@ zero-specificity rule on the bar, so a utility on an anchor (the active link, a 
 | `spy_offset` | `:integer` | `120` | How far from the top of the view a section counts as the current one. |
 | `responsive` | `:boolean` | `false` | Show the phone menu button below 768px. |
 | `brand` | `:map` | `nil` |  |
-| `label` | `:any` | `"Main"` | The accessible name of the links (`nil` leaves it out). |
-| `menu_label` | `:string` | `"Menu"` |  |
+| `label` | `:any` | `:default` | The accessible name of the links (`nil` leaves it out; the default is the locale's "Main"). |
+| `menu_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -231,8 +232,9 @@ The thin announcement strip above the bar; the close button hides it with `JS.hi
 | `href` | `:string` | `"#"` |  |
 | `navigate` | `:string` | `nil` |  |
 | `dismissible` | `:boolean` | `true` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

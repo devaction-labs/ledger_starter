@@ -38,7 +38,7 @@ render only the chart (and, for `line_chart/1`, its head and legend).
 | `label_every` | `:integer` | `1` | Draw one X label every N points. |
 | `width` | `:integer` | `640` | Width of the server-rendered SVG (first paint). In the browser the hook re-lays the chart to the measured width of its container, so text and strokes keep their CSS size. |
 | `height` | `:integer` | `250` | Height of the chart in CSS pixels (the same on the server and after the hook measured). |
-| `label` | `:string` | `"Gráfico"` | `aria-label` of the SVG. |
+| `label` | `:string` | `nil` | `aria-label` of the SVG. |
 | `head` | `:string` | `nil` | Big figure above the chart (`+$70,320`). |
 | `sub` | `:string` | `nil` | Muted text after the figure (`since January`). |
 | `legend` | `:boolean` | `true` | Legend of the named series (when there is more than one). |
@@ -50,6 +50,7 @@ render only the chart (and, for `line_chart/1`, its head and legend).
 | `tip` | `:any` | `nil` | Function of an index returning tooltip rows `[[name, value, kind]]`. |
 | `tip_title` | `:any` | `nil` | Function of an index returning the tooltip title. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -59,13 +60,14 @@ Any other HTML/phx attribute goes to the root element.
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `segments` | `:list` | `[]` | `[%{name: .., value: number, color: css, display: "$96,900"}]`. Empty: only the container. |
-| `center_label` | `:string` | `"TOTAL"` |  |
+| `center_label` | `:string` | `nil` |  |
 | `center_value` | `:string` | `nil` |  |
-| `label` | `:string` | `"Distribuição"` |  |
+| `label` | `:string` | `nil` |  |
 | `rows` | `:boolean` | `true` | Draw the plan rows (name, value and share) under the ring. |
 | `loop` | `:boolean` | `false` | The canvas loop: the ring fades in and spins in again every 7s (`mo-donut`, `mo-dspin`). |
 | `value_format` | `:any` | `&LedgerUI.Components.Chart.money/1` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -77,10 +79,11 @@ Any other HTML/phx attribute goes to the root element.
 | `steps` | `:list` | `[]` | `[%{name:, value:, label:, color:, total: bool}]`: a step moves the running total, `total` starts from zero. |
 | `max` | `:integer` | `30000` | Top of the Y axis. |
 | `ticks` | `:integer` | `3` | Gaps of the Y axis. |
-| `label` | `:string` | `"Movimento"` | `aria-label` of the SVG. |
+| `label` | `:string` | `nil` | `aria-label` of the SVG. |
 | `axis_format` | `:any` | `&LedgerUI.Components.Chart.wf_axis/1` |  |
 | `loop` | `:boolean` | `false` | The canvas demo: the bars grow again and again (`mo-bar`) instead of once. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -238,5 +241,6 @@ plus the older `thousands` (`12k`, no rounding), `thousands_round`, `dollars`, `
 | `summary` | `:boolean` | `false` | Reserved: the cursor summary line (not drawn yet). |
 | `on_cursor` | `:string` | `nil` | LiveView event pushed as the cursor moves. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

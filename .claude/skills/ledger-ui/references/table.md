@@ -52,6 +52,29 @@ entry (720, 560 and 420px by default). Tailwind only sees literal class names, s
 a fixed list (the `hide_widths` list of the internal Table.Layout module); another width raises
 `ArgumentError`.
 
+## Column sizing: `grow`, `wrap`, `min`
+
+The table is an auto-layout `<table>` (`w-full`) and every cell is one line (`whitespace-nowrap`),
+so with room to spare each column gets a share of it in proportion to its content. To give the
+free width to one column (a name, a description) put `grow` on its `:col`:
+
+    <:col :let={o} label="Cliente" grow={1}>{o.cliente}</:col>
+
+The other columns stay at the width of their content, the grown one takes the rest, stays on a
+single line while it fits and wraps when the table (or its wrapper) gets narrower. `grow` is a
+weight: with `grow={2}` and `grow={1}` the first takes twice the second's share of the table.
+
+  * `wrap="auto"`: the text may wrap (the default of a `grow` column; on a column without `grow`
+    it only lets the text wrap). `wrap="never"`: always one line, the wrapper scrolls instead
+    (the default of a column without `grow`). `wrap="truncate"`: one line cut with an ellipsis,
+    never wider than the room the table gives it.
+  * `min`: minimum width (`"12rem"`, `"200px"`), so a growing column does not wrap into a
+    sliver before the table scrolls.
+  * `width` wins: a column with `width` keeps its own track treatment and ignores `grow`, `wrap`
+    and `min`. Without any of the three the markup is unchanged (`role="title"` does not grow by
+    itself: say `grow` where you want it).
+  * In the card layout (`card_below`) the column goes back to `w-auto` and drops `min`.
+
 ## Card layout, details panel, copy columns (used by `card_table/1`)
 
 Extra attributes `card_below`, `details`, `row_editing`, `row_action` and the column attributes
@@ -78,7 +101,7 @@ case) the markup is the one it always was.
 
 ## Not implemented
 
-`peek` / `peek_label` (the panel with the hidden columns) and `bleed` are accepted but draw
+`peek` / `peek_label` (the panel with the hidden columns) are accepted but draw
 nothing yet. `borderless` is accepted: the design has no style for it.
 
 ## `<.table>`
@@ -107,10 +130,10 @@ nothing yet. `borderless` is accepted: the design has no style for it.
 | `headless` | `:boolean` | `false` |  |
 | `sticky_header` | `:boolean` | `false` |  |
 | `borderless` | `:boolean` | `false` |  |
-| `bleed` | `:boolean` | `false` | Not implemented yet. |
+| `bleed` | `:boolean` | `false` | For a table inside a `card` body with `padded={false}`: no box of its own (no border, radius or background) and the first and last cells are padded by the card's `--card-p` (16px outside a card), so rows run edge to edge while the content stays aligned with the card's padding. |
 | `card_below` | `:integer` | `nil` | Width (px) of the table's own box under which rows become two-line cards (needs `role`s); one of `Table.Layout.card_widths/0`. |
 | `details` | `:boolean` | `false` | A click on a row opens a panel under it (hook `LedgerUI.CardTable`). |
-| `panel_label` | `:string` | `"Details"` |  |
+| `panel_label` | `:string` | `nil` |  |
 | `row_editing` | `:any` | `nil` | Function of the row; true swaps its cells for the `:edit` slot. |
 | `row_action` | `:any` | `nil` | Function of the row; false leaves the content of its `:action` cells out. |
 | `body_class` | `:any` | `nil` | Classes of the `<tbody>` (of each item's, with `row_groups`). |
@@ -123,23 +146,24 @@ nothing yet. `borderless` is accepted: the design has no style for it.
 | `wrapper` | `:boolean` | `true` | `false` leaves out the bordered box (a table inside a card body). |
 | `container` | `:boolean` | `nil` |  |
 | `peek` | `:boolean` | `false` | Not implemented yet. |
-| `peek_label` | `:string` | `"Hidden columns"` |  |
+| `peek_label` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `expand_label` | `:string` | `nil` |  |
 | `scroll_label` | `:string` | `nil` |  |
 | `sort_label` | `:string` | `nil` |  |
 | `row_label` | `:any` | `nil` |  |
-| `select_all_label` | `:string` | `"Select all rows"` |  |
-| `select_label` | `:string` | `"Select row"` |  |
+| `select_all_label` | `:string` | `nil` |  |
+| `select_label` | `:string` | `nil` |  |
 | `wrapper_class` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` | Classes of the `<table>`. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
 Slots:
 
 - `<:action>` - attrs: `priority`, `card` - Cells appended to every row, after the columns.
-- `<:col>` - attrs: `label`, `class`, `head_class`, `dim`, `align`, `sort_key`, `priority`, `style`, `role`, `width`, `truncate`, `card`, `copy`, `copy_label`, `copied_label`, `copy_show`, `copy_tip`, `copy_toast`, `copy_toast_message` - A column; receives the row (after `row_item`).
+- `<:col>` - attrs: `label`, `class`, `head_class`, `dim`, `align`, `sort_key`, `priority`, `style`, `role`, `width`, `truncate`, `grow`, `wrap`, `min`, `card`, `copy`, `copy_label`, `copied_label`, `copy_show`, `copy_tip`, `copy_toast`, `copy_toast_message` - A column; receives the row (after `row_item`).
 - `<:detail>` - attrs: `label` - A `label: value` line of the details panel; receives the row.
 - `<:edit>` - Inline form in place of the cells of a row for which `row_editing` is true.
 - `<:empty>` - Shown in a full-width row when there are no rows.
@@ -158,11 +182,12 @@ Slots:
 | `all_selected` | `:boolean` | `false` |  |
 | `some_selected` | `:boolean` | `false` |  |
 | `select_all_id` | `:string` | `nil` |  |
-| `select_all_label` | `:string` | `"Select all rows"` |  |
+| `select_all_label` | `:string` | `nil` |  |
 | `sort_label` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `sticky_header` | `:boolean` | `false` |  |
 | `class` | `:any` | `nil` | Classes of the `<tr>`. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -191,9 +216,10 @@ Slots:
 | `on_click` | `:any` | `nil` |  |
 | `on_select` | `:any` | `nil` | Adds a selection checkbox cell first; the event it sends. |
 | `select_value` | `:any` | `nil` | Sent as `"id"` by the checkbox. |
-| `select_label` | `:string` | `"Select row"` |  |
+| `select_label` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -267,8 +293,9 @@ Any other HTML/phx attribute goes to the root element.
 |---|---|---|---|
 | `row_id` (required) | `:string` |  |  |
 | `open` | `:boolean` | `false` |  |
-| `label` | `:string` | `"Toggle details"` |  |
+| `label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -299,7 +326,8 @@ Slots:
 | `compact` | `:boolean` | `false` |  |
 | `headless` | `:boolean` | `false` |  |
 | `shapes` | `:list` | `[]` | Per column: `text` (a bar), `avatar`, `pill` or `number`. |
-| `label` | `:string` | `"Loading"` |  |
+| `label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

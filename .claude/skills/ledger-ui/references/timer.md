@@ -50,6 +50,7 @@ Browser commands live in `LedgerUI.Timer` (`pause/1`, `resume/1`, `toggle/1`, `a
 | `on_finish` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

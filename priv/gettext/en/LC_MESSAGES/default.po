@@ -494,8 +494,8 @@ msgstr "Invitations"
 
 #: lib/ledger_starter_web/controllers/page_html.ex:31
 #, elixir-autogen, elixir-format
-msgid "Convites por e-mail, papéis Dono, Admin e Membro com permissões por empresa."
-msgstr "Email invitations, Owner, Admin and Member roles with per-company permissions."
+msgid "Convites por e-mail, papéis Dono, Admin, Vendas e Leitura com permissões por empresa."
+msgstr "Email invitations, Owner, Admin, Sales and Read-only roles with per-company permissions."
 
 #: lib/ledger_starter_web/controllers/page_html/home.html.heex:115
 #, elixir-autogen, elixir-format

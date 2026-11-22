@@ -44,7 +44,7 @@ Renders the calendar.
 | `selected` | `:any` | `nil` |  |
 | `events` | `:list` | `[]` |  |
 | `legend` | `:list` | `[]` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `months` | `:list` | `nil` |  |
 | `weekdays` | `:list` | `nil` |  |
 | `labels` | `:map` | `%{}` |  |
@@ -82,7 +82,7 @@ The agenda of due items, one row per item: the weekday and day, the title, a sta
 |---|---|---|---|
 | `items` | `:list` | `[]` | Maps with `:date`, `:title`, `:subtitle`, `:amount` (text or number) and optionally `:status` (`overdue`, `today`, `scheduled`) and `:status_label`. |
 | `today` | `:any` | `nil` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `currency` | `:string` | `""` | Prefix of numeric amounts (`"R$ "`). |
 | `amount_width` | `:integer` | `80` |  |
 | `animated` | `:boolean` | `false` | Staged demo (`mo-stg`): rows enter with a `--dl` delay, the overdue badge blinks, weekdays are lowercase and today's badge is `warn`. |

@@ -9,8 +9,8 @@ defmodule LedgerStarterWeb.Locale do
 
       live_session :x, on_mount: [{LedgerStarterWeb.UserAuth, :mount_current_scope}, LedgerStarterWeb.Locale]
 
-  TODO: when the kit releases `LedgerUI.put_locale/1`, call it here instead of
-  passing `locale={@locale_ui}` to the components that take a `locale` attr.
+  It also calls `LedgerUI.put_locale/1` so the kit components render in the same
+  language in the connected process.
   """
   import Phoenix.Component, only: [assign: 2]
 
@@ -24,6 +24,7 @@ defmodule LedgerStarterWeb.Locale do
         Locale.default()
 
     Locale.put(locale)
+    LedgerUI.put_locale(Locale.ui(locale))
     {:cont, assign(socket, locale: locale, locale_ui: Locale.ui(locale))}
   end
 

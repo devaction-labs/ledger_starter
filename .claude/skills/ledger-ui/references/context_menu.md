@@ -26,9 +26,10 @@ as text).
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
-| `label` | `:string` | `"Actions"` | Accessible name of the menu. |
+| `label` | `:string` | `nil` | Accessible name of the menu. |
 | `class` | `:any` | `nil` |  |
 | `placement` | `:string` | `"bottom-start"` | `bottom-start`, `bottom-end`, `top-start`, `top-end` - Where the menu sits against the pointer (`bottom-start`: below, from the pointer to the right). |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

@@ -59,8 +59,9 @@ answered yet (an unchanged `box` does not undo a move that is on its way to the 
 | `disabled` | `:boolean` | `false` |  |
 | `on_place` | `:string` | `nil` |  |
 | `on_resize` | `:string` | `nil` |  |
-| `label` | `:string` | `"Placement box: arrow keys move it, Shift moves it by 10%"` |  |
+| `label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `phx-target`.
 

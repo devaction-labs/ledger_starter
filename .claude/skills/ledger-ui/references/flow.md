@@ -62,14 +62,15 @@ removes it. Everything happens in the `LedgerUI.Flow` hook from `<template>`s re
 | `on_add` | `:any` | `nil` |  |
 | `steps` | `:list` | `[]` | Kinds of step the `+` handles add in the browser: maps with `:key`, `:label`, `:title`, `:sub`, `:icon`, `:tone` (`acc`, `pos`, `neg`, `warn`, `info`, `lime`) and optionally `:branches` (`[%{label: "Sim", tone: "pos"}]`). |
 | `on_branch` | `:string` | `nil` | Event pushed after a step is added in the browser (`id`, `kind`, `from`, `side`). |
-| `menu_label` | `:string` | `"Add step"` |  |
-| `ghost_label` | `:string` | `"Choose a step"` |  |
-| `branch_label` | `:string` | `"Path"` |  |
+| `menu_label` | `:string` | `nil` |  |
+| `ghost_label` | `:string` | `nil` |  |
+| `branch_label` | `:string` | `nil` |  |
 | `on_move` | `:string` | `nil` | Event pushed when a node is dragged (`id`, `x`, `y`). |
 | `target` | `:any` | `nil` | `phx-target` of `on_move`. |
-| `add_label` | `:string` | `"Add step after"` |  |
+| `add_label` | `:string` | `nil` |  |
 | `node_width` | `:integer` | `300` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -125,8 +126,9 @@ Slots:
 | `title` (required) | `:string` |  |  |
 | `icon` | `:string` | `nil` |  |
 | `on_close` | `:any` | `nil` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

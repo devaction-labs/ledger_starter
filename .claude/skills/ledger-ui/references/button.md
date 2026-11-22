@@ -55,8 +55,9 @@ class list are resolved by the stylesheet, never by their order, so `class` is f
 | `disabled` | `:boolean` | `false` |  |
 | `loading` | `:boolean` | `false` | Disables the button (no clicks), marks it `aria-busy`, shows a spinner (announced: not `inert`). |
 | `pip` | `:boolean` | `false` | The notification dot on the corner. |
-| `loading_label` | `:string` | `"Loading"` | Read by screen readers for the spinner. |
+| `loading_label` | `:string` | `nil` | Read by screen readers for the spinner. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `href`, `navigate`, `patch`, `method`, `download`, `target`, `rel`, `replace`, `form`, `name`, `value`.
 

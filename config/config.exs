@@ -46,6 +46,8 @@ config :ledger_starter,
 # Gettext: pt_BR is the default language (and the one the msgids are written in)
 config :gettext, default_locale: "pt_BR"
 
+config :ledger_ui, locale: "pt_BR"
+
 # Configure the endpoint
 config :ledger_starter, LedgerStarterWeb.Endpoint,
   url: [host: "localhost"],

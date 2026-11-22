@@ -137,6 +137,7 @@ Attributes always win over the config.
 | `header_blur` | `:boolean` | `nil` | The top bar blurs what scrolls under it. Default: on in slot mode, off in data mode. |
 | `class` | `:any` | `nil` |  |
 | `main_class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -197,13 +198,14 @@ The avatar at the bottom of the main sidebar and the profile box it opens on its
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `src` (required) | `:string` |  |  |
-| `alt` | `:string` | `"avatar"` |  |
+| `alt` | `:string` | `nil` |  |
 | `name` (required) | `:string` |  |  |
 | `subtitle` | `:string` | `nil` |  |
 | `status` | `:string` | `"success"` | `nil`, ``, `success`, `warning`, `error`, `info`, `neutral` |
 | `href` | `:string` | `nil` |  |
 | `navigate` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -396,12 +398,13 @@ horizontal navigation header: the `:brand` and the navigation row below.
 | `id` | `:string` | `"app-header"` |  |
 | `toggle` | `:boolean` | `true` |  |
 | `search` | `:boolean` | `true` |  |
-| `search_placeholder` | `:string` | `"Search here..."` |  |
+| `search_placeholder` | `:string` | `nil` |  |
 | `search_input` | `:map` | `%{}` |  |
 | `theme_toggle` | `:boolean` | `true` |  |
 | `monochrome_toggle` | `:boolean` | `true` |  |
 | `right_sidebar` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -423,6 +426,7 @@ The animated hamburger: three bars that turn into an arrow while the sidebar is 
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -480,12 +484,13 @@ the overlay and the close button close it.
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `open` | `:boolean` | `false` |  |
-| `label` | `:string` | `"Sidebar"` |  |
+| `label` | `:string` | `nil` |  |
 | `persist_tab` | `:boolean` | `false` |  |
 | `on_open` | `:any` | `nil` |  |
 | `on_close` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -503,6 +508,7 @@ The header button that toggles a `right_sidebar/1`.
 |---|---|---|---|
 | `target` (required) | `:string` |  |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -522,9 +528,10 @@ names, headings and the workspace go away, badges become dots) and the choice is
 | `on_collapse` | `:string` | `nil` |  |
 | `shortcut` | `:string` | `"b"` |  |
 | `target` | `:any` | `nil` |  |
-| `label` | `:string` | `"Main menu"` |  |
-| `mobile_label` | `:string` | `"Menu"` |  |
+| `label` | `:string` | `nil` |  |
+| `mobile_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -543,11 +550,12 @@ A phone's bottom bar of tabs: one icon per section, the current one in the accen
 
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
-| `label` | `:string` | `"Sections"` |  |
+| `label` | `:string` | `nil` |  |
 | `current` | `:string` | `nil` |  |
 | `variant` | `:string` | `"default"` | `default`, `canvas` |
 | `match` | `:string` | `"exact"` | `exact`, `prefix` |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -562,8 +570,9 @@ A button that collapses and expands the `framed_sidebar/1` with that id, from an
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `for` (required) | `:string` |  | The id of the `framed_sidebar/1`. |
-| `label` | `:string` | `"Collapse menu"` |  |
+| `label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -681,7 +690,7 @@ shell's title block: a top row (the `:leading` slot, the crumbs, the clock and t
 | `clock` | `:boolean` | `false` |  |
 | `locale` | `:string` | `nil` |  |
 | `bell` | `:boolean` | `false` |  |
-| `bell_label` | `:string` | `"Notifications"` |  |
+| `bell_label` | `:string` | `nil` |  |
 | `on_bell` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
 
@@ -711,6 +720,7 @@ The monochrome mode: the palette button of the header or a switch. It toggles `i
 | `on_change` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

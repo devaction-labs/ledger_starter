@@ -52,8 +52,9 @@ the resets, the mobile padding and the dark mode. This is a rule of the medium, 
 | `eyebrow` | `:string` | `nil` |  |
 | `title` (required) | `:string` |  |  |
 | `theme` | `:atom` | `:auto` | `:auto`, `:light`, `:dark` |
-| `lang` | `:string` | `"en"` |  |
-| `alt_text` | `:any` | `"If the button does not work, copy and paste this address into your browser:"` |  |
+| `lang` | `:string` | `nil` | The `lang` of the document; default: the locale (`en`, `pt-BR`). |
+| `alt_text` | `:any` | `:default` | The line before the button's address; `nil`/`false` for none, `:default` for the locale's text. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `button` | `:string` | `"accent"` | `accent`, `ink` |
 | `footer_style` | `:string` | `"panel"` | `panel`, `plain` |
 | `title_size` | `:integer` | `22` |  |

@@ -37,7 +37,7 @@ optionally with a column of `presets` on the left.
 | `disabled_dates` | `:list` | `[]` |  |
 | `disabled_weekdays` | `:list` | `[]` |  |
 | `week_start` | `:integer` | `0` |  |
-| `locale` | `:string` | `"en"` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `months` | `:list` | `nil` |  |
 | `weekdays` | `:list` | `nil` |  |
 | `labels` | `:map` | `%{}` |  |
@@ -61,7 +61,7 @@ The month: title, arrows, weekday letters and day buttons.
 | `disabled_dates` | `:list` | `[]` |  |
 | `disabled_weekdays` | `:list` | `[]` |  |
 | `week_start` | `:integer` | `0` |  |
-| `locale` | `:string` | `"en"` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `months` | `:list` | `nil` |  |
 | `weekdays` | `:list` | `nil` |  |
 | `labels` | `:map` | `%{}` |  |
@@ -89,7 +89,7 @@ Renders a date input with its calendar.
 | `start_name` | `:string` | `nil` |  |
 | `end_name` | `:string` | `nil` |  |
 | `presets` | `:list` | `[]` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `range_separator` | `:string` | `nil` |  |
 | `labels` | `:map` | `%{}` |  |
 | `min` | `:any` | `nil` |  |

@@ -58,10 +58,11 @@ Works in the browser (no event to the server); the link has `aria-expanded` and 
 | `id` (required) | `:string` |  |  |
 | `lines` | `:integer` | `2` |  |
 | `open` | `:boolean` | `false` |  |
-| `more` | `:string` | `"Show more"` |  |
-| `less` | `:string` | `"Show less"` |  |
+| `more` | `:string` | `nil` |  |
+| `less` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
 | `text_class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

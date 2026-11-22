@@ -494,8 +494,8 @@ msgstr "Convites"
 
 #: lib/ledger_starter_web/controllers/page_html.ex:31
 #, elixir-autogen, elixir-format
-msgid "Convites por e-mail, papéis Dono, Admin e Membro com permissões por empresa."
-msgstr "Convites por e-mail, papéis Dono, Admin e Membro com permissões por empresa."
+msgid "Convites por e-mail, papéis Dono, Admin, Vendas e Leitura com permissões por empresa."
+msgstr "Convites por e-mail, papéis Dono, Admin, Vendas e Leitura com permissões por empresa."
 
 #: lib/ledger_starter_web/controllers/page_html/home.html.heex:115
 #, elixir-autogen, elixir-format

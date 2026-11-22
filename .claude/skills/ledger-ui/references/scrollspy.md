@@ -27,11 +27,12 @@ The root is a `<nav>`; wrap it in a grid yourself. `label: nil` omits the `aria-
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
-| `label` | `:any` | `"On this page"` |  |
+| `label` | `:any` | `:default` |  |
 | `offset` | `:integer` | `120` |  |
 | `target` | `:string` | `nil` | A selector (`"#doc"`) of the element that scrolls the sections, when it is not the page. |
 | `demo` | `:boolean` | `false` | The animated mock: the marker walks over the links, no hook needed. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

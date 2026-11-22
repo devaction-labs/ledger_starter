@@ -49,9 +49,10 @@ Slots:
 | `on_open` | `:any` | `nil` |  |
 | `on_close` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `toggle_label` | `:string` | `"Toggle"` |  |
+| `toggle_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
 | `trigger_class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

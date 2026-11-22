@@ -68,10 +68,11 @@ last one, the page itself, is the current one, and an item with no link is plain
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `items` (required) | `:list` |  |  |
-| `label` | `:any` | `"Breadcrumb"` | The `aria-label` of the `nav` (`nil` leaves it out). |
+| `label` | `:any` | `nil` | The `aria-label` of the `nav` (`nil` leaves it out). |
 | `variant` | `:string` | `"canvas"` | `canvas`, `plain` - `plain` is the bare trail of the app top bar (larger text, no chips). |
 | `icon` | `:string` | `nil` | An icon before the trail (`grid`). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -161,7 +162,7 @@ The search field of the bar. It is a trigger, not an input: with `phx-click` it 
 
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
-| `placeholder` | `:string` | `"Search"` |  |
+| `placeholder` | `:string` | `nil` |  |
 | `kbd` | `:string` | `"⌘K"` | The shortcut shown at the end; `nil` hides it. |
 | `wide` | `:boolean` | `false` |  |
 | `size` | `:string` | `"md"` | `md`, `sm` - `md` is 38px tall; `sm` is the compact field: 32px (`h-8`), 8px radius, `px-2.5`. |
@@ -171,6 +172,7 @@ The search field of the bar. It is a trigger, not an input: with `phx-click` it 
 | `value` | `:string` | `nil` | The text typed by the `typing` demo. |
 | `width` | `:string` | `nil` | A CSS width ("240px", "100%"). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `phx-click`.
 
@@ -183,9 +185,10 @@ The notifications button; `dot` shows the dot of something unread.
 | `dot` | `:boolean` | `false` | There is something unread. |
 | `tone` | `:string` | `"neg"` | `neg`, `warn`, `pos` - The color of the dot (or of the count badge). |
 | `count` | `:integer` | `nil` | A count badge instead of the dot. |
-| `label` | `:string` | `"Notifications"` |  |
+| `label` | `:string` | `nil` |  |
 | `size` | `:string` | `"md"` | `md`, `sm` |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `href`, `navigate`, `patch`.
 
@@ -211,8 +214,9 @@ with `current`) or of maps `%{code:, navigate:, active:, click:, label:}`.
 |---|---|---|---|
 | `locales` (required) | `:list` |  |  |
 | `current` | `:string` | `nil` |  |
-| `label` | `:string` | `"Language"` |  |
+| `label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -276,8 +280,9 @@ button opens a raised panel (`role="menu"`, hidden at first; `id` is required) t
 | `variant` | `:string` | `"avatar"` | `avatar`, `ring`, `named` |
 | `size` | `:integer` | `nil` | Avatar size in px (32; 26 for `named`). |
 | `id` | `:string` | `nil` | Required with a `:menu`. |
-| `label` | `:string` | `"Account menu"` |  |
+| `label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

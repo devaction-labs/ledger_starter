@@ -61,21 +61,22 @@ Styled only with Tailwind utilities.
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `count` (required) | `:integer` |  | How many are selected; the bar shows only above zero. |
-| `label` | `:string` | `"selected"` | The text after the count, for one selected. |
+| `label` | `:string` | `nil` | The text after the count, for one selected. |
 | `label_plural` | `:string` | `nil` |  |
 | `total` | `:integer` | `nil` | How many there are in all (every page). |
-| `select_all_label` | `:string` | `"Select all %{total}"` |  |
+| `select_all_label` | `:string` | `nil` |  |
 | `on_clear` | `:any` | `nil` |  |
 | `on_select_all` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `clear_label` | `:string` | `"Clear selection"` |  |
-| `check_label` | `:string` | `"Selection"` | `aria-label` of the `inline` checkbox. |
+| `clear_label` | `:string` | `nil` |  |
+| `check_label` | `:string` | `nil` | `aria-label` of the `inline` checkbox. |
 | `show_esc` | `:boolean` | `false` |  |
 | `variant` | `:string` | `"inverse"` | `inverse`, `soft`, `solid`, `inline`, `float` |
 | `floating` | `:boolean` | `true` |  |
 | `progress` | `:integer` | `nil` |  |
 | `progress_max` | `:integer` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

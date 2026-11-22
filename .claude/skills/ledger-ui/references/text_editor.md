@@ -51,14 +51,14 @@ Renders a rich text editor.
 | `toolbar` | `:list` | `[["bold", "italic", "underline", "strike"], ["blockquote", "code-block"], ["header-1", "header-2"], ["list-ordered", "list-bullet"], ["script-sub", "script-super"], ["indent-minus1", "indent-plus1"], ["direction-rtl"], ["size"], ["header"], ["color", "background"], ["font"], ["align"], ["clean"]]` |  |
 | `filled` | `:boolean` | `false` |  |
 | `content_class` | `:any` | `nil` |  |
-| `link_label` | `:string` | `"Enter link:"` |  |
+| `link_label` | `:string` | `nil` |  |
 | `tool_labels` | `:map` | `%{}` |  |
 | `on_image` | `:string` | `nil` |  |
 | `images` | `:boolean` | `false` |  |
-| `image_label` | `:string` | `"Image URL:"` |  |
-| `image_alt_label` | `:string` | `"Description"` |  |
-| `image_save_label` | `:string` | `"Insert"` |  |
-| `save_label` | `:string` | `"Save"` |  |
+| `image_label` | `:string` | `nil` |  |
+| `image_alt_label` | `:string` | `nil` |  |
+| `image_save_label` | `:string` | `nil` |  |
+| `save_label` | `:string` | `nil` |  |
 | `disabled` | `:boolean` | `false` |  |
 | `on_change` | `:string` | `nil` |  |
 | `debounce` | `:integer` | `300` |  |
@@ -67,27 +67,28 @@ Renders a rich text editor.
 | `density` | `:string` | `"comfortable"` | `comfortable`, `compact` - `compact` is the canvas frame: 12px radius, 28px toolbar buttons with small icons, a 90px text area with 12/14px padding and 14px type. |
 | `loop` | `:boolean` | `false` | The canvas demo animation: the toolbar buttons light up in turn (1.2s apart, every 6s). |
 | `slash` | `:boolean` | `false` |  |
-| `slash_items` | `:list` | `[%{label: "Text", key: "paragraph", hint: "Plain paragraph", icon: "¶"}, %{label: "Heading 1", key: "h1", hint: "Big section title", icon: "H1"}, %{label: "Heading 2", key: "h2", hint: "Medium section title", icon: "H2"}, %{label: "Bulleted list", key: "bullet", hint: "A simple list", icon: "•"}, %{label: "Numbered list", key: "ordered", hint: "A list with order", icon: "1."}, %{label: "Quote", key: "quote", hint: "Highlight a passage", icon: "❝"}, %{label: "Code block", key: "code", hint: "Monospaced text", icon: "</>"}, %{label: "Divider", key: "divider", hint: "A horizontal rule", icon: "—"}]` |  |
+| `slash_items` | `:list` | `nil` | Maps with `:label`, `:key`, `:hint` and `:icon`; default: the locale's (text, headings, lists, quote, code, divider). |
 | `on_slash` | `:string` | `nil` |  |
-| `slash_title` | `:string` | `"Insert"` |  |
+| `slash_title` | `:string` | `nil` |  |
 | `variables` | `:list` | `[]` |  |
-| `variable_label` | `:string` | `"Variable"` |  |
-| `variable_title` | `:string` | `"Insert variable"` |  |
+| `variable_label` | `:string` | `nil` |  |
+| `variable_title` | `:string` | `nil` |  |
 | `mentions` | `:list` | `[]` |  |
-| `mention_title` | `:string` | `"Mention someone"` |  |
+| `mention_title` | `:string` | `nil` |  |
 | `mention_button` | `:boolean` | `true` |  |
-| `mention_label` | `:string` | `"Mention"` |  |
+| `mention_label` | `:string` | `nil` |  |
 | `on_ai` | `:string` | `nil` |  |
 | `on_submit` | `:string` | `nil` |  |
-| `submit_label` | `:string` | `"Comment"` |  |
+| `submit_label` | `:string` | `nil` |  |
 | `submit_key` | `:any` | `"Ctrl ↵"` |  |
 | `submit_hint` | `:string` | `nil` | Text after the shortcut ("to send"). |
 | `bar` | `:boolean` | `true` |  |
 | `clear_on_submit` | `:boolean` | `true` |  |
 | `footer` | `:boolean` | `false` |  |
 | `hint` | `:string` | `nil` |  |
-| `words_label` | `:string` | `"words"` |  |
+| `words_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -131,14 +132,14 @@ Same as `text_editor/1` (same attributes and slots), under the name the design v
 | `toolbar` | `:list` | `[["bold", "italic", "underline", "strike"], ["blockquote", "code-block"], ["header-1", "header-2"], ["list-ordered", "list-bullet"], ["script-sub", "script-super"], ["indent-minus1", "indent-plus1"], ["direction-rtl"], ["size"], ["header"], ["color", "background"], ["font"], ["align"], ["clean"]]` |  |
 | `filled` | `:boolean` | `false` |  |
 | `content_class` | `:any` | `nil` |  |
-| `link_label` | `:string` | `"Enter link:"` |  |
+| `link_label` | `:string` | `nil` |  |
 | `tool_labels` | `:map` | `%{}` |  |
 | `on_image` | `:string` | `nil` |  |
 | `images` | `:boolean` | `false` |  |
-| `image_label` | `:string` | `"Image URL:"` |  |
-| `image_alt_label` | `:string` | `"Description"` |  |
-| `image_save_label` | `:string` | `"Insert"` |  |
-| `save_label` | `:string` | `"Save"` |  |
+| `image_label` | `:string` | `nil` |  |
+| `image_alt_label` | `:string` | `nil` |  |
+| `image_save_label` | `:string` | `nil` |  |
+| `save_label` | `:string` | `nil` |  |
 | `disabled` | `:boolean` | `false` |  |
 | `on_change` | `:string` | `nil` |  |
 | `debounce` | `:integer` | `300` |  |
@@ -147,27 +148,28 @@ Same as `text_editor/1` (same attributes and slots), under the name the design v
 | `density` | `:string` | `"comfortable"` | `comfortable`, `compact` |
 | `loop` | `:boolean` | `false` |  |
 | `slash` | `:boolean` | `false` |  |
-| `slash_items` | `:list` | `[%{label: "Text", key: "paragraph", hint: "Plain paragraph", icon: "¶"}, %{label: "Heading 1", key: "h1", hint: "Big section title", icon: "H1"}, %{label: "Heading 2", key: "h2", hint: "Medium section title", icon: "H2"}, %{label: "Bulleted list", key: "bullet", hint: "A simple list", icon: "•"}, %{label: "Numbered list", key: "ordered", hint: "A list with order", icon: "1."}, %{label: "Quote", key: "quote", hint: "Highlight a passage", icon: "❝"}, %{label: "Code block", key: "code", hint: "Monospaced text", icon: "</>"}, %{label: "Divider", key: "divider", hint: "A horizontal rule", icon: "—"}]` |  |
+| `slash_items` | `:list` | `nil` |  |
 | `on_slash` | `:string` | `nil` |  |
-| `slash_title` | `:string` | `"Insert"` |  |
+| `slash_title` | `:string` | `nil` |  |
 | `variables` | `:list` | `[]` |  |
-| `variable_label` | `:string` | `"Variable"` |  |
-| `variable_title` | `:string` | `"Insert variable"` |  |
+| `variable_label` | `:string` | `nil` |  |
+| `variable_title` | `:string` | `nil` |  |
 | `mentions` | `:list` | `[]` |  |
-| `mention_title` | `:string` | `"Mention someone"` |  |
+| `mention_title` | `:string` | `nil` |  |
 | `mention_button` | `:boolean` | `true` |  |
-| `mention_label` | `:string` | `"Mention"` |  |
+| `mention_label` | `:string` | `nil` |  |
 | `on_ai` | `:string` | `nil` |  |
 | `on_submit` | `:string` | `nil` |  |
-| `submit_label` | `:string` | `"Comment"` |  |
+| `submit_label` | `:string` | `nil` |  |
 | `submit_key` | `:any` | `"Ctrl ↵"` |  |
 | `submit_hint` | `:string` | `nil` | Text after the shortcut ("to send"). |
 | `bar` | `:boolean` | `true` |  |
 | `clear_on_submit` | `:boolean` | `true` |  |
 | `footer` | `:boolean` | `false` |  |
 | `hint` | `:string` | `nil` |  |
-| `words_label` | `:string` | `"words"` |  |
+| `words_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -194,14 +196,14 @@ Same as `text_editor/1` (same attributes and slots), under the name the design v
 | `toolbar` | `:list` | `[["bold", "italic", "underline", "strike"], ["blockquote", "code-block"], ["header-1", "header-2"], ["list-ordered", "list-bullet"], ["script-sub", "script-super"], ["indent-minus1", "indent-plus1"], ["direction-rtl"], ["size"], ["header"], ["color", "background"], ["font"], ["align"], ["clean"]]` |  |
 | `filled` | `:boolean` | `false` |  |
 | `content_class` | `:any` | `nil` |  |
-| `link_label` | `:string` | `"Enter link:"` |  |
+| `link_label` | `:string` | `nil` |  |
 | `tool_labels` | `:map` | `%{}` |  |
 | `on_image` | `:string` | `nil` |  |
 | `images` | `:boolean` | `false` |  |
-| `image_label` | `:string` | `"Image URL:"` |  |
-| `image_alt_label` | `:string` | `"Description"` |  |
-| `image_save_label` | `:string` | `"Insert"` |  |
-| `save_label` | `:string` | `"Save"` |  |
+| `image_label` | `:string` | `nil` |  |
+| `image_alt_label` | `:string` | `nil` |  |
+| `image_save_label` | `:string` | `nil` |  |
+| `save_label` | `:string` | `nil` |  |
 | `disabled` | `:boolean` | `false` |  |
 | `on_change` | `:string` | `nil` |  |
 | `debounce` | `:integer` | `300` |  |
@@ -210,27 +212,28 @@ Same as `text_editor/1` (same attributes and slots), under the name the design v
 | `density` | `:string` | `"comfortable"` | `comfortable`, `compact` |
 | `loop` | `:boolean` | `false` |  |
 | `slash` | `:boolean` | `false` |  |
-| `slash_items` | `:list` | `[%{label: "Text", key: "paragraph", hint: "Plain paragraph", icon: "¶"}, %{label: "Heading 1", key: "h1", hint: "Big section title", icon: "H1"}, %{label: "Heading 2", key: "h2", hint: "Medium section title", icon: "H2"}, %{label: "Bulleted list", key: "bullet", hint: "A simple list", icon: "•"}, %{label: "Numbered list", key: "ordered", hint: "A list with order", icon: "1."}, %{label: "Quote", key: "quote", hint: "Highlight a passage", icon: "❝"}, %{label: "Code block", key: "code", hint: "Monospaced text", icon: "</>"}, %{label: "Divider", key: "divider", hint: "A horizontal rule", icon: "—"}]` |  |
+| `slash_items` | `:list` | `nil` |  |
 | `on_slash` | `:string` | `nil` |  |
-| `slash_title` | `:string` | `"Insert"` |  |
+| `slash_title` | `:string` | `nil` |  |
 | `variables` | `:list` | `[]` |  |
-| `variable_label` | `:string` | `"Variable"` |  |
-| `variable_title` | `:string` | `"Insert variable"` |  |
+| `variable_label` | `:string` | `nil` |  |
+| `variable_title` | `:string` | `nil` |  |
 | `mentions` | `:list` | `[]` |  |
-| `mention_title` | `:string` | `"Mention someone"` |  |
+| `mention_title` | `:string` | `nil` |  |
 | `mention_button` | `:boolean` | `true` |  |
-| `mention_label` | `:string` | `"Mention"` |  |
+| `mention_label` | `:string` | `nil` |  |
 | `on_ai` | `:string` | `nil` |  |
 | `on_submit` | `:string` | `nil` |  |
-| `submit_label` | `:string` | `"Comment"` |  |
+| `submit_label` | `:string` | `nil` |  |
 | `submit_key` | `:any` | `"Ctrl ↵"` |  |
 | `submit_hint` | `:string` | `nil` | Text after the shortcut ("to send"). |
 | `bar` | `:boolean` | `true` |  |
 | `clear_on_submit` | `:boolean` | `true` |  |
 | `footer` | `:boolean` | `false` |  |
 | `hint` | `:string` | `nil` |  |
-| `words_label` | `:string` | `"words"` |  |
+| `words_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

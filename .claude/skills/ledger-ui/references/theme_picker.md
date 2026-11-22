@@ -30,12 +30,13 @@ the sample previews. Pass `themes={~w(ledger crepusculo)}` for the real ones.
 | `themes` | `:list` | `nil` | Ids or `%{id, label}` maps; default `themes/0`. |
 | `default` | `:string` | `nil` | The theme shown when nothing is stored. |
 | `current` | `:string` | `nil` | The same as `default`. |
-| `label` | `:string` | `"Theme"` |  |
+| `label` | `:string` | `nil` |  |
 | `placement` | `:string` | `"bottom-end"` | `bottom-end`, `bottom-start` |
 | `on_change` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `open` | `:boolean` | `false` | `variant="menu"`: a static preview of the open menu, in the flow and without the trigger. |
 | `loop` | `:boolean` | `false` | `variant="grid"`: the demo motion, each box takes the highlight in turn. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

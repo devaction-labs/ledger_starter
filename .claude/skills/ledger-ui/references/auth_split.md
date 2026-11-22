@@ -33,10 +33,11 @@ For the canvas-v2 screen (brand tile, tinted art with floating cards) see `auth_
 | `alt` | `:string` | `""` |  |
 | `variant` | `:string` | `"card"` | `card`, `full` |
 | `glow` | `:boolean` | `false` | Deprecated: the canvas has no glow; ignored. |
-| `divider_label` | `:string` | `"Or"` |  |
+| `divider_label` | `:string` | `nil` |  |
 | `brand_href` | `:string` | `nil` | Makes the brand mark a link. |
 | `form_width` | `:integer` | `nil` | The width of the form column in px (default 360). Sets `--lu-auth-form-w` on the form column. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

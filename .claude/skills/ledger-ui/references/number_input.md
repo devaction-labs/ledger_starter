@@ -34,7 +34,7 @@ Renders the number input.
 | `help` | `:string` | `nil` |  |
 | `errors` | `:list` | `[]` |  |
 | `disabled` | `:boolean` | `false` |  |
-| `locale` | `:string` | `"pt-BR"` | `pt-BR`, `pt_BR`, `en` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`: the separators and the labels. Default: the process locale, the app config, `"pt_BR"`. |
 | `decimal_separator` | `:string` | `nil` |  |
 | `thousands_separator` | `:string` | `nil` |  |
 | `decimals` | `:integer` | `nil` |  |
@@ -74,7 +74,7 @@ Same as `number_input/1` (same attributes and slots), under the name the design 
 | `help` | `:string` | `nil` |  |
 | `errors` | `:list` | `[]` |  |
 | `disabled` | `:boolean` | `false` |  |
-| `locale` | `:string` | `"pt-BR"` | `pt-BR`, `pt_BR`, `en` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`: the separators and the labels. Default: the process locale, the app config, `"pt_BR"`. |
 | `decimal_separator` | `:string` | `nil` |  |
 | `thousands_separator` | `:string` | `nil` |  |
 | `decimals` | `:integer` | `nil` |  |

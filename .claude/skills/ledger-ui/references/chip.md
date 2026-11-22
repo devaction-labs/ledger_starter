@@ -38,8 +38,9 @@ The chip: a small tag for a quick filter, an applied filter or a selected person
 | `remove_patch` | `:string` | `nil` |  |
 | `id` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `remove_label` | `:string` | `"Remove"` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `href`, `navigate`, `patch`, `method`, `download`, `value`, `disabled`.
 

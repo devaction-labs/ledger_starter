@@ -40,12 +40,13 @@ The server renders the light choice (or the one given by `value`); the hook owns
 | `size` | `:string` | `"md"` | `md`, `sm` |
 | `system` | `:boolean` | `true` |  |
 | `value` | `:string` | `nil` | `nil`, `light`, `dark`, `system` - The choice drawn on the server when nothing is stored yet (`nil`: light, then the hook decides). It is only the initial state: it does not change the page mode by itself. |
-| `light_label` | `:string` | `"Light"` |  |
-| `dark_label` | `:string` | `"Dark"` |  |
-| `system_label` | `:string` | `"System"` |  |
+| `light_label` | `:string` | `nil` |  |
+| `dark_label` | `:string` | `nil` |  |
+| `system_label` | `:string` | `nil` |  |
 | `label` | `:string` | `nil` | Names the group (default "Theme") or the switch (default "Dark mode"). |
 | `loop` | `:boolean` | `false` | The demo motion: the raised choice (or the thumb) slides on its own. For the showcase. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -88,5 +89,6 @@ markup, the `dark:` variant shows the right one). It shares the storage and the 
 |---|---|---|---|
 | `id` | `:string` | `"theme-toggle"` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

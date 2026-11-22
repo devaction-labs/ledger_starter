@@ -88,5 +88,6 @@ Circular progress: a conic arc around a hole with the value in the centre.
 | `color` | `:string` | `nil` | `nil`, `neutral`, `primary`, `secondary`, `info`, `success`, `warning`, `error`, `white` - Colour of the arc; `nil` is the accent. |
 | `label` | `:string` | `nil` | Text in the centre. Defaults to the percentage; `""` leaves the centre empty. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

@@ -29,7 +29,7 @@ copy (`navigator.clipboard`, with a `execCommand` fallback), then for two second
 | `id` (required) | `:string` |  | Needed by the hook. |
 | `value` | `:string` | `nil` | The text to copy. |
 | `from` | `:string` | `nil` | Selector of the field or element whose text is copied. |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `toast` | `:any` | `:default` | Shown after a copy; `nil` or `""` for none. By default the locale's text. |
 | `error_toast` | `:string` | `nil` |  |
 | `copied` | `:boolean` | `false` | Renders the copied state. |
@@ -62,7 +62,7 @@ Slots:
 | `leading_icon` | `:string` | `nil` | An icon at the start of the field. |
 | `copied_label` | `:string` | `nil` |  |
 | `icon` | `:boolean` | `true` | A copy icon before the label. |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `toast` | `:any` | `:default` |  |
 | `error_toast` | `:string` | `nil` |  |
 | `on_copy` | `:any` | `nil` |  |

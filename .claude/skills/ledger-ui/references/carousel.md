@@ -46,13 +46,14 @@ only with Tailwind utilities; the bullets and thumbnails read `aria-current`.
 | `zoom` | `:integer` | `nil` | Double-click zoom ratio. |
 | `on_change` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `prev_label` | `:string` | `"Previous slide"` |  |
-| `next_label` | `:string` | `"Next slide"` |  |
-| `bullet_label` | `:string` | `"Go to slide"` |  |
+| `prev_label` | `:string` | `nil` |  |
+| `next_label` | `:string` | `nil` |  |
+| `bullet_label` | `:string` | `nil` |  |
 | `label` | `:string` | `nil` |  |
 | `variant` | `:string` | `"canvas"` | `canvas`, `classic` |
-| `thumb_label` | `:string` | `"Show slide"` |  |
+| `thumb_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

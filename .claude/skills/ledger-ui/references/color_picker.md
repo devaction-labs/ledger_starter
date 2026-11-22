@@ -39,12 +39,12 @@ Renders the color picker.
 | `alpha` | `:boolean` | `false` |  |
 | `presets` | `:list` | `["#4C3FE0", "#2763E6", "#1693CC", "#18996E", "#31A35B", "#F5A214", "#F06B0C", "#EB3B2F", "#DB428F", "#606A78"]` |  |
 | `swatches` | `:list` | `nil` | The same as `presets`; it wins when given. |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `labels` | `:map` | `%{}` |  |
 | `variant` | `:string` | `"full"` | `full`, `compact`, `swatches`, `row` - `swatches` is the 8-column grid under no picker; `row` a wrapping row of swatches (20/26/34px); `compact` the 220px area and hue bar. |
 | `loop` | `:boolean` | `false` | `compact` / `row`: the canvas demo animation (marker moving / selection walking). |
 | `hex_field` | `:boolean` | `false` |  |
-| `hex_label` | `:any` | `"Hex"` |  |
+| `hex_label` | `:any` | `:default` |  |
 | `swatch_size` | `:string` | `nil` | `nil`, ``, `sm`, `md`, `lg` |
 | `popover` | `:boolean` | `false` |  |
 | `disabled` | `:boolean` | `false` |  |

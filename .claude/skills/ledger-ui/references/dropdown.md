@@ -61,7 +61,7 @@ attributes on the root (`data-offset`, `data-hover`, `data-keep-submenus`,
 | `color` | `:string` | `"neutral"` | `neutral`, `primary`, `secondary`, `info`, `success`, `warning`, `error`, `mono` |
 | `toggle_icon` | `:string` | `nil` | `nil`, ``, `dots`, `dots-vertical` |
 | `toggle_class` | `:any` | `nil` |  |
-| `toggle_label` | `:string` | `"Menu"` |  |
+| `toggle_label` | `:string` | `nil` |  |
 | `shape` | `:string` | `nil` | `nil`, ``, `rounded`, `pill`, `square` |
 | `control` | `:boolean` | `false` |  |
 | `open` | `:boolean` | `false` |  |
@@ -82,6 +82,7 @@ attributes on the root (`data-offset`, `data-hover`, `data-keep-submenus`,
 | `trigger_style` | `:string` | `"default"` | `default`, `ghost` - `ghost` is the row-actions trigger: a ghost icon button (the "⋯" icon, or the `:trigger` slot) whose accessible name is `label`, with no chevron. |
 | `row_mark` | `:boolean` | `false` | While open, the hook marks the nearest `[data-am-row]`, `tr` or `.ledger-ctable-row` with `data-am-open` and tints it (`data-row-mark` on the root). |
 | `hook` | `:string` | `"LedgerUI.Dropdown"` | The `phx-hook` name (the `row_mark` attribute turns the row marking on). |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -245,7 +246,7 @@ Slots:
 
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `clear_label` | `:string` | `nil` |  |
 | `apply_label` | `:string` | `nil` |  |
 | `apply_count` | `:integer` | `nil` |  |

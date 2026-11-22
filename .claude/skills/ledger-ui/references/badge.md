@@ -28,8 +28,9 @@ and KPI rows use.
 | `on_remove` | `:any` | `nil` | An event name or a `JS` command: adds a remove button after the content. |
 | `id` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` | The `phx-target` of `on_remove` when it is an event. |
-| `remove_label` | `:string` | `"Remove"` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

@@ -48,8 +48,8 @@ Renders a range slider.
 | `value_format` | `:string` | `"%{value}"` |  |
 | `marks` | `:list` | `[]` |  |
 | `steppers` | `:boolean` | `false` |  |
-| `decrease_label` | `:string` | `"Decrease"` |  |
-| `increase_label` | `:string` | `"Increase"` |  |
+| `decrease_label` | `:string` | `nil` |  |
+| `increase_label` | `:string` | `nil` |  |
 | `label` | `:string` | `nil` |  |
 | `label_class` | `:any` | `nil` |  |
 | `help` | `:string` | `nil` |  |
@@ -57,6 +57,7 @@ Renders a range slider.
 | `disabled` | `:boolean` | `false` |  |
 | `wrapper_class` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -89,8 +90,8 @@ Same as `range/1` (same attributes and slots), under the name the design vitrine
 | `value_format` | `:string` | `"%{value}"` |  |
 | `marks` | `:list` | `[]` |  |
 | `steppers` | `:boolean` | `false` |  |
-| `decrease_label` | `:string` | `"Decrease"` |  |
-| `increase_label` | `:string` | `"Increase"` |  |
+| `decrease_label` | `:string` | `nil` |  |
+| `increase_label` | `:string` | `nil` |  |
 | `label` | `:string` | `nil` |  |
 | `label_class` | `:any` | `nil` |  |
 | `help` | `:string` | `nil` |  |
@@ -98,5 +99,6 @@ Same as `range/1` (same attributes and slots), under the name the design vitrine
 | `disabled` | `:boolean` | `false` |  |
 | `wrapper_class` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

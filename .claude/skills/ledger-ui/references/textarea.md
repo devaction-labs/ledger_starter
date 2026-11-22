@@ -52,6 +52,7 @@ Renders a `<textarea>` inside its frame, with its caption, help and errors.
 | `wrapper_class` | `:any` | `nil` |  |
 | `frame_class` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config; the minimum-length counter is Portuguese when none is set. |
 
 Any other HTML/phx attribute goes to the root element, including `autocomplete`, `autofocus`, `cols`, `form`, `maxlength`, `minlength`, `placeholder`, `readonly`, `required`, `wrap`.
 

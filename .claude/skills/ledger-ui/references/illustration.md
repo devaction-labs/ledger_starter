@@ -37,6 +37,8 @@ Any other HTML/phx attribute goes to the root element.
 | Attr | Type | Default | Values / notes |
 |---|---|---|---|
 | `class` | `:any` | `"h-36"` | Sets the size; the width follows the height. |
+| `label` | `:string` | `nil` | The accessible name; default: the locale's "Empty". |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

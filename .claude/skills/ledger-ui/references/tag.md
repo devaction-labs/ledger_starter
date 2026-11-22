@@ -33,10 +33,11 @@ colour `swatch` and a remove button. Styled only with Tailwind utilities (the co
 | `type` | `:string` | `"button"` |  |
 | `removable` | `:boolean` | `false` | Draws the `x` of a removable tag. |
 | `on_remove` | `:any` | `nil` | An event name or `JS` command for the `x`. |
-| `remove_label` | `:string` | `"Remover"` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `canvas` | `:boolean` | `false` | The canvas `lu-tag` (swatch + remove button). |
 | `swatch` | `:string` | `nil` | A CSS colour for the canvas tag's square. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `href`, `navigate`, `patch`, `method`, `download`, `name`, `value`, `disabled`.
 

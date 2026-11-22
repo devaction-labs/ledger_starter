@@ -44,12 +44,12 @@ Events (`on_select`: `%{"id", "value", "new_tab"}`, `on_assistant`: `%{"id", "qu
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `open` | `:boolean` | `false` |  |
-| `label` | `:string` | `"Command palette"` |  |
-| `placeholder` | `:string` | `"Search or type a command"` |  |
+| `label` | `:string` | `nil` |  |
+| `placeholder` | `:string` | `nil` |  |
 | `scopes` | `:list` | `[]` |  |
-| `scopes_label` | `:string` | `"Where to search"` |  |
+| `scopes_label` | `:string` | `nil` |  |
 | `items` | `:list` | `[]` |  |
-| `empty` | `:string` | `"Nothing found"` |  |
+| `empty` | `:string` | `nil` |  |
 | `assistant` | `:map` | `nil` |  |
 | `assistant_mode` | `:string` | `"no_match"` | `no_match`, `always` |
 | `on_select` | `:any` | `nil` |  |
@@ -64,15 +64,16 @@ Events (`on_select`: `%{"id", "value", "new_tab"}`, `on_assistant`: `%{"id", "qu
 | `variant` | `:string` | `"canvas"` | `canvas`, `classic` |
 | `hints` | `:boolean` | `true` |  |
 | `highlight` | `:string` | `"always"` | `always`, `typed` |
-| `hint_navigate` | `:string` | `"Navigate"` |  |
-| `hint_open` | `:string` | `"Open"` |  |
-| `hint_new_tab` | `:any` | `"Open in new tab"` |  |
-| `hint_close` | `:string` | `"Close"` |  |
+| `hint_navigate` | `:string` | `nil` |  |
+| `hint_open` | `:string` | `nil` |  |
+| `hint_new_tab` | `:any` | `nil` |  |
+| `hint_close` | `:string` | `nil` |  |
 | `state` | `:string` | `nil` | `nil`, `no_match` - `"no_match"` draws only the empty-result card (the `empty` text and the assistant row, which the hook shows when nothing matches), a static preview. |
 | `class` | `:any` | `nil` |  |
 | `list_style` | `:string` | `nil` | Inline style of the list (replaces the variant padding). |
 | `inline` | `:boolean` | `false` | Static preview over an in-page scrim: always open, no hook. |
 | `bare` | `:boolean` | `false` | Only the `lu-cmd` card, always open, no hook. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -89,12 +90,12 @@ Same as `command_palette/1` (same attributes and slots), under the name the desi
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `open` | `:boolean` | `false` |  |
-| `label` | `:string` | `"Command palette"` |  |
-| `placeholder` | `:string` | `"Search or type a command"` |  |
+| `label` | `:string` | `nil` |  |
+| `placeholder` | `:string` | `nil` |  |
 | `scopes` | `:list` | `[]` |  |
-| `scopes_label` | `:string` | `"Where to search"` |  |
+| `scopes_label` | `:string` | `nil` |  |
 | `items` | `:list` | `[]` |  |
-| `empty` | `:string` | `"Nothing found"` |  |
+| `empty` | `:string` | `nil` |  |
 | `assistant` | `:map` | `nil` |  |
 | `assistant_mode` | `:string` | `"no_match"` | `no_match`, `always` |
 | `on_select` | `:any` | `nil` |  |
@@ -109,15 +110,16 @@ Same as `command_palette/1` (same attributes and slots), under the name the desi
 | `variant` | `:string` | `"canvas"` | `canvas`, `classic` |
 | `hints` | `:boolean` | `true` |  |
 | `highlight` | `:string` | `"always"` | `always`, `typed` |
-| `hint_navigate` | `:string` | `"Navigate"` |  |
-| `hint_open` | `:string` | `"Open"` |  |
-| `hint_new_tab` | `:any` | `"Open in new tab"` |  |
-| `hint_close` | `:string` | `"Close"` |  |
+| `hint_navigate` | `:string` | `nil` |  |
+| `hint_open` | `:string` | `nil` |  |
+| `hint_new_tab` | `:any` | `nil` |  |
+| `hint_close` | `:string` | `nil` |  |
 | `state` | `:string` | `nil` | `nil`, `no_match` - `"no_match"` draws only the empty-result card (the `empty` text and the assistant row, which the hook shows when nothing matches), a static preview. |
 | `class` | `:any` | `nil` |  |
 | `list_style` | `:string` | `nil` | Inline style of the list (replaces the variant padding). |
 | `inline` | `:boolean` | `false` | Static preview over an in-page scrim: always open, no hook. |
 | `bare` | `:boolean` | `false` | Only the `lu-cmd` card, always open, no hook. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

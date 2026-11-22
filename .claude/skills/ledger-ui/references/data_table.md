@@ -84,7 +84,7 @@ focusable (they carry `phx-click` only).
 | `sticky_header` | `:boolean` | `false` |  |
 | `scroll_label` | `:string` | `nil` |  |
 | `peek` | `:boolean` | `false` |  |
-| `peek_label` | `:string` | `"Hidden columns"` |  |
+| `peek_label` | `:string` | `nil` |  |
 | `sort_label` | `:string` | `nil` |  |
 | `row_label` | `:any` | `nil` |  |
 | `headless` | `:boolean` | `false` |  |
@@ -96,15 +96,15 @@ focusable (they carry `phx-click` only).
 | `pager_arrows` | `:boolean` | `true` |  |
 | `loading` | `:boolean` | `false` |  |
 | `loading_rows` | `:integer` | `3` |  |
-| `show_label` | `:string` | `"Show"` |  |
-| `entries_label` | `:string` | `"entries"` |  |
-| `prev_label` | `:string` | `"Previous"` |  |
-| `next_label` | `:string` | `"Next"` |  |
-| `page_label` | `:string` | `"Page %{page}"` |  |
-| `filter_label` | `:string` | `"Filter"` |  |
+| `show_label` | `:string` | `nil` |  |
+| `entries_label` | `:string` | `nil` |  |
+| `prev_label` | `:string` | `nil` |  |
+| `next_label` | `:string` | `nil` |  |
+| `page_label` | `:string` | `nil` |  |
+| `filter_label` | `:string` | `nil` |  |
 | `summary_label` | `:string` | `nil` | Summary text with `%{from}`, `%{to}` and `%{total}`. |
-| `select_all_label` | `:string` | `"Select all rows"` |  |
-| `select_label` | `:string` | `"Select row"` |  |
+| `select_all_label` | `:string` | `nil` |  |
+| `select_label` | `:string` | `nil` |  |
 | `selected` | `:list` | `[]` |  |
 | `all_selected` | `:boolean` | `nil` |  |
 | `on_select` | `:any` | `nil` |  |
@@ -116,6 +116,7 @@ focusable (they carry `phx-click` only).
 | `select_attrs` | `:any` | `nil` |  |
 | `body_class` | `:any` | `nil` |  |
 | `row_groups` | `:boolean` | `nil` | One `<tbody>` per row, so the `:expand` rows of a stream move with their row; on by itself for a stream with `:expand`. See `Table`. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -124,7 +125,7 @@ Slots:
 - `<:action>`
 - `<:actions>` - Buttons at the right of the title bar.
 - `<:bulk>` - Rendered under the table (a `bulk_bar`).
-- `<:col>` (required) - attrs: `label`, `class`, `head_class`, `align`, `sort_key`, `priority`, `style`
+- `<:col>` (required) - attrs: `label`, `class`, `head_class`, `align`, `sort_key`, `priority`, `style`, `grow`, `wrap`, `min`
 - `<:empty>`
 - `<:expand>`
 - `<:filters>` - A filter panel the title bar's filter button opens. Receives the `JS` that toggles it.
@@ -146,12 +147,13 @@ the buttons of `pages`. Pages near the current one, the first and the last, with
 | `on_page` | `:any` | `nil` | Event or `%JS{}` sent with `%{"page" => "3"}`. |
 | `page_path` | `:any` | `nil` | Function of a page number returning a path (patch links). |
 | `target` | `:any` | `nil` |  |
-| `page_label` | `:string` | `"Page %{page}"` |  |
-| `prev_label` | `:string` | `"Previous"` |  |
-| `next_label` | `:string` | `"Next"` |  |
+| `page_label` | `:string` | `nil` |  |
+| `prev_label` | `:string` | `nil` |  |
+| `next_label` | `:string` | `nil` |  |
 | `siblings` | `:integer` | `1` |  |
 | `arrows` | `:boolean` | `true` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -171,6 +173,7 @@ form (`<id>-search-form`, input `<id>-search`) that sends `%{"search" => query}`
 | `width` | `:string` | `"220px"` |  |
 | `shortcut` | `:string` | `nil` | A key hint (`/`) drawn at the right. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -190,11 +193,12 @@ removable chips.
 | `filters` | `:list` | `[]` | Applied filters as chips: `[%{id: "plan", label: "Plano: Pro"}]`. |
 | `on_remove_filter` | `:any` | `nil` | Sent with `%{"id" => id}` by a chip's remove button. |
 | `on_clear` | `:any` | `nil` |  |
-| `filters_label` | `:string` | `"Filtros:"` |  |
-| `clear_label` | `:string` | `"Limpar tudo"` |  |
-| `remove_label` | `:string` | `"Remover"` |  |
+| `filters_label` | `:string` | `nil` |  |
+| `clear_label` | `:string` | `nil` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

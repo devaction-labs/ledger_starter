@@ -45,17 +45,17 @@ close button that closes the popover and returns focus to the bell (`close_label
 |---|---|---|---|
 | `id` (required) | `:string` |  |  |
 | `items` | `:list` | `[]` |  |
-| `tabs` | `:list` | `[%{id: "all", label: "Todas"}, %{id: "unread", label: "Não lidas"}]` |  |
+| `tabs` | `:list` | `nil` |  |
 | `unread` | `:integer` | `nil` |  |
-| `title` | `:string` | `"Notificações"` |  |
-| `bell_label` | `:string` | `"Notificações"` |  |
-| `read_all_label` | `:string` | `"Marcar todas como lidas"` |  |
-| `preferences_label` | `:string` | `"Preferências de notificação"` |  |
-| `close_label` | `:string` | `"Fechar"` |  |
-| `all_label` | `:string` | `"Ver todas as notificações"` |  |
-| `unread_label` | `:string` | `"não lidas"` |  |
-| `empty` | `:string` | `"Nenhuma notificação"` |  |
-| `empty_text` | `:string` | `"Quando houver novidades, elas aparecem aqui."` |  |
+| `title` | `:string` | `nil` |  |
+| `bell_label` | `:string` | `nil` |  |
+| `read_all_label` | `:string` | `nil` |  |
+| `preferences_label` | `:string` | `nil` |  |
+| `close_label` | `:string` | `nil` |  |
+| `all_label` | `:string` | `nil` |  |
+| `unread_label` | `:string` | `nil` |  |
+| `empty` | `:string` | `nil` |  |
+| `empty_text` | `:string` | `nil` |  |
 | `variant` | `:string` | `"canvas"` | `canvas`, `classic` |
 | `empty_icon` | `:string` | `nil` |  |
 | `empty_tone` | `:string` | `"success"` | `neutral`, `primary`, `info`, `success`, `warning`, `error` |
@@ -73,6 +73,7 @@ close button that closes the popover and returns focus to the bell (`close_label
 | `class` | `:any` | `nil` | Merged into the panel. |
 | `inline` | `:boolean` | `false` | Only the panel, in the page flow: no bell, no hook. |
 | `closable` | `:boolean` | `false` | `classic`: a close button at the end of the header (closes the popover, focus goes back to the bell). Ignored when `inline`. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

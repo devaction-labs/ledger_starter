@@ -38,14 +38,15 @@ that bundle). Without JS the back link just goes to `back_href` and the copy but
 | `title` | `:string` | `nil` |  |
 | `description` | `:string` | `nil` |  |
 | `request_id` | `:string` | `nil` |  |
-| `request_id_label` | `:string` | `"Request ID"` |  |
-| `copy_label` | `:string` | `"Copy request ID"` |  |
+| `request_id_label` | `:string` | `nil` |  |
+| `copy_label` | `:string` | `nil` |  |
 | `copy` | `:boolean` | `true` |  |
 | `back_label` | `:string` | `nil` |  |
 | `back_href` | `:string` | `"/"` | Where the back link goes without JS (or with no history to go back to). |
 | `timestamp` | `:string` | `nil` |  |
 | `id` | `:string` | `"error-page"` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -71,6 +72,7 @@ Slots:
 | `description` | `:string` | `nil` |  |
 | `id` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

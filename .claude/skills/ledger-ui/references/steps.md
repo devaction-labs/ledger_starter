@@ -40,6 +40,7 @@ Notes:
 | `size` | `:string` | `"md"` | `xs`, `sm`, `md`, `lg` |
 | `line_space` | `:boolean` | `false` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -55,11 +56,12 @@ Slots:
 | `current` | `:integer` | `nil` |  |
 | `error` | `:boolean` | `false` |  |
 | `variant` | `:string` | `"canvas"` | `canvas`, `classic` |
-| `state_names` | `:map` | `%{"current" => "Current", "done" => "Completed", "error" => "Needs attention", "todo" => "Upcoming"}` |  |
+| `state_names` | `:map` | `nil` | State name (`current`, `done`, `error`, `todo`) to the text of the `aria-label`; default: the locale's. |
 | `color` | `:string` | `nil` | `nil`, `neutral`, `primary`, `secondary`, `accent`, `info`, `success`, `warning`, `error` |
 | `size` | `:string` | `nil` | `nil`, `xs`, `sm`, `md`, `lg` |
 | `loop` | `:boolean` | `false` | The animated mock: the steps fill in turn (stagger them with `style="--dl:1.4s"`); the states are not drawn. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

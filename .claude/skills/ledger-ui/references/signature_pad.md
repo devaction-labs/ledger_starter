@@ -40,7 +40,7 @@ Renders the signature pad.
 | `name_input` | `:boolean` | `true` | Show the field to type the name in `type` mode. `false` draws the typed `text` alone in the surface (a read-only display, as in the design's canvas). |
 | `ink` | `:string` | `"#0F172A"` |  |
 | `height` | `:integer` | `170` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `labels` | `:map` | `%{}` |  |
 | `disabled` | `:boolean` | `false` |  |
 | `variant` | `:string` | `"canvas"` | `canvas`, `classic` |

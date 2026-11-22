@@ -12,8 +12,8 @@ defmodule LedgerStarterWeb.Plugs.Locale do
   The cookie is shared across tenant subdomains like the session cookie
   (`LedgerStarterWeb.Tenant.cookie_domain_for/1`).
 
-  TODO: when the kit releases `LedgerUI.put_locale/1`, call it here (and in the
-  LiveView hook) instead of passing `locale={@locale_ui}` to each component.
+  It also calls `LedgerUI.put_locale/1`, so the kit components render their own
+  texts in the same language.
   """
   import Plug.Conn
 
@@ -39,6 +39,7 @@ defmodule LedgerStarterWeb.Plugs.Locale do
         Locale.default()
 
     Locale.put(locale)
+    LedgerUI.put_locale(Locale.ui(locale))
 
     conn
     |> maybe_write_cookie(param)

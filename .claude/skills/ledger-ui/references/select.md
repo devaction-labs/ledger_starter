@@ -60,22 +60,22 @@ LiveView.
 | `icon` | `:string` | `nil` | An icon before the text. |
 | `removable` | `:boolean` | `false` |  |
 | `clearable` | `:boolean` | `false` |  |
-| `clear_label` | `:string` | `"Clear"` |  |
-| `remove_label` | `:string` | `"Remove"` |  |
+| `clear_label` | `:string` | `nil` |  |
+| `remove_label` | `:string` | `nil` |  |
 | `create` | `:boolean` | `false` |  |
-| `create_label` | `:string` | `"Add"` |  |
+| `create_label` | `:string` | `nil` |  |
 | `create_hint` | `:string` | `nil` |  |
 | `persist` | `:boolean` | `true` |  |
 | `restore_on_backspace` | `:boolean` | `false` |  |
 | `max` | `:integer` | `nil` |  |
 | `overflow` | `:string` | `"count"` | `count`, `wrap` |
 | `footer` | `:boolean` | `false` |  |
-| `footer_count` | `:string` | `"%{count} of %{total}"` |  |
-| `footer_hint` | `:string` | `"Esc to close"` |  |
-| `more_label` | `:string` | `"more"` |  |
-| `no_results` | `:string` | `"No results found"` |  |
+| `footer_count` | `:string` | `nil` |  |
+| `footer_hint` | `:string` | `nil` |  |
+| `more_label` | `:string` | `nil` |  |
+| `no_results` | `:string` | `nil` |  |
 | `search` | `:string` | `"auto"` | `auto`, `control`, `panel`, `none` - Where the filter box is: `auto` is `panel` when `multiple` and `control` otherwise. |
-| `search_placeholder` | `:string` | `"Search…"` |  |
+| `search_placeholder` | `:string` | `nil` |  |
 | `panel_min_width` | `:string` | `nil` |  |
 | `panel_class` | `:any` | `nil` |  |
 | `on_search` | `:string` | `nil` |  |
@@ -83,9 +83,10 @@ LiveView.
 | `target` | `:any` | `nil` |  |
 | `on_load_more` | `:string` | `nil` |  |
 | `has_more` | `:boolean` | `false` |  |
-| `loading_label` | `:string` | `"Loading…"` |  |
+| `loading_label` | `:string` | `nil` |  |
 | `open` | `:boolean` | `false` | Renders the list open (static previews). |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element, including `form`, `autocomplete`, `required`.
 

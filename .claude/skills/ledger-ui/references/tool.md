@@ -38,7 +38,7 @@ One tool call, as a line of a `trace/1` (or a panel).
 | `subject` | `:string` | `nil` | What the tool acted on, drawn as code. |
 | `title` | `:string` | `nil` | The whole title, in place of verb and subject. |
 | `verbs` | `:map` | `%{}` | Verbs per state (atom keys), over the `locale` ones. |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `icon` | `:string` | `"terminal"` |  |
 | `description` | `:any` | `nil` |  |
 | `input` | `:string` | `nil` |  |
@@ -68,7 +68,7 @@ A tool call that waits for the user: the question, the input and Deny / Approve.
 | `target` | `:any` | `nil` |  |
 | `approve_label` | `:string` | `nil` |  |
 | `deny_label` | `:string` | `nil` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `class` | `:any` | `nil` |  |
 
 Any other HTML/phx attribute goes to the root element.

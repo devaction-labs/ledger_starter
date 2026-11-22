@@ -96,10 +96,11 @@ loops (toasts piling up, or a loading toast giving way to its answer) with CSS o
 | `persist_errors` | `:boolean` | `false` |  |
 | `timer` | `:boolean` | `true` |  |
 | `invert` | `:boolean` | `false` |  |
-| `close_label` | `:string` | `"Close"` |  |
-| `loading_label` | `:string` | `"Loading"` |  |
+| `close_label` | `:string` | `nil` |  |
+| `loading_label` | `:string` | `nil` |  |
 | `contained` | `:boolean` | `false` | Draw the toaster inside its parent (a demo panel) instead of over the page. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -118,7 +119,7 @@ Slots:
 | `title` (required) | `:string` |  |  |
 | `description` | `:string` | `nil` |  |
 | `dismissible` | `:boolean` | `true` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `on_dismiss` | `:any` | `nil` |  |
 | `busy` | `:boolean` | `false` |  |
 | `busy_label` | `:string` | `nil` | Accessible name of the spinner (none when `nil`). |
@@ -134,6 +135,7 @@ Slots:
 | `aura_shadow` | `:boolean` | `true` |  |
 | `aura_style` | `:string` | `nil` | Inline style of the aura wrapper (e.g. a fixed width); it is full width by default. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

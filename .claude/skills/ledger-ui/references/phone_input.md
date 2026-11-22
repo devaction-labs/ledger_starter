@@ -53,7 +53,7 @@ Renders the phone input.
 | `country_order` | `:list` | `[]` |  |
 | `countries` | `:list` | `[]` |  |
 | `except` | `:list` | `[]` |  |
-| `locale` | `:string` | `"pt-BR"` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`: the texts and the country names. Default: the process locale, the app config; the country names are Portuguese when none is set (the texts, English). |
 | `flags` | `:boolean` | `false` |  |
 | `label` | `:string` | `nil` |  |
 | `label_class` | `:any` | `nil` |  |
@@ -65,10 +65,10 @@ Renders the phone input.
 | `size` | `:string` | `"md"` | `sm`, `md`, `lg` |
 | `shape` | `:string` | `"rounded"` | `rounded`, `pill` |
 | `clearable` | `:boolean` | `false` |  |
-| `clear_label` | `:string` | `"Clear"` |  |
-| `picker_label` | `:string` | `"Country"` |  |
-| `search_placeholder` | `:string` | `"Search…"` |  |
-| `no_results` | `:string` | `"No results found"` |  |
+| `clear_label` | `:string` | `nil` |  |
+| `picker_label` | `:string` | `nil` |  |
+| `search_placeholder` | `:string` | `nil` |  |
+| `no_results` | `:string` | `nil` |  |
 | `on_country_change` | `:string` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `wrapper_class` | `:any` | `nil` |  |

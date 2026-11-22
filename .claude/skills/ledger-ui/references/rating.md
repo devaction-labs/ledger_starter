@@ -44,6 +44,7 @@ Renders a rating.
 | `on_change` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -56,8 +57,9 @@ The summary of a rating: the average, its stars, the total and a bar per grade.
 | `counts` (required) | `:any` |  | A list, best grade first, or a map `%{grade => count}`. |
 | `average` | `:any` | `nil` |  |
 | `total` | `:integer` | `nil` |  |
-| `unit` | `:string` | `"avaliações"` |  |
+| `unit` | `:string` | `nil` |  |
 | `decimal` | `:string` | `","` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.

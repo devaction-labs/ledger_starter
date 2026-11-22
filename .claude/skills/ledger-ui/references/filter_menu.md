@@ -37,9 +37,8 @@ With no groups and no `:group` slot the panel shows a small empty state (`empty_
 ## Locale
 
 The texts (Filters, Clear, Apply, Custom…, From, To, results, empty state) follow the `locale`
-attr: `"en"` (the default) or `"pt_BR"`. There is no application-wide locale config
-(`config :ledger_ui, locale:` does not exist): pass `locale="pt_BR"` on every `filter_menu`
-of a pt-BR page, or wrap it in your own function component that sets it.
+attr (`"en"` or `"pt_BR"`), else the process locale, else `config :ledger_ui, locale:` (see
+`LedgerUI.I18n`).
 
 ## `<.filter_menu>`
 
@@ -51,7 +50,7 @@ of a pt-BR page, or wrap it in your own function component that sets it.
 | `empty_label` | `:string` | `nil` | Text of the empty panel (no groups, no `:group` slot). |
 | `groups` | `:list` | `[]` |  |
 | `mode` | `:string` | `"apply"` | `apply`, `live` |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `results` | `:integer` | `nil` |  |
 | `variant` | `:string` | `"outline"` | `solid`, `glow`, `outline`, `soft`, `bordered`, `flat` |
 | `color` | `:string` | `"neutral"` | `neutral`, `primary`, `secondary`, `info`, `success`, `warning`, `error` |

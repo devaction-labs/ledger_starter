@@ -53,10 +53,11 @@ round button), as the design does.
 | `gap` | `:boolean` | `true` |  |
 | `loading` | `:boolean` | `false` |  |
 | `live` | `:boolean` | `false` | A `Live` chip beside the label. |
-| `live_label` | `:string` | `"Live"` |  |
+| `live_label` | `:string` | `nil` |  |
 | `open_label` | `:string` | `nil` | `aria-label` of the round button at the footer's right; no button without it. |
 | `on_open` | `:any` | `nil` | Event name or `%JS{}` of the round button. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

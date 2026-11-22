@@ -42,7 +42,7 @@ Renders the code block.
 | `title` | `:string` | `nil` |  |
 | `icon` | `:string` | `nil` |  |
 | `copy` | `:boolean` | `false` |  |
-| `copy_label` | `:string` | `"Copy"` |  |
+| `copy_label` | `:string` | `nil` |  |
 | `copy_text` | `:string` | `nil` | What the copy button copies; the code itself when `nil`. |
 | `line_numbers` | `:boolean` | `false` |  |
 | `start_line` | `:integer` | `1` |  |
@@ -52,6 +52,7 @@ Renders the code block.
 | `size` | `:string` | `"default"` | `default`, `sm` |
 | `variant` | `:string` | `"default"` | `default`, `destructive` |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

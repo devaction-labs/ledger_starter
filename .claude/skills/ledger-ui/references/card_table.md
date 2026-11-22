@@ -62,9 +62,9 @@ container-query utilities (`Table.Layout`), from the `breakpoints` it is given.
 | `on_select_all` | `:any` | `nil` |  |
 | `selected` | `:list` | `[]` |  |
 | `all_selected` | `:boolean` | `nil` |  |
-| `select_all_label` | `:string` | `"Select all rows"` |  |
-| `select_label` | `:string` | `"Select row"` |  |
-| `panel_label` | `:string` | `"Details"` | The accessible name of the details panel. |
+| `select_all_label` | `:string` | `nil` |  |
+| `select_label` | `:string` | `nil` |  |
+| `panel_label` | `:string` | `nil` | The accessible name of the details panel. |
 | `on_sort` | `:any` | `nil` |  |
 | `sort_by` | `:string` | `nil` |  |
 | `sort_dir` | `:string` | `"asc"` | `asc`, `desc` |
@@ -82,16 +82,17 @@ container-query utilities (`Table.Layout`), from the `breakpoints` it is given.
 | `variant` | `:string` | `"rows"` | `rows`, `flat` |
 | `copy_toast` | `:boolean` | `true` | A toast (event `ledger:toast` on the page's `toaster`) with the copied value in bold after a `copy` column copies. `false` turns it off; a column's own `copy_toast` wins. Not shown while `loading` or with an `error` (no rows then). |
 | `copy_toast_message` | `:string` | `nil` | The toast text, `%s` is the copied value (`"%s copiado"`). Default: `"%s · <copied_label>"`. |
-| `selection_label` | `:string` | `"selected"` | The text after the count in the `:selection` badge, for one selected. |
+| `selection_label` | `:string` | `nil` | The text after the count in the `:selection` badge, for one selected. |
 | `selection_label_plural` | `:string` | `nil` | Same, for several (`selection_label` when nil). |
 | `selection_badge` | `:boolean` | `true` | `false` leaves the count badge out of the `:selection` strip (the slot draws all of it). |
 | `loading` | `:boolean` | `false` | Skeleton lines (`loading_rows`, with the columns) in place of the rows. |
 | `loading_rows` | `:integer` | `5` |  |
-| `loading_label` | `:string` | `"Loading"` |  |
+| `loading_label` | `:string` | `nil` |  |
 | `error` | `:string` | `nil` | A message: shows the error state in place of the rows (wins over `loading`). |
 | `on_retry` | `:any` | `nil` | Event name or `JS` of the retry button of the error state. |
-| `retry_label` | `:string` | `"Tentar novamente"` |  |
+| `retry_label` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
@@ -99,7 +100,7 @@ Slots:
 
 - `<:action>` - attrs: `priority`, `card` - The last cell of every row (a menu button); receives the row.
 - `<:actions>` - Buttons at the right of the heading.
-- `<:col>` (required) - attrs: `label`, `width`, `priority`, `role`, `align`, `truncate`, `class`, `sort_key`, `copy`, `copy_label`, `copied_label`, `copy_show`, `card`, `copy_tip`, `style`, `copy_toast`, `copy_toast_message` - A column; receives the row (after `row_item`).
+- `<:col>` (required) - attrs: `label`, `width`, `priority`, `role`, `align`, `truncate`, `grow`, `wrap`, `min`, `class`, `sort_key`, `copy`, `copy_label`, `copied_label`, `copy_show`, `card`, `copy_tip`, `style`, `copy_toast`, `copy_toast_message` - A column; receives the row (after `row_item`).
 - `<:detail>` - attrs: `label` - A line of the details panel that opens when a row is clicked.
 - `<:edit>` - Inline form in place of the cells of a row being edited.
 - `<:empty>` - Shown when there are no rows. Receives `%{id, rows, selected, title}`.

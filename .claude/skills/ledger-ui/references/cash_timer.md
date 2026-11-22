@@ -33,9 +33,10 @@ utilities.
 | `running` | `:boolean` | `true` |  |
 | `static` | `:boolean` | `false` | No hook: the open clock stays on `elapsed` (it only blinks), as in the canvas samples. |
 | `amount` | `:string` | `nil` |  |
-| `amount_label` | `:string` | `"Em caixa"` |  |
+| `amount_label` | `:string` | `nil` |  |
 | `difference` | `:string` | `nil` |  |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

@@ -27,7 +27,7 @@ The static panel: a calendar with the list of times beside it.
 | `selected` | `:any` | `nil` |  |
 | `today` | `:any` | `nil` |  |
 | `week_start` | `:integer` | `0` |  |
-| `locale` | `:string` | `"en"` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `times` | `:list` | `[]` | The `"HH:MM"` texts of the time buttons. |
 | `time` | `:string` | `nil` | The chosen `"HH:MM"`. |
 | `timezone` | `:string` | `nil` | A time zone caption over the list of times. |
@@ -62,7 +62,7 @@ Renders the date and time input with its panel.
 | `time_24hr` | `:boolean` | `nil` |  |
 | `minute_step` | `:integer` | `nil` |  |
 | `default_hour` | `:integer` | `nil` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `display_format` | `:string` | `nil` |  |
 | `range_separator` | `:string` | `" – "` |  |
 | `min` | `:any` | `nil` |  |
@@ -122,7 +122,7 @@ Same as `datetime_picker/1` (same attributes and slots), under the name the desi
 | `time_24hr` | `:boolean` | `nil` |  |
 | `minute_step` | `:integer` | `nil` |  |
 | `default_hour` | `:integer` | `nil` |  |
-| `locale` | `:string` | `"en"` | `en`, `pt_BR` |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 | `display_format` | `:string` | `nil` |  |
 | `range_separator` | `:string` | `" – "` |  |
 | `min` | `:any` | `nil` |  |

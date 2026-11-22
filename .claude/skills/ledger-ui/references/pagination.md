@@ -37,8 +37,8 @@ link/button, or on the `span` when the pager is display-only), every page and ar
 | `page_sizes` | `:list` | `[]` |  |
 | `on_page_size` | `:any` | `nil` |  |
 | `summary` | `:string` | `nil` |  |
-| `page_size_label` | `:string` | `"%{size} / page"` |  |
-| `page_size_aria` | `:string` | `"Rows per page"` |  |
+| `page_size_label` | `:string` | `nil` |  |
+| `page_size_aria` | `:string` | `nil` |  |
 | `siblings` | `:integer` | `1` |  |
 | `boundaries` | `:integer` | `1` |  |
 | `patch` | `:any` | `nil` |  |
@@ -53,11 +53,12 @@ link/button, or on the `span` when the pager is display-only), every page and ar
 | `size` | `:string` | `"md"` | `sm`, `md`, `lg` |
 | `arrows` | `:boolean` | `true` |  |
 | `arrows_at` | `:string` | `"end"` | `end`, `sides` - Where the arrows go in the canvas pager: `end` (the bundle: both after the pages) or `sides` (previous before the pages, next after them, as in the classic bar). |
-| `prev_label` | `:string` | `"Previous page"` |  |
-| `next_label` | `:string` | `"Next page"` |  |
-| `page_label` | `:string` | `"Page %{page}"` |  |
+| `prev_label` | `:string` | `nil` |  |
+| `next_label` | `:string` | `nil` |  |
+| `page_label` | `:string` | `nil` |  |
 | `page_attrs` | `:any` | `nil` | Function from a page number (or `:ellipsis`) to extra attrs (`%{style: ..., class: ...}`) of its item, e.g. for staggered animations. |
 | `class` | `:any` | `nil` |  |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 

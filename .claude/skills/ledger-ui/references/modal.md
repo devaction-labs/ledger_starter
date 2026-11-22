@@ -75,7 +75,7 @@ is a `<form>` (so its controls validate and submit); `phx-target` goes to the fo
 | `on_open` | `:any` | `nil` |  |
 | `on_close` | `:any` | `nil` |  |
 | `target` | `:any` | `nil` |  |
-| `close_label` | `:string` | `"Close"` |  |
+| `close_label` | `:string` | `nil` |  |
 | `role` | `:string` | `"dialog"` | `dialog`, `alertdialog` |
 | `description` | `:string` | `nil` |  |
 | `body_class` | `:any` | `nil` |  |
@@ -84,6 +84,7 @@ is a `<form>` (so its controls validate and submit); `phx-target` goes to the fo
 | `icon_tone` | `:string` | `"neutral"` | `accent`, `error`, `info`, `lime`, `neutral`, `success`, `warning` |
 | `card_style` | `:string` | `nil` | Inline style of the card (overrides the `size` width; merged with the `width` variable). |
 | `inline` | `:boolean` | `false` | Static preview: in the page flow, always open, no hook. |
+| `locale` | `:string` | `nil` | `"en"` or `"pt_BR"`; default: the process locale, the app config, `"en"` (see `LedgerUI.I18n`). |
 
 Any other HTML/phx attribute goes to the root element.
 
