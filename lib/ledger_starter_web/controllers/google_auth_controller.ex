@@ -15,12 +15,12 @@ defmodule LedgerStarterWeb.GoogleAuthController do
     else
       false ->
         conn
-        |> put_flash(:error, "Login com Google não está configurado.")
+        |> put_flash(:error, gettext("Login com Google não está configurado."))
         |> redirect(to: ~p"/users/log-in")
 
       {:error, _} ->
         conn
-        |> put_flash(:error, "Não foi possível iniciar o login com Google.")
+        |> put_flash(:error, gettext("Não foi possível iniciar o login com Google."))
         |> redirect(to: ~p"/users/log-in")
     end
   end
@@ -31,16 +31,17 @@ defmodule LedgerStarterWeb.GoogleAuthController do
 
     with true <- Google.enabled?() and is_map(session_params),
          {:ok, claims} <- Google.callback(redirect_uri(conn), params, session_params),
-         {:ok, user} <- Accounts.find_or_create_google_user(claims) do
+         {:ok, user} <-
+           Accounts.find_or_create_google_user(claims, locale: conn.assigns[:locale]) do
       conn
-      |> put_flash(:info, "Bem-vindo, #{user.name || user.email}!")
+      |> put_flash(:info, gettext("Bem-vindo, %{name}!", name: user.name || user.email))
       |> UserAuth.log_in_user(user, %{"remember_me" => "true"})
     else
       _ ->
         conn
         |> put_flash(
           :error,
-          "Não foi possível entrar com o Google. Tente novamente ou use seu e-mail."
+          gettext("Não foi possível entrar com o Google. Tente novamente ou use seu e-mail.")
         )
         |> redirect(to: ~p"/users/log-in")
     end

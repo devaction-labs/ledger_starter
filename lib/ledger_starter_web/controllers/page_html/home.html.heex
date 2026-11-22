@@ -1,33 +1,36 @@
 <div class="bg-page text-ink">
-  <.toaster flash={@flash} />
+  <.toaster flash={@flash} close_label={gettext("Fechar")} />
   <.landing_nav id="sk-nav">
     <:logo>
       <.link navigate={~p"/"} aria-label="StartKit"><.brand_logo /></.link>
     </:logo>
-    <:link label="Produto" href="#recursos" />
-    <:link label="Multiempresa" href="#workspaces" />
-    <:link label="Preços" href="#precos" />
+    <:link label={gettext("Produto")} href="#recursos" />
+    <:link label={gettext("Multiempresa")} href="#workspaces" />
+    <:link label={gettext("Preços")} href="#precos" />
     <:link label="Docs" href="https://github.com/devaction-labs/ledger_starter#readme" />
     <:actions>
-      <.landing_login navigate={~p"/users/log-in"}>Entrar</.landing_login>
-      <.landing_cta navigate={~p"/users/register"}>Começar grátis</.landing_cta>
+      <.locale_switcher />
+      <.landing_login navigate={~p"/users/log-in"}>{gettext("Entrar")}</.landing_login>
+      <.landing_cta navigate={~p"/users/register"}>{gettext("Começar grátis")}</.landing_cta>
     </:actions>
     <:signed_in :if={@current_scope && @current_scope.user}>
-      <.landing_cta navigate={~p"/workspaces"}>Abrir workspace</.landing_cta>
+      <.landing_cta navigate={~p"/workspaces"}>{gettext("Abrir workspace")}</.landing_cta>
     </:signed_in>
   </.landing_nav>
 
   <section class="mx-auto flex max-w-[1180px] flex-col items-center gap-6 px-8 pt-20 pb-14 text-center">
-    <.badge dot>Novo · login com Google e convites por link</.badge>
+    <.badge dot>{gettext("Novo · login com Google e convites por link")}</.badge>
     <h1 class="m-0 max-w-[860px] font-display text-[60px] leading-[1.04] font-bold tracking-[-.045em]">
-      O CRM pronto para virar o seu SaaS
+      {gettext("O CRM pronto para virar o seu SaaS")}
     </h1>
     <p class="m-0 max-w-[640px] text-[18px] leading-relaxed text-muted">
-      Contatos e funil de vendas, com uma empresa por workspace, time com papéis e limite de assentos. Clone, troque a marca e publique.
+      {gettext(
+        "Contatos e funil de vendas, com uma empresa por workspace, time com papéis e limite de assentos. Clone, troque a marca e publique."
+      )}
     </p>
     <div class="flex gap-3">
       <.button navigate={~p"/users/register"} size="lg" trailing_icon="arrow-right">
-        Criar meu workspace
+        {gettext("Criar meu workspace")}
       </.button>
       <.button
         href="https://github.com/devaction-labs/ledger_starter"
@@ -35,11 +38,11 @@
         variant="outline"
         icon="github"
       >
-        Ver no GitHub
+        {gettext("Ver no GitHub")}
       </.button>
     </div>
     <span class="text-[13px] text-muted">
-      14 dias grátis · sem cartão · Phoenix + LiveView + Ledger UI
+      {gettext("14 dias grátis · sem cartão · Phoenix + LiveView + Ledger UI")}
     </span>
   </section>
 
@@ -48,17 +51,27 @@
       <div class="flex flex-col gap-4 rounded-[20px] border border-line bg-panel p-6">
         <.hero_card
           id="sk-land-hero"
-          eyebrow="Bom dia, Alex"
-          title="Novembro está 12% acima de outubro"
-          meta="Meta de novembro"
-          meta_value="R$ 184 mil de R$ 250 mil"
+          eyebrow={gettext("Bom dia, Alex")}
+          title={gettext("Novembro está 12% acima de outubro")}
+          meta={gettext("Meta de novembro")}
+          meta_value={gettext("R$ 184 mil de R$ 250 mil")}
           meter={74}
         />
         <div class="grid grid-cols-4 gap-3">
-          <.mini_card surface="card" icon="user-plus" tone="accent" label="Novo contato" />
-          <.mini_card surface="card" icon="kanban" tone="info" label="Novo negócio" />
-          <.mini_card surface="card" icon="calendar" tone="warning" label="Agendar reunião" />
-          <.mini_card surface="card" icon="mail" tone="success" label="Enviar e-mail" />
+          <.mini_card
+            surface="card"
+            icon="user-plus"
+            tone="accent"
+            label={gettext("Novo contato")}
+          />
+          <.mini_card surface="card" icon="kanban" tone="info" label={gettext("Novo negócio")} />
+          <.mini_card
+            surface="card"
+            icon="calendar"
+            tone="warning"
+            label={gettext("Agendar reunião")}
+          />
+          <.mini_card surface="card" icon="mail" tone="success" label={gettext("Enviar e-mail")} />
         </div>
       </div>
     </div>
@@ -67,10 +80,10 @@
   <section class="mx-auto flex max-w-[1180px] flex-col gap-10 px-8 pb-24" id="recursos">
     <div class="flex flex-col gap-3">
       <span class="font-mono text-xs tracking-[.08em] text-accent-content uppercase">
-        O que vem no kit
+        {gettext("O que vem no kit")}
       </span>
       <h2 class="m-0 max-w-[640px] font-display text-[38px] leading-[1.1] font-bold tracking-[-.03em]">
-        Tudo que todo SaaS precisa antes da primeira venda
+        {gettext("Tudo que todo SaaS precisa antes da primeira venda")}
       </h2>
     </div>
     <div class="grid grid-cols-3 gap-4">
@@ -88,36 +101,46 @@
     <div class="mx-auto grid max-w-[1180px] grid-cols-2 items-center gap-12 px-8">
       <div class="flex flex-col gap-4">
         <span class="font-mono text-xs tracking-[.08em] text-accent-content uppercase">
-          Multi-tenant de verdade
+          {gettext("Multi-tenant de verdade")}
         </span>
         <h2 class="m-0 font-display text-[38px] leading-[1.1] font-bold tracking-[-.03em]">
-          Uma conta, várias empresas
+          {gettext("Uma conta, várias empresas")}
         </h2>
         <p class="m-0 text-[16px] leading-relaxed text-muted">
-          Cada cliente do seu SaaS ganha um workspace com endereço próprio. Uma pessoa pode estar em vários e trocar sem sair.
+          {gettext(
+            "Cada cliente do seu SaaS ganha um workspace com endereço próprio. Uma pessoa pode estar em vários e trocar sem sair."
+          )}
         </p>
         <.steps color="primary">
-          <:step label="Cria a conta" state="done" />
-          <:step label="Cria a empresa" state="done" />
-          <:step label="Convida o time" state="current" />
+          <:step label={gettext("Cria a conta")} state="done" />
+          <:step label={gettext("Cria a empresa")} state="done" />
+          <:step label={gettext("Convida o time")} state="current" />
         </.steps>
       </div>
       <div class="flex flex-col gap-2.5 rounded-[24px] border border-line bg-panel p-5">
-        <span class="text-xs text-muted uppercase tracking-[.06em]">Seus workspaces</span>
-        <.mini_card label="Orbit Cloud" icon="building">orbit.{@base_host} · Dono</.mini_card>
-        <.mini_card label="Bompreço Atacado" icon="building">
-          bompreco.{@base_host} · Admin
+        <span class="text-xs text-muted uppercase tracking-[.06em]">
+          {gettext("Seus workspaces")}
+        </span>
+        <.mini_card label="Orbit Cloud" icon="building">
+          orbit.{@base_host} · {gettext("Dono")}
         </.mini_card>
-        <.mini_card label="Lumen Studio" icon="building">lumen.{@base_host} · Membro</.mini_card>
+        <.mini_card label="Bompreço Atacado" icon="building">
+          bompreco.{@base_host} · {gettext("Admin")}
+        </.mini_card>
+        <.mini_card label="Lumen Studio" icon="building">
+          lumen.{@base_host} · {gettext("Membro")}
+        </.mini_card>
       </div>
     </div>
   </section>
 
   <section class="mx-auto flex max-w-[1180px] flex-col items-center gap-10 px-8 py-24" id="precos">
     <div class="flex flex-col items-center gap-3 text-center">
-      <span class="font-mono text-xs tracking-[.08em] text-accent-content uppercase">Preços</span>
+      <span class="font-mono text-xs tracking-[.08em] text-accent-content uppercase">
+        {gettext("Preços")}
+      </span>
       <h2 class="m-0 font-display text-[38px] leading-[1.1] font-bold tracking-[-.03em]">
-        Cobre por assento desde o primeiro dia
+        {gettext("Cobre por assento desde o primeiro dia")}
       </h2>
     </div>
     <div class="grid w-full grid-cols-3 gap-4">
@@ -150,18 +173,22 @@
   <section class="mx-auto max-w-[1180px] px-8 pb-20">
     <.hero_card
       id="sk-cta"
-      eyebrow="Seu SaaS em uma tarde"
-      title="Clone o StartKit e venda na segunda-feira"
-      description="Phoenix 1.8, LiveView, Ledger UI, Postgres com tenants e deploy pronto."
+      eyebrow={gettext("Seu SaaS em uma tarde")}
+      title={gettext("Clone o StartKit e venda na segunda-feira")}
+      description={
+        gettext("Phoenix 1.8, LiveView, Ledger UI, Postgres com tenants e deploy pronto.")
+      }
     >
       <:actions>
-        <.button navigate={~p"/users/register"} trailing_icon="arrow-right">Criar meu workspace</.button>
+        <.button navigate={~p"/users/register"} trailing_icon="arrow-right">
+          {gettext("Criar meu workspace")}
+        </.button>
         <.button
           href="https://github.com/devaction-labs/ledger_starter"
           variant="outline"
           icon="github"
         >
-          Usar o template
+          {gettext("Usar o template")}
         </.button>
       </:actions>
     </.hero_card>
@@ -174,8 +201,8 @@
       <span class="flex gap-5">
         <a href="https://github.com/devaction-labs/ledger_starter#readme">Docs</a>
         <a href="https://github.com/devaction-labs/ledger_starter">GitHub</a>
-        <a href={~p"/privacidade"}>Privacidade</a>
-        <a href={~p"/termos"}>Termos</a>
+        <a href={~p"/privacidade"}>{gettext("Privacidade")}</a>
+        <a href={~p"/termos"}>{gettext("Termos")}</a>
       </span>
     </div>
   </footer>

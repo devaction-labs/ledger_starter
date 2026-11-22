@@ -71,7 +71,7 @@ defmodule LedgerStarterWeb.UserLive.SettingsTest do
         })
 
       assert result =~ "Alterar e-mail"
-      assert result =~ "must have the @ sign and no spaces"
+      assert result =~ "deve ter o @ e não pode ter espaços"
     end
 
     test "renders errors with invalid data (phx-submit)", %{conn: conn, user: user} do
@@ -85,7 +85,7 @@ defmodule LedgerStarterWeb.UserLive.SettingsTest do
         |> render_submit()
 
       assert result =~ "Alterar e-mail"
-      assert result =~ "did not change"
+      assert result =~ "não mudou"
     end
   end
 
@@ -137,8 +137,8 @@ defmodule LedgerStarterWeb.UserLive.SettingsTest do
         })
 
       assert result =~ "Salvar senha"
-      assert result =~ "should be at least 12 character(s)"
-      assert result =~ "does not match password"
+      assert result =~ "deve ter pelo menos 12 caracteres"
+      assert result =~ "não confere com a senha"
     end
 
     test "renders errors with invalid data (phx-submit)", %{conn: conn} do
@@ -155,8 +155,8 @@ defmodule LedgerStarterWeb.UserLive.SettingsTest do
         |> render_submit()
 
       assert result =~ "Salvar senha"
-      assert result =~ "should be at least 12 character(s)"
-      assert result =~ "does not match password"
+      assert result =~ "deve ter pelo menos 12 caracteres"
+      assert result =~ "não confere com a senha"
     end
   end
 

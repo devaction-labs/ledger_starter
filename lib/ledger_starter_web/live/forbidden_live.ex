@@ -9,12 +9,16 @@ defmodule LedgerStarterWeb.ForbiddenLive do
   alias LedgerStarter.Companies
   alias LedgerStarterWeb.Layouts
 
-  # slug => {title, "a"/"à"... phrase}
-  @pages %{
-    "equipe" => {"Equipe", "à Equipe"},
-    "papeis" => {"Papéis e permissões", "aos Papéis e permissões"},
-    "contatos" => {"Contatos", "aos Contatos"}
-  }
+  # slug => {page name, "Você não tem acesso ..." title}; a function (not an
+  # attribute) so the strings are translated at runtime.
+  defp page("equipe"), do: {gettext("Equipe"), gettext("Você não tem acesso à Equipe")}
+
+  defp page("papeis"),
+    do: {gettext("Papéis e permissões"), gettext("Você não tem acesso aos Papéis e permissões")}
+
+  defp page("contatos"), do: {gettext("Contatos"), gettext("Você não tem acesso aos Contatos")}
+
+  defp page(_), do: {gettext("Sem permissão"), gettext("Você não tem acesso a esta página")}
 
   @impl true
   def render(assigns) do
@@ -31,12 +35,12 @@ defmodule LedgerStarterWeb.ForbiddenLive do
         <.error_state
           id="forbidden"
           code={403}
-          title={"Você não tem acesso #{@page_phrase}"}
+          title={@page_title_text}
           description={description(@role_label)}
         >
           <:actions>
             <.button id="back-to-dashboard" navigate={~p"/painel"} icon="home">
-              Voltar ao painel
+              {gettext("Voltar ao painel")}
             </.button>
           </:actions>
           <:more :if={@granters != []}>
@@ -44,11 +48,13 @@ defmodule LedgerStarterWeb.ForbiddenLive do
               id="granters"
               class="mx-auto flex max-w-[420px] flex-col gap-2 text-left text-[13px] text-muted"
             >
-              <span class="text-center font-medium text-ink">Quem pode liberar</span>
+              <span class="text-center font-medium text-ink">
+                {gettext("Quem pode liberar")}
+              </span>
               <span :for={g <- @granters} class="flex items-center gap-2.5">
                 <.avatar initials={Layouts.initials(g.user.name || g.user.email)} size="28" />
                 <span class="font-medium text-ink">{g.user.name || g.user.email}</span>
-                <.badge color={if g.role_label == "Dono", do: "primary", else: "neutral"}>
+                <.badge color={if g.owner?, do: "primary", else: "neutral"}>
                   {g.role_label}
                 </.badge>
               </span>
@@ -63,15 +69,15 @@ defmodule LedgerStarterWeb.ForbiddenLive do
   @impl true
   def mount(params, _session, socket) do
     scope = socket.assigns.current_scope
-    {name, phrase} = Map.get(@pages, params["pagina"], {"Sem permissão", "a esta página"})
+    {name, title} = page(params["pagina"])
 
     {:ok,
      socket
      |> assign(
-       page_title: "Sem permissão",
+       page_title: gettext("Sem permissão"),
        page_name: name,
-       page_phrase: phrase,
-       description: "Você está no workspace #{scope.company.name}.",
+       page_title_text: title,
+       description: gettext("Você está no workspace %{name}.", name: scope.company.name),
        role_label:
          scope.roles |> List.first() |> then(&(&1 && LedgerStarter.Permissions.label(&1))),
        granters: Companies.list_access_granters(scope.company)
@@ -79,8 +85,11 @@ defmodule LedgerStarterWeb.ForbiddenLive do
      |> assign_new(:companies, fn -> Companies.list_companies_for_user(scope.user) end)}
   end
 
-  defp description(nil), do: "Peça a um Admin ou ao dono do workspace para liberar."
+  defp description(nil), do: gettext("Peça a um Admin ou ao dono do workspace para liberar.")
 
   defp description(role),
-    do: "Seu papel é #{role}. Peça a um Admin ou ao dono do workspace para liberar."
+    do:
+      gettext("Seu papel é %{role}. Peça a um Admin ou ao dono do workspace para liberar.",
+        role: role
+      )
 end

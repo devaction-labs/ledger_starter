@@ -54,12 +54,20 @@ defmodule LedgerStarterWeb.Layouts do
         <.navbar>
           <.navbar_crumbs items={[%{label: @company.name}, %{label: @crumb}]} />
           <:end>
-            <.theme_switch id="theme" size="sm" />
+            <.locale_switcher />
+            <.theme_switch
+              id="theme"
+              size="sm"
+              label={gettext("Tema")}
+              light_label={gettext("Claro")}
+              dark_label={gettext("Escuro")}
+              system_label={gettext("Sistema")}
+            />
             <.navbar_user id="me" user={@user_map}>
               <:menu>
                 <.navbar_menu_head user={@user_map} />
                 <.navbar_menu_item icon="settings" href={Tenant.root_url("/users/settings")}>
-                  Minha conta
+                  {gettext("Minha conta")}
                 </.navbar_menu_item>
                 <.navbar_menu_item
                   icon="logout"
@@ -67,7 +75,7 @@ defmodule LedgerStarterWeb.Layouts do
                   href={Tenant.root_url("/users/log-out")}
                   method="delete"
                 >
-                  Sair
+                  {gettext("Sair")}
                 </.navbar_menu_item>
               </:menu>
             </.navbar_user>
@@ -77,7 +85,7 @@ defmodule LedgerStarterWeb.Layouts do
       {render_slot(@inner_block)}
       <:aside>
         {render_slot(@aside)}
-        <.toaster flash={@flash} />
+        <.toaster flash={@flash} close_label={gettext("Fechar")} />
       </:aside>
     </.shell>
     """
@@ -86,13 +94,19 @@ defmodule LedgerStarterWeb.Layouts do
   defp nav(scope) do
     team =
       if PermitEx.can?(scope, "team:read"),
-        do: [%{label: "Equipe", icon: "users", navigate: ~p"/equipe"}],
+        do: [%{label: gettext("Equipe"), icon: "users", navigate: ~p"/equipe"}],
         else: []
 
     [
-      %{group: "Geral", items: [%{label: "Início", icon: "home", navigate: ~p"/painel"}]},
-      %{group: "CRM", items: [%{label: "Contatos", icon: "users", navigate: ~p"/contatos"}]}
-    ] ++ if(team == [], do: [], else: [%{group: "Workspace", items: team}])
+      %{
+        group: gettext("Geral"),
+        items: [%{label: gettext("Início"), icon: "home", navigate: ~p"/painel"}]
+      },
+      %{
+        group: gettext("CRM"),
+        items: [%{label: gettext("Contatos"), icon: "users", navigate: ~p"/contatos"}]
+      }
+    ] ++ if(team == [], do: [], else: [%{group: gettext("Workspace"), items: team}])
   end
 
   defp user_map(user, scope) do
@@ -103,10 +117,10 @@ defmodule LedgerStarterWeb.Layouts do
   end
 
   @doc "Display name of a role template (custom roles show their own name)."
-  def role_label("owner"), do: "Dono"
-  def role_label("admin"), do: "Admin"
-  def role_label("sales"), do: "Vendas"
-  def role_label("viewer"), do: "Leitura"
+  def role_label("owner"), do: gettext("Dono")
+  def role_label("admin"), do: gettext("Admin")
+  def role_label("sales"), do: gettext("Vendas")
+  def role_label("viewer"), do: gettext("Leitura")
   def role_label(other), do: other
 
   def initials(name) when is_binary(name) do
@@ -131,7 +145,7 @@ defmodule LedgerStarterWeb.Layouts do
       trigger_style="ghost"
       toggle_class="w-full justify-start"
       menu_style="min-width:240px"
-      label="Trocar de workspace"
+      label={gettext("Trocar de workspace")}
     >
       <:trigger>
         <span class="flex items-center gap-2.5 text-left">
@@ -143,7 +157,7 @@ defmodule LedgerStarterWeb.Layouts do
           <.icon name="updown" size="md" class="text-muted" />
         </span>
       </:trigger>
-      <:title>Seus workspaces</:title>
+      <:title>{gettext("Seus workspaces")}</:title>
       <.dropdown_item
         :for={c <- @companies}
         href={Tenant.company_url(c, "/painel")}
@@ -156,7 +170,7 @@ defmodule LedgerStarterWeb.Layouts do
       <.dropdown_separator />
       <.dropdown_item href={Tenant.root_url("/empresas/nova")}>
         <:icon><.icon name="plus" /></:icon>
-        Criar empresa
+        {gettext("Criar empresa")}
       </.dropdown_item>
     </.dropdown>
     """

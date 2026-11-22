@@ -92,7 +92,7 @@ defmodule LedgerStarterWeb.CrmLiveTest do
       html =
         lv |> form("#contact-modal", contact: %{name: "", email: "no"}) |> render_change()
 
-      assert html =~ "can&#39;t be blank" or html =~ "can't be blank"
+      assert html =~ "não pode ficar em branco"
       assert html =~ "e-mail inválido"
     end
 

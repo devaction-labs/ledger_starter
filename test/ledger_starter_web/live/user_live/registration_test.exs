@@ -38,8 +38,8 @@ defmodule LedgerStarterWeb.UserLive.RegistrationTest do
         |> element("#registration_form")
         |> render_change(user: %{"name" => "", "email" => "with spaces", "password" => "abc"})
 
-      assert html =~ "must have the @ sign and no spaces"
-      assert html =~ "should be at least 12 character(s)"
+      assert html =~ "deve ter o @ e não pode ter espaços"
+      assert html =~ "deve ter pelo menos 12 caracteres"
     end
   end
 
@@ -103,7 +103,7 @@ defmodule LedgerStarterWeb.UserLive.RegistrationTest do
         )
         |> render_submit()
 
-      assert html =~ "has already been taken"
+      assert html =~ "já está em uso"
     end
   end
 

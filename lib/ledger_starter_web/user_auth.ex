@@ -1,5 +1,6 @@
 defmodule LedgerStarterWeb.UserAuth do
   use LedgerStarterWeb, :verified_routes
+  use Gettext, backend: LedgerStarterWeb.Gettext
 
   import Plug.Conn
   import Phoenix.Controller
@@ -259,9 +260,11 @@ defmodule LedgerStarterWeb.UserAuth do
     if socket.assigns.current_scope && socket.assigns.current_scope.user do
       {:cont, socket}
     else
+      put_session_locale(session)
+
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "Entre para acessar esta página.")
+        |> Phoenix.LiveView.put_flash(:error, gettext("Entre para acessar esta página."))
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
       {:halt, socket}
@@ -311,9 +314,14 @@ defmodule LedgerStarterWeb.UserAuth do
     if Accounts.sudo_mode?(socket.assigns.current_scope.user, -10) do
       {:cont, socket}
     else
+      put_session_locale(session)
+
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "Confirme sua identidade para acessar esta página.")
+        |> Phoenix.LiveView.put_flash(
+          :error,
+          gettext("Confirme sua identidade para acessar esta página.")
+        )
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
       {:halt, socket}
@@ -327,6 +335,14 @@ defmodule LedgerStarterWeb.UserAuth do
   defp refresh_permissions(_event, _params, socket) do
     {:cont,
      Phoenix.Component.assign(socket, :current_scope, Scope.reload(socket.assigns.current_scope))}
+  end
+
+  # The flashes of the halting hooks run before `LedgerStarterWeb.Locale`
+  # (they have no user yet): use the locale the plug stored in the session.
+  defp put_session_locale(session) do
+    LedgerStarter.Locale.put(
+      LedgerStarter.Locale.normalize(session["locale"]) || LedgerStarter.Locale.default()
+    )
   end
 
   defp mount_current_scope(socket, session) do
@@ -367,7 +383,7 @@ defmodule LedgerStarterWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "Entre para acessar esta página.")
+      |> put_flash(:error, gettext("Entre para acessar esta página."))
       |> maybe_store_return_to()
       |> redirect(to: ~p"/users/log-in")
       |> halt()

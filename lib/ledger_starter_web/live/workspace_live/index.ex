@@ -10,18 +10,23 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen flash={@flash} id="workspaces" footer_right="Ajuda">
+    <.auth_screen flash={@flash} id="workspaces" footer_right={gettext("Ajuda")}>
       <:chip
         icon="users"
-        title="Um login, várias empresas"
-        subtitle="troque sem sair"
+        title={gettext("Um login, várias empresas")}
+        subtitle={gettext("troque sem sair")}
         top="64px"
         left="56px"
       />
 
-      <h1>Escolha o workspace</h1>
+      <h1>{gettext("Escolha o workspace")}</h1>
       <p class="sub">
-        Você está em {length(@companies)} {if length(@companies) == 1, do: "empresa", else: "empresas"} com {@email}.
+        {ngettext(
+          "Você está em %{count} empresa com %{email}.",
+          "Você está em %{count} empresas com %{email}.",
+          length(@companies),
+          email: @email
+        )}
       </p>
       <div class="flex flex-col gap-2.5" id="workspace-list">
         <.mini_card
@@ -35,12 +40,13 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
           {Tenant.company_host(company)} · {role}
         </.mini_card>
       </div>
-      <.or_divider label="ou" />
+      <.or_divider label={gettext("ou")} />
       <.button navigate={~p"/empresas/nova"} icon="plus" class="w-full" size="lg" variant="outline">
-        Criar uma nova empresa
+        {gettext("Criar uma nova empresa")}
       </.button>
       <p class="text-center text-[13.5px] text-muted">
-        Não é você? <.link href={~p"/users/log-out"} method="delete">Sair</.link>
+        {gettext("Não é você?")}
+        <.link href={~p"/users/log-out"} method="delete">{gettext("Sair")}</.link>
       </p>
     </.auth_screen>
     """
@@ -55,6 +61,10 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
           do: {c, Permissions.role_label_of(user.id, c.id)}
 
     {:ok,
-     assign(socket, page_title: "Escolher workspace", companies: companies, email: user.email)}
+     assign(socket,
+       page_title: gettext("Escolher workspace"),
+       companies: companies,
+       email: user.email
+     )}
   end
 end

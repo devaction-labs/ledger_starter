@@ -1,5 +1,6 @@
 defmodule LedgerStarter.Mailer do
   use Swoosh.Mailer, otp_app: :ledger_starter
+  use Gettext, backend: LedgerStarterWeb.Gettext
 
   import Swoosh.Email
 
@@ -12,7 +13,11 @@ defmodule LedgerStarter.Mailer do
     )
   end
 
-  @doc "Builds a pt-BR e-mail with a plain text and a simple HTML body."
+  @doc """
+  Builds an e-mail with a plain text and a simple HTML body, in the locale of the
+  calling process (run it inside `LedgerStarter.Locale.with_locale/2` with the
+  recipient's language).
+  """
   def build(recipient, subject, heading, paragraphs, cta \\ nil) do
     text =
       Enum.join(paragraphs, "\n\n") <>
@@ -35,7 +40,7 @@ defmodule LedgerStarter.Mailer do
       case cta do
         {label, url} ->
           "<p style=\"margin:24px 0\"><a href=\"#{esc(url)}\" style=\"background:#18181b;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600\">#{esc(label)}</a></p>" <>
-            "<p style=\"margin:0;font-size:12px;color:#71717a\">Ou copie este link: #{esc(url)}</p>"
+            "<p style=\"margin:0;font-size:12px;color:#71717a\">#{esc(gettext("Ou copie este link: %{url}", url: url))}</p>"
 
         nil ->
           ""

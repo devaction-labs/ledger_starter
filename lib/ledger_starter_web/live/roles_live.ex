@@ -23,11 +23,15 @@ defmodule LedgerStarterWeb.RolesLive do
       current_scope={@current_scope}
       companies={@companies}
       current={~p"/equipe"}
-      crumb="Papéis e permissões"
+      crumb={gettext("Papéis e permissões")}
     >
       <.page_header
-        title="Papéis e permissões"
-        description={"Defina o que cada papel pode ver e fazer no workspace #{@current_company.name}."}
+        title={gettext("Papéis e permissões")}
+        description={
+          gettext("Defina o que cada papel pode ver e fazer no workspace %{name}.",
+            name: @current_company.name
+          )
+        }
       >
         <:actions>
           <.button
@@ -36,7 +40,7 @@ defmodule LedgerStarterWeb.RolesLive do
             patch={~p"/equipe/papeis/novo"}
             icon="plus"
           >
-            Novo papel
+            {gettext("Novo papel")}
           </.button>
         </:actions>
       </.page_header>
@@ -62,13 +66,13 @@ defmodule LedgerStarterWeb.RolesLive do
         </div>
 
         <div class="px-7 pb-8">
-          <.card title="Matriz de permissões">
+          <.card title={gettext("Matriz de permissões")}>
             <:actions>
               <.badge id="editable-roles">{editable_text(roles)}</.badge>
             </:actions>
             <.table id="perms">
               <.table_head>
-                <:col label="Recurso" />
+                <:col label={gettext("Recurso")} />
                 <:col :for={role <- roles} label={role.label} />
               </.table_head>
               <.table_body id="perms-body">
@@ -104,7 +108,7 @@ defmodule LedgerStarterWeb.RolesLive do
             </div>
           </:header>
           <.form for={@form} id="role-form" phx-submit="save" class="flex flex-col gap-5">
-            <.input field={@form[:label]} label="Nome do papel" maxlength="40" />
+            <.input field={@form[:label]} label={gettext("Nome do papel")} maxlength="40" />
             <div :for={group <- @groups} :if={group.editable} class="flex flex-col gap-3">
               <span class="flex items-center gap-2.5">
                 <.icon name={group.icon} /><b class="font-medium">{group.label}</b>
@@ -124,14 +128,25 @@ defmodule LedgerStarterWeb.RolesLive do
                 id={"scope-#{group.key}"}
                 name={"role[#{group.key}][scope]"}
                 value={@state[group.key]["scope"]}
-                options={[{"Só os seus", "own"}, {"Do time", "team"}, {"Todos", "all"}]}
+                options={[
+                  {gettext("Só os seus"), "own"},
+                  {gettext("Do time"), "team"},
+                  {gettext("Todos"), "all"}
+                ]}
               />
             </div>
           </.form>
           <:footer>
-            <.button type="button" variant="outline" phx-click="close_drawer">Cancelar</.button>
-            <.button type="submit" form="role-form" icon="check" phx-disable-with="Salvando...">
-              Salvar papel
+            <.button type="button" variant="outline" phx-click="close_drawer">
+              {gettext("Cancelar")}
+            </.button>
+            <.button
+              type="submit"
+              form="role-form"
+              icon="check"
+              phx-disable-with={gettext("Salvando...")}
+            >
+              {gettext("Salvar papel")}
             </.button>
           </:footer>
         </.drawer>
@@ -150,13 +165,15 @@ defmodule LedgerStarterWeb.RolesLive do
   end
 
   defp level_badge(%{level: :all} = assigns),
-    do: ~H|<.badge color="success" icon="check">Tudo</.badge>|
+    do: ~H|<.badge color="success" icon="check">{gettext("Tudo")}</.badge>|
 
   defp level_badge(%{level: :view} = assigns),
-    do: ~H|<.badge color="info" icon="eye">Ver</.badge>|
+    do: ~H|<.badge color="info" icon="eye">{gettext("Ver")}</.badge>|
 
-  defp level_badge(%{level: :edit} = assigns), do: ~H|<.badge color="info">Editar</.badge>|
-  defp level_badge(assigns), do: ~H|<.badge color="neutral">Parcial</.badge>|
+  defp level_badge(%{level: :edit} = assigns),
+    do: ~H|<.badge color="info">{gettext("Editar")}</.badge>|
+
+  defp level_badge(assigns), do: ~H|<.badge color="neutral">{gettext("Parcial")}</.badge>|
 
   @impl true
   def mount(_params, _session, socket) do
@@ -165,7 +182,7 @@ defmodule LedgerStarterWeb.RolesLive do
     {:ok,
      socket
      |> assign(
-       page_title: "Papéis e permissões",
+       page_title: gettext("Papéis e permissões"),
        groups: Permissions.groups(),
        member_count: nil,
        form: nil,
@@ -191,7 +208,7 @@ defmodule LedgerStarterWeb.RolesLive do
         close(socket)
 
       not PermitEx.can?(scope, "team:write") ->
-        deny(socket, "Você não tem permissão para editar papéis.")
+        deny(socket, gettext("Você não tem permissão para editar papéis."))
 
       action == :new ->
         open(socket, nil, MapSet.new())
@@ -199,13 +216,13 @@ defmodule LedgerStarterWeb.RolesLive do
       true ->
         case Permissions.get_role(scope, params["role"]) do
           {:ok, %{locked: true}} ->
-            deny(socket, "Dono e Admin não podem ser editados.")
+            deny(socket, gettext("Dono e Admin não podem ser editados."))
 
           {:ok, role} ->
             open(socket, role, role.permissions)
 
           {:error, _} ->
-            deny(socket, "Papel não encontrado.")
+            deny(socket, gettext("Papel não encontrado."))
         end
     end
   end
@@ -219,12 +236,23 @@ defmodule LedgerStarterWeb.RolesLive do
       role: role,
       state: state,
       form: to_form(%{"label" => label || ""}, as: :role),
-      drawer_title: if(role, do: "Editar papel · #{role.label}", else: "Novo papel"),
+      drawer_title:
+        if(role,
+          do: gettext("Editar papel · %{name}", name: role.label),
+          else: gettext("Novo papel")
+        ),
       drawer_description:
         if(role,
           do:
-            "#{people(role.members)} usa#{if role.members == 1, do: "", else: "m"} este papel. A mudança vale no próximo clique delas.",
-          else: "Escolha um nome e o que o papel pode fazer. Depois é só atribuí-lo na Equipe."
+            ngettext(
+              "%{count} pessoa usa este papel. A mudança vale no próximo clique delas.",
+              "%{count} pessoas usam este papel. A mudança vale no próximo clique delas.",
+              role.members
+            ),
+          else:
+            gettext(
+              "Escolha um nome e o que o papel pode fazer. Depois é só atribuí-lo na Equipe."
+            )
         )
     )
   end
@@ -259,7 +287,7 @@ defmodule LedgerStarterWeb.RolesLive do
         {:noreply,
          socket
          |> assign(current_scope: Scope.reload(scope))
-         |> put_toast("Papel #{role.label} salvo.", color: "success")
+         |> put_toast(gettext("Papel %{name} salvo.", name: role.label), color: "success")
          |> load_roles()
          |> push_patch(to: ~p"/equipe/papeis")}
 
@@ -268,22 +296,26 @@ defmodule LedgerStarterWeb.RolesLive do
     end
   end
 
-  defp error_message(:unauthorized), do: "Você não tem permissão para editar papéis."
-  defp error_message(:role_locked), do: "Dono e Admin não podem ser editados."
-  defp error_message(:blank_label), do: "Dê um nome ao papel."
-  defp error_message(:label_too_long), do: "O nome do papel pode ter até 40 caracteres."
+  defp error_message(:unauthorized), do: gettext("Você não tem permissão para editar papéis.")
+  defp error_message(:role_locked), do: gettext("Dono e Admin não podem ser editados.")
+  defp error_message(:blank_label), do: gettext("Dê um nome ao papel.")
+  defp error_message(:label_too_long), do: gettext("O nome do papel pode ter até 40 caracteres.")
 
   defp error_message(:escalation),
-    do: "Você não pode liberar permissões que o seu próprio papel não tem."
+    do: gettext("Você não pode liberar permissões que o seu próprio papel não tem.")
 
-  defp error_message(_), do: "Não foi possível salvar o papel."
+  defp error_message(_), do: gettext("Não foi possível salvar o papel.")
 
   defp load_roles(socket) do
     scope = socket.assigns.current_scope
+    locale = LedgerStarter.Locale.current()
 
     socket
     |> assign(member_count: Companies.count_members(scope.company))
     |> assign_async(:roles, fn ->
+      # the async task is another process: carry the Gettext locale over (role labels)
+      LedgerStarter.Locale.put(locale)
+
       with {:ok, roles} <- Permissions.list_roles(scope), do: {:ok, %{roles: roles}}
     end)
   end
@@ -300,14 +332,21 @@ defmodule LedgerStarterWeb.RolesLive do
 
   defp editable_text(roles) do
     case for(r <- roles, not r.locked, do: r.label) do
-      [] -> "Nenhum papel editável"
-      [one] -> "#{one} é editável"
-      many -> "#{Enum.join(Enum.drop(many, -1), ", ")} e #{List.last(many)} são editáveis"
+      [] ->
+        gettext("Nenhum papel editável")
+
+      [one] ->
+        gettext("%{role} é editável", role: one)
+
+      many ->
+        gettext("%{roles} e %{last} são editáveis",
+          roles: Enum.join(Enum.drop(many, -1), ", "),
+          last: List.last(many)
+        )
     end
   end
 
-  defp people(1), do: "1 pessoa"
-  defp people(n), do: "#{n} pessoas"
+  defp people(n), do: ngettext("%{count} pessoa", "%{count} pessoas", n)
 
   defp tone("primary"), do: "accent"
   defp tone(t), do: t

@@ -25,14 +25,14 @@ defmodule LedgerStarter.Companies do
   def change_company(company \\ %Company{}, attrs \\ %{}, opts \\ []),
     do: Company.changeset(company, attrs, opts)
 
-  @doc "Whether the subdomain is valid and free (live check on the create form)."
+  @doc "Whether the subdomain is valid and free (live check on the create form); `{:invalid, {msg, opts}}` carries the changeset error."
   def subdomain_status(subdomain) when is_binary(subdomain) do
     changeset = Company.changeset(%Company{}, %{name: "x", subdomain: subdomain})
 
     case Keyword.get_values(changeset.errors, :subdomain) do
       [] -> :available
       [{"já está em uso", _} | _] -> :taken
-      [{msg, _} | _] -> {:invalid, msg}
+      [{_, _} = error | _] -> {:invalid, error}
     end
   end
 
@@ -134,7 +134,7 @@ defmodule LedgerStarter.Companies do
     for role <- roles,
         user_id <- PermitEx.users_with_role(role, company_id, repo: Repo),
         user = Repo.get(User, user_id) do
-      %{user: user, role_label: Permissions.label(role)}
+      %{user: user, role_label: Permissions.label(role), owner?: role.name == "owner"}
     end
   end
 

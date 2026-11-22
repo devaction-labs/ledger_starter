@@ -1,0 +1,1955 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:176
+#, elixir-autogen, elixir-format
+msgid "%{count} contato no seu funil"
+msgid_plural "%{count} contatos no seu funil"
+msgstr[0] "%{count} contact in your pipeline"
+msgstr[1] "%{count} contacts in your pipeline"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:321
+#, elixir-autogen, elixir-format
+msgid "%{count} contato no workspace %{name}."
+msgid_plural "%{count} contatos no workspace %{name}."
+msgstr[0] "%{count} contact in the %{name} workspace."
+msgstr[1] "%{count} contacts in the %{name} workspace."
+
+#: lib/ledger_starter_web/live/team_live.ex:241
+#, elixir-autogen, elixir-format
+msgid "%{count} convite enviado"
+msgid_plural "%{count} convites enviados"
+msgstr[0] "%{count} invitation sent"
+msgstr[1] "%{count} invitations sent"
+
+#: lib/ledger_starter_web/live/roles_live.ex:349
+#, elixir-autogen, elixir-format
+msgid "%{count} pessoa"
+msgid_plural "%{count} pessoas"
+msgstr[0] "%{count} person"
+msgstr[1] "%{count} people"
+
+#: lib/ledger_starter_web/live/roles_live.ex:247
+#, elixir-autogen, elixir-format
+msgid "%{count} pessoa usa este papel. A mudança vale no próximo clique delas."
+msgid_plural "%{count} pessoas usam este papel. A mudança vale no próximo clique delas."
+msgstr[0] "%{count} person has this role. The change applies on their next click."
+msgstr[1] "%{count} people have this role. The change applies on their next click."
+
+#: lib/ledger_starter_web/live/roles_live.ex:342
+#, elixir-autogen, elixir-format
+msgid "%{roles} e %{last} são editáveis"
+msgstr "%{roles} and %{last} are editable"
+
+#: lib/ledger_starter_web/live/roles_live.ex:339
+#, elixir-autogen, elixir-format
+msgid "%{role} é editável"
+msgstr "%{role} is editable"
+
+#: lib/ledger_starter_web/live/team_live.ex:247
+#, elixir-autogen, elixir-format
+msgid "%{sent} (%{skipped} já na equipe ou inválido)."
+msgstr "%{sent} (%{skipped} already on the team or invalid)."
+
+#: lib/ledger_starter_web/live/team_live.ex:358
+#, elixir-autogen, elixir-format
+msgid "%{used} de %{limit} assentos em uso."
+msgstr "%{used} of %{limit} seats in use."
+
+#: lib/ledger_starter/companies/invitation_notifier.ex:16
+#, elixir-autogen, elixir-format
+msgid "%{who} convidou você para %{company} no StartKit"
+msgstr "%{who} invited you to %{company} on StartKit"
+
+#: lib/ledger_starter/companies/invitation_notifier.ex:22
+#, elixir-autogen, elixir-format
+msgid "%{who} convidou você para entrar no workspace %{company}."
+msgstr "%{who} invited you to join the %{company} workspace."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:57
+#, elixir-autogen, elixir-format
+msgid "1 workspace"
+msgstr "1 workspace"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "14 dias grátis · sem cartão · Phoenix + LiveView + Ledger UI"
+msgstr "14 days free · no card · Phoenix + LiveView + Ledger UI"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:24
+#, elixir-autogen, elixir-format
+msgid "14 dias grátis, sem cartão. Você convida o time depois."
+msgstr "14 days free, no card. You invite the team later."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:46
+#, elixir-autogen, elixir-format
+msgid "140 componentes HEEx em Tailwind, tema claro e escuro e paletas."
+msgstr "140 HEEx components in Tailwind, light and dark themes and palettes."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:57
+#, elixir-autogen, elixir-format
+msgid "3 assentos"
+msgstr "3 seats"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:12
+#, elixir-autogen, elixir-format
+msgid "3 workspaces"
+msgstr "3 workspaces"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:72
+#, elixir-autogen, elixir-format
+msgid "Abra no mesmo navegador; ele vale por 15 minutos."
+msgstr "Open it in the same browser; it is valid for 15 minutes."
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Abrir workspace"
+msgstr "Open workspace"
+
+#: lib/ledger_starter/companies/invitation_notifier.ex:30
+#, elixir-autogen, elixir-format
+msgid "Aceitar convite"
+msgstr "Accept invitation"
+
+#: lib/ledger_starter/permissions.ex:159
+#: lib/ledger_starter_web/components/layouts.ex:121
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:128
+#, elixir-autogen, elixir-format
+msgid "Admin"
+msgstr "Admin"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:72
+#, elixir-autogen, elixir-format
+msgid "Agendar reunião"
+msgstr "Schedule a meeting"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:14
+#: lib/ledger_starter_web/live/workspace_live/index.ex:13
+#, elixir-autogen, elixir-format
+msgid "Ajuda"
+msgstr "Help"
+
+#: lib/ledger_starter/companies/invitation_notifier.ex:12
+#, elixir-autogen, elixir-format
+msgid "Alguém"
+msgstr "Someone"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:61
+#, elixir-autogen, elixir-format
+msgid "Alterando..."
+msgstr "Changing..."
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:62
+#, elixir-autogen, elixir-format
+msgid "Alterar e-mail"
+msgstr "Change email"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:41
+#, elixir-autogen, elixir-format
+msgid "Assentos por workspace, prontos para ligar ao seu gateway de cobrança."
+msgstr "Seats per workspace, ready to plug into your billing gateway."
+
+#: lib/ledger_starter_web/live/team_live.ex:62
+#, elixir-autogen, elixir-format
+msgid "Ativo"
+msgstr "Active"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:78
+#, elixir-autogen, elixir-format
+msgid "Auditoria e logs"
+msgstr "Audit and logs"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:15
+#, elixir-autogen, elixir-format
+msgid "Auth completa"
+msgstr "Complete auth"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:68
+#, elixir-autogen, elixir-format
+msgid "Automações e relatórios"
+msgstr "Automations and reports"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:62
+#: lib/ledger_starter_web/live/team_live.ex:72
+#, elixir-autogen, elixir-format
+msgid "Ações"
+msgstr "Actions"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:60
+#, elixir-autogen, elixir-format
+msgid "Bem-vindo ao StartKit! Confirme seu e-mail e entre usando o botão abaixo. O link vale por 15 minutos."
+msgstr "Welcome to StartKit! Confirm your email and sign in with the button below. The link is valid for 15 minutes."
+
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:22
+#, elixir-autogen, elixir-format
+msgid "Bem-vindo de volta"
+msgstr "Welcome back"
+
+#: lib/ledger_starter_web/controllers/user_session_controller.ex:12
+#, elixir-autogen, elixir-format
+msgid "Bem-vindo de volta!"
+msgstr "Welcome back!"
+
+#: lib/ledger_starter_web/controllers/google_auth_controller.ex:37
+#, elixir-autogen, elixir-format
+msgid "Bem-vindo, %{name}!"
+msgstr "Welcome, %{name}!"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:54
+#, elixir-autogen, elixir-format
+msgid "Bom dia, Alex"
+msgstr "Good morning, Alex"
+
+#: lib/ledger_starter_web/components/layouts.ex:106
+#, elixir-autogen, elixir-format
+msgid "CRM"
+msgstr "CRM"
+
+#: lib/ledger_starter/permissions.ex:170
+#, elixir-autogen, elixir-format
+msgid "CRM do time"
+msgstr "team CRM"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:110
+#, elixir-autogen, elixir-format
+msgid "Cada cliente do seu SaaS ganha um workspace com endereço próprio. Uma pessoa pode estar em vários e trocar sem sair."
+msgstr "Each customer of your SaaS gets a workspace with its own address. A person can be in several and switch without signing out."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:25
+#, elixir-autogen, elixir-format
+msgid "Cada empresa é um tenant: dados isolados, subdomínio próprio e troca rápida."
+msgstr "Each company is a tenant: isolated data, its own subdomain and quick switching."
+
+#: lib/ledger_starter_web/live/company_live/new.ex:37
+#, elixir-autogen, elixir-format
+msgid "Cada empresa é um workspace separado: dados, time e permissões próprios."
+msgstr "Each company is a separate workspace: its own data, team and permissions."
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:26
+#, elixir-autogen, elixir-format
+msgid "Cadastrar com Google"
+msgstr "Sign up with Google"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:86
+#, elixir-autogen, elixir-format
+msgid "Cadastre o primeiro contato do workspace %{name}."
+msgstr "Add the first contact of the %{name} workspace."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:150
+#: lib/ledger_starter_web/live/roles_live.ex:141
+#: lib/ledger_starter_web/live/team_live.ex:154
+#, elixir-autogen, elixir-format
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: lib/ledger_starter_web/live/team_live.ex:89
+#, elixir-autogen, elixir-format
+msgid "Cancelar convite"
+msgstr "Cancel invitation"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:36
+#, elixir-autogen, elixir-format
+msgid "Carregando"
+msgstr "Loading"
+
+#: lib/ledger_starter_web/components/layouts.ex:62
+#: lib/ledger_starter_web/live/user_live/settings.ex:21
+#, elixir-autogen, elixir-format
+msgid "Claro"
+msgstr "Light"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:143
+#: lib/ledger_starter_web/live/dashboard_live.ex:213
+#, elixir-autogen, elixir-format
+msgid "Cliente"
+msgstr "Customer"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:114
+#, elixir-autogen, elixir-format
+msgid "Clientes"
+msgstr "Customers"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:42
+#, elixir-autogen, elixir-format
+msgid "Clique no botão para entrar. O link vale por 15 minutos e só pode ser usado uma vez."
+msgstr "Click the button to sign in. The link is valid for 15 minutes and can only be used once."
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:177
+#, elixir-autogen, elixir-format
+msgid "Clone o StartKit e venda na segunda-feira"
+msgstr "Clone StartKit and sell on Monday"
+
+#: lib/ledger_starter/permissions.ex:94
+#, elixir-autogen, elixir-format
+msgid "Cobrança e plano"
+msgstr "Billing and plan"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:143
+#, elixir-autogen, elixir-format
+msgid "Cobre por assento desde o primeiro dia"
+msgstr "Charge per seat from day one"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:24
+#, elixir-autogen, elixir-format
+msgid "Comercial · Orbit Cloud"
+msgstr "Sales · Orbit Cloud"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:14
+#: lib/ledger_starter_web/controllers/page_html/legal.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "Começar grátis"
+msgstr "Get started free"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:70
+#, elixir-autogen, elixir-format
+msgid "Começar teste"
+msgstr "Start trial"
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Compartilhamento"
+msgstr "Sharing"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:25
+#, elixir-autogen, elixir-format
+msgid "Configuramos o funil e convidamos o time no mesmo dia."
+msgstr "We set up the pipeline and invited the team on the same day."
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:70
+#, elixir-autogen, elixir-format
+msgid "Confira seu e-mail"
+msgstr "Check your email"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:65
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:38
+#, elixir-autogen, elixir-format
+msgid "Confirmar e entrar"
+msgstr "Confirm and sign in"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:22
+#, elixir-autogen, elixir-format
+msgid "Confirmar e-mail"
+msgstr "Confirm email"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:101
+#, elixir-autogen, elixir-format
+msgid "Confirmar nova senha"
+msgstr "Confirm new password"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:16
+#, elixir-autogen, elixir-format
+msgid "Confirme a alteração do seu e-mail"
+msgstr "Confirm your email change"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:17
+#, elixir-autogen, elixir-format
+msgid "Confirme seu novo e-mail"
+msgstr "Confirm your new email"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:58
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:22
+#, elixir-autogen, elixir-format
+msgid "Confirme sua conta"
+msgstr "Confirm your account"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:57
+#, elixir-autogen, elixir-format
+msgid "Confirme sua conta no StartKit"
+msgstr "Confirm your StartKit account"
+
+#: lib/ledger_starter_web/user_auth.ex:323
+#, elixir-autogen, elixir-format
+msgid "Confirme sua identidade para acessar esta página."
+msgstr "Confirm your identity to access this page."
+
+#: lib/ledger_starter_web/live/company_live/new.ex:31
+#, elixir-autogen, elixir-format
+msgid "Conta"
+msgstr "Account"
+
+#: lib/ledger_starter_web/controllers/user_session_controller.ex:8
+#, elixir-autogen, elixir-format
+msgid "Conta confirmada!"
+msgstr "Account confirmed!"
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:23
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Contato"
+msgstr "Contact"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:280
+#, elixir-autogen, elixir-format
+msgid "Contato atualizado."
+msgstr "Contact updated."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:264
+#, elixir-autogen, elixir-format
+msgid "Contato criado."
+msgstr "Contact created."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:249
+#, elixir-autogen, elixir-format
+msgid "Contato excluído."
+msgstr "Contact deleted."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:205
+#: lib/ledger_starter_web/live/contact_live/index.ex:252
+#, elixir-autogen, elixir-format
+msgid "Contato não encontrado."
+msgstr "Contact not found."
+
+#: lib/ledger_starter_web/components/layouts.ex:107
+#: lib/ledger_starter_web/live/contact_live/index.ex:16
+#: lib/ledger_starter_web/live/contact_live/index.ex:18
+#: lib/ledger_starter_web/live/contact_live/index.ex:171
+#: lib/ledger_starter_web/live/dashboard_live.ex:90
+#: lib/ledger_starter_web/live/forbidden_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Contatos"
+msgstr "Contacts"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:36
+#, elixir-autogen, elixir-format
+msgid "Contatos com etapas Lead, Qualificado e Cliente."
+msgstr "Contacts with Lead, Qualified and Customer stages."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:317
+#, elixir-autogen, elixir-format
+msgid "Contatos do workspace %{name}."
+msgstr "Contacts of the %{name} workspace."
+
+#: lib/ledger_starter/permissions.ex:42
+#, elixir-autogen, elixir-format
+msgid "Contatos e empresas"
+msgstr "Contacts and companies"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:57
+#, elixir-autogen, elixir-format
+msgid "Contatos e funil"
+msgstr "Contacts and pipeline"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Contatos e funil de vendas, com uma empresa por workspace, time com papéis e limite de assentos. Clone, troque a marca e publique."
+msgstr "Contacts and a sales pipeline, with one company per workspace, a team with roles and a seat limit. Clone, swap the brand and ship."
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:124
+#, elixir-autogen, elixir-format
+msgid "Contatos recentes"
+msgstr "Recent contacts"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:30
+#, elixir-autogen, elixir-format
+msgid "Continuar com Google"
+msgstr "Continue with Google"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:117
+#, elixir-autogen, elixir-format
+msgid "Convida o time"
+msgstr "Invites the team"
+
+#: lib/ledger_starter/permissions.ex:88
+#, elixir-autogen, elixir-format
+msgid "Convidar e editar papéis"
+msgstr "Invite and edit roles"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:39
+#: lib/ledger_starter_web/live/dashboard_live.ex:196
+#, elixir-autogen, elixir-format
+msgid "Convidar o time"
+msgstr "Invite the team"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:67
+#: lib/ledger_starter_web/live/team_live.ex:33
+#: lib/ledger_starter_web/live/team_live.ex:109
+#, elixir-autogen, elixir-format
+msgid "Convidar pessoas"
+msgstr "Invite people"
+
+#: lib/ledger_starter_web/live/team_live.ex:285
+#, elixir-autogen, elixir-format
+msgid "Convite cancelado."
+msgstr "Invitation canceled."
+
+#: lib/ledger_starter_web/live/team_live.ex:62
+#, elixir-autogen, elixir-format
+msgid "Convite enviado"
+msgstr "Invitation sent"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:33
+#, elixir-autogen, elixir-format
+msgid "Convites"
+msgstr "Invitations"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:31
+#, elixir-autogen, elixir-format
+msgid "Convites por e-mail, papéis Dono, Admin e Membro com permissões por empresa."
+msgstr "Email invitations, Owner, Admin and Member roles with per-company permissions."
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:115
+#, elixir-autogen, elixir-format
+msgid "Cria a conta"
+msgstr "Creates the account"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:116
+#, elixir-autogen, elixir-format
+msgid "Cria a empresa"
+msgstr "Creates the company"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:52
+#, elixir-autogen, elixir-format
+msgid "Criado"
+msgstr "Created"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:71
+#: lib/ledger_starter_web/live/user_live/registration.ex:106
+#, elixir-autogen, elixir-format
+msgid "Criar conta"
+msgstr "Create account"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:78
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:53
+#, elixir-autogen, elixir-format
+msgid "Criar conta grátis"
+msgstr "Create a free account"
+
+#: lib/ledger_starter/permissions.ex:35
+#, elixir-autogen, elixir-format
+msgid "Criar e editar"
+msgstr "Create and edit"
+
+#: lib/ledger_starter_web/components/layouts.ex:173
+#: lib/ledger_starter_web/live/company_live/new.ex:79
+#, elixir-autogen, elixir-format
+msgid "Criar empresa"
+msgstr "Create company"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:33
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:184
+#, elixir-autogen, elixir-format
+msgid "Criar meu workspace"
+msgstr "Create my workspace"
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:45
+#, elixir-autogen, elixir-format
+msgid "Criar uma nova empresa"
+msgstr "Create a new company"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:68
+#, elixir-autogen, elixir-format
+msgid "Criar workspace"
+msgstr "Create workspace"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:23
+#, elixir-autogen, elixir-format
+msgid "Crie sua conta"
+msgstr "Create your account"
+
+#: lib/ledger_starter_web/controllers/invitation_controller.ex:47
+#, elixir-autogen, elixir-format
+msgid "Crie sua conta ou entre para entrar em %{company}."
+msgstr "Create your account or sign in to join %{company}."
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Dados e encerramento"
+msgstr "Data and termination"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:24
+#, elixir-autogen, elixir-format
+msgid "Dados isolados"
+msgstr "Isolated data"
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Dados que usamos"
+msgstr "Data we use"
+
+#: lib/ledger_starter_web/live/roles_live.ex:31
+#, elixir-autogen, elixir-format
+msgid "Defina o que cada papel pode ver e fazer no workspace %{name}."
+msgstr "Define what each role can see and do in the %{name} workspace."
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Disponibilidade"
+msgstr "Availability"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:139
+#, elixir-autogen, elixir-format
+msgid "Disponível: seu time entra por %{host}"
+msgstr "Available: your team signs in at %{host}"
+
+#: lib/ledger_starter/permissions.ex:377
+#: lib/ledger_starter_web/live/roles_live.ex:133
+#, elixir-autogen, elixir-format
+msgid "Do time"
+msgstr "Team"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:77
+#, elixir-autogen, elixir-format
+msgid "Domínio próprio"
+msgstr "Custom domain"
+
+#: lib/ledger_starter/permissions.ex:151
+#: lib/ledger_starter_web/components/layouts.ex:120
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:125
+#, elixir-autogen, elixir-format
+msgid "Dono"
+msgstr "Owner"
+
+#: lib/ledger_starter_web/live/roles_live.ex:219
+#: lib/ledger_starter_web/live/roles_live.ex:300
+#, elixir-autogen, elixir-format
+msgid "Dono e Admin não podem ser editados."
+msgstr "Owner and Admin cannot be edited."
+
+#: lib/ledger_starter_web/live/roles_live.ex:301
+#, elixir-autogen, elixir-format
+msgid "Dê um nome ao papel."
+msgstr "Give the role a name."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:45
+#: lib/ledger_starter_web/live/contact_live/index.ex:122
+#: lib/ledger_starter_web/live/user_live/settings.ex:42
+#: lib/ledger_starter_web/live/user_live/settings.ex:55
+#, elixir-autogen, elixir-format
+msgid "E-mail"
+msgstr "Email"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:140
+#, elixir-autogen, elixir-format
+msgid "E-mail alterado."
+msgstr "Email changed."
+
+#: lib/ledger_starter_web/live/user_live/login.ex:55
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:38
+#: lib/ledger_starter_web/live/user_live/registration.ex:49
+#, elixir-autogen, elixir-format
+msgid "E-mail de trabalho"
+msgstr "Work email"
+
+#: lib/ledger_starter_web/controllers/user_session_controller.ex:43
+#: lib/ledger_starter_web/live/user_live/login.ex:51
+#: lib/ledger_starter_web/live/user_live/login.ex:95
+#, elixir-autogen, elixir-format
+msgid "E-mail ou senha inválidos."
+msgstr "Invalid email or password."
+
+#: lib/ledger_starter_web/live/team_live.ex:126
+#, elixir-autogen, elixir-format
+msgid "E-mails"
+msgstr "Emails"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:70
+#: lib/ledger_starter_web/live/roles_live.ex:175
+#, elixir-autogen, elixir-format
+msgid "Editar"
+msgstr "Edit"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:101
+#, elixir-autogen, elixir-format
+msgid "Editar contato"
+msgstr "Edit contact"
+
+#: lib/ledger_starter_web/live/roles_live.ex:241
+#, elixir-autogen, elixir-format
+msgid "Editar papel · %{name}"
+msgstr "Edit role · %{name}"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:104
+#, elixir-autogen, elixir-format
+msgid "Ele fica visível para todo o time do %{name}."
+msgstr "It is visible to the whole %{name} team."
+
+#: lib/ledger_starter_web/live/team_live.ex:111
+#, elixir-autogen, elixir-format
+msgid "Eles recebem um link para entrar em %{host}."
+msgstr "They receive a link to join %{host}."
+
+#: lib/ledger_starter_web/live/company_live/new.ex:32
+#: lib/ledger_starter_web/live/contact_live/index.ex:46
+#: lib/ledger_starter_web/live/contact_live/index.ex:133
+#: lib/ledger_starter_web/live/dashboard_live.ex:134
+#: lib/ledger_starter_web/live/dashboard_live.ex:194
+#, elixir-autogen, elixir-format
+msgid "Empresa"
+msgstr "Company"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:58
+#, elixir-autogen, elixir-format
+msgid "Endereço do workspace"
+msgstr "Workspace address"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:13
+#: lib/ledger_starter_web/controllers/page_html/legal.html.heex:9
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:38
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:52
+#: lib/ledger_starter_web/live/user_live/login.ex:73
+#: lib/ledger_starter_web/live/user_live/login.ex:91
+#: lib/ledger_starter_web/live/user_live/registration.ex:88
+#, elixir-autogen, elixir-format
+msgid "Entrar"
+msgstr "Sign in"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:47
+#, elixir-autogen, elixir-format
+msgid "Entrar agora"
+msgstr "Sign in now"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:38
+#, elixir-autogen, elixir-format
+msgid "Entrar com link mágico"
+msgstr "Sign in with a magic link"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:49
+#, elixir-autogen, elixir-format
+msgid "Entrar com senha"
+msgstr "Sign in with a password"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:40
+#: lib/ledger_starter_web/live/user_live/login.ex:27
+#, elixir-autogen, elixir-format
+msgid "Entrar no StartKit"
+msgstr "Sign in to StartKit"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:28
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:91
+#, elixir-autogen, elixir-format
+msgid "Entrar sem senha"
+msgstr "Sign in without a password"
+
+#: lib/ledger_starter_web/user_auth.ex:267
+#: lib/ledger_starter_web/user_auth.ex:386
+#, elixir-autogen, elixir-format
+msgid "Entre para acessar esta página."
+msgstr "Sign in to access this page."
+
+#: lib/ledger_starter_web/plugs/tenant.ex:56
+#, elixir-autogen, elixir-format
+msgid "Entre para acessar este workspace."
+msgstr "Sign in to access this workspace."
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:72
+#, elixir-autogen, elixir-format
+msgid "Enviamos um link de acesso para"
+msgstr "We sent an access link to"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:205
+#, elixir-autogen, elixir-format
+msgid "Enviamos um link de confirmação para o novo e-mail."
+msgstr "We sent a confirmation link to the new email."
+
+#: lib/ledger_starter_web/live/team_live.ex:156
+#, elixir-autogen, elixir-format
+msgid "Enviando..."
+msgstr "Sending..."
+
+#: lib/ledger_starter_web/live/team_live.ex:363
+#, elixir-autogen, elixir-format
+msgid "Enviar %{count} convite"
+msgid_plural "Enviar %{count} convites"
+msgstr[0] "Send %{count} invitation"
+msgstr[1] "Send %{count} invitations"
+
+#: lib/ledger_starter_web/live/team_live.ex:360
+#, elixir-autogen, elixir-format
+msgid "Enviar convites"
+msgstr "Send invitations"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:74
+#, elixir-autogen, elixir-format
+msgid "Enviar e-mail"
+msgstr "Send email"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:45
+#, elixir-autogen, elixir-format
+msgid "Enviar link mágico"
+msgstr "Send magic link"
+
+#: lib/ledger_starter_web/components/layouts.ex:97
+#: lib/ledger_starter_web/components/team_components.ex:13
+#: lib/ledger_starter_web/live/dashboard_live.ex:82
+#: lib/ledger_starter_web/live/forbidden_live.ex:14
+#: lib/ledger_starter_web/live/team_live.ex:19
+#: lib/ledger_starter_web/live/team_live.ex:25
+#: lib/ledger_starter_web/live/team_live.ex:175
+#, elixir-autogen, elixir-format
+msgid "Equipe"
+msgstr "Team"
+
+#: lib/ledger_starter/permissions.ex:82
+#, elixir-autogen, elixir-format
+msgid "Equipe e convites"
+msgstr "Team and invitations"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:80
+#, elixir-autogen, elixir-format
+msgid "Errou o e-mail?"
+msgstr "Wrong email?"
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:22
+#, elixir-autogen, elixir-format
+msgid "Escolha o workspace"
+msgstr "Choose a workspace"
+
+#: lib/ledger_starter_web/live/roles_live.ex:253
+#, elixir-autogen, elixir-format
+msgid "Escolha um nome e o que o papel pode fazer. Depois é só atribuí-lo na Equipe."
+msgstr "Pick a name and what the role can do. Then just assign it on the Team page."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:58
+#: lib/ledger_starter_web/controllers/page_html.ex:81
+#, elixir-autogen, elixir-format
+msgid "Escolher"
+msgstr "Choose"
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:65
+#, elixir-autogen, elixir-format
+msgid "Escolher workspace"
+msgstr "Choose workspace"
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:25
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "Escreva para"
+msgstr "Write to"
+
+#: lib/ledger_starter_web/components/layouts.ex:63
+#: lib/ledger_starter_web/live/user_live/settings.ex:22
+#, elixir-autogen, elixir-format
+msgid "Escuro"
+msgstr "Dark"
+
+#: lib/ledger_starter_web/controllers/invitation_controller.ex:16
+#, elixir-autogen, elixir-format
+msgid "Este convite é inválido ou expirou."
+msgstr "This invitation is invalid or has expired."
+
+#: lib/ledger_starter_web/controllers/invitation_controller.ex:30
+#, elixir-autogen, elixir-format
+msgid "Este convite é para %{email}. Entre com esse e-mail para aceitar."
+msgstr "This invitation is for %{email}. Sign in with that email to accept it."
+
+#: lib/ledger_starter_web/live/company_live/new.ex:142
+#, elixir-autogen, elixir-format
+msgid "Este endereço já está em uso."
+msgstr "This address is already taken."
+
+#: lib/ledger_starter_web/live/team_live.ex:148
+#, elixir-autogen, elixir-format
+msgid "Estes convites passam do limite."
+msgstr "These invitations exceed the limit."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:47
+#: lib/ledger_starter_web/live/contact_live/index.ex:136
+#: lib/ledger_starter_web/live/dashboard_live.ex:135
+#, elixir-autogen, elixir-format
+msgid "Etapa"
+msgstr "Stage"
+
+#: lib/ledger_starter/permissions.ex:36
+#: lib/ledger_starter/permissions.ex:107
+#: lib/ledger_starter_web/live/contact_live/index.ex:80
+#, elixir-autogen, elixir-format
+msgid "Excluir"
+msgstr "Delete"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:77
+#, elixir-autogen, elixir-format
+msgid "Excluir este contato?"
+msgstr "Delete this contact?"
+
+#: lib/ledger_starter/permissions.ex:102
+#, elixir-autogen, elixir-format
+msgid "Excluir o workspace"
+msgstr "Delete the workspace"
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Exclusão"
+msgstr "Deletion"
+
+#: lib/ledger_starter/permissions.ex:78
+#, elixir-autogen, elixir-format
+msgid "Exportar"
+msgstr "Export"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:184
+#, elixir-autogen, elixir-format
+msgid "Falta %{count} passo para o time vender pelo StartKit."
+msgid_plural "Faltam %{count} passos para o time vender pelo StartKit."
+msgstr[0] "%{count} step left before the team can sell with StartKit."
+msgstr[1] "%{count} steps left before the team can sell with StartKit."
+
+#: lib/ledger_starter_web/components/auth_components.ex:34
+#: lib/ledger_starter_web/components/layouts.ex:88
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:2
+#: lib/ledger_starter_web/controllers/page_html/legal.html.heex:2
+#: lib/ledger_starter_web/live/user_live/settings.ex:12
+#, elixir-autogen, elixir-format
+msgid "Fechar"
+msgstr "Close"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:61
+#, elixir-autogen, elixir-format
+msgid "Forte: 12+ caracteres com número e símbolo."
+msgstr "Strong: 12+ characters with a number and a symbol."
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:20
+#, elixir-autogen, elixir-format
+msgid "Fundador · Lumen Studio"
+msgstr "Founder · Lumen Studio"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:35
+#, elixir-autogen, elixir-format
+msgid "Funil de vendas"
+msgstr "Sales pipeline"
+
+#: lib/ledger_starter_web/components/layouts.ex:102
+#, elixir-autogen, elixir-format
+msgid "Geral"
+msgstr "General"
+
+#: lib/ledger_starter/permissions.ex:98
+#, elixir-autogen, elixir-format
+msgid "Gerenciar plano"
+msgstr "Manage plan"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:36
+#, elixir-autogen, elixir-format
+msgid "Gerencie seu e-mail, sua senha e o idioma."
+msgstr "Manage your email, password and language."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:67
+#, elixir-autogen, elixir-format
+msgid "Google OAuth e SSO"
+msgstr "Google OAuth and SSO"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:17
+#, elixir-autogen, elixir-format
+msgid "Google OAuth, e-mail e senha e link mágico. Sessão compartilhada entre workspaces."
+msgstr "Google OAuth, email and password, and magic link. Session shared across workspaces."
+
+#: lib/ledger_starter_web/components/core_components.ex:26
+#: lib/ledger_starter_web/live/user_live/settings.ex:117
+#, elixir-autogen, elixir-format
+msgid "Idioma"
+msgstr "Language"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:123
+#, elixir-autogen, elixir-format
+msgid "Idioma do aplicativo e dos e-mails"
+msgstr "App and email language"
+
+#: lib/ledger_starter/permissions.ex:78
+#, elixir-autogen, elixir-format
+msgid "Importar"
+msgstr "Import"
+
+#: lib/ledger_starter/permissions.ex:74
+#, elixir-autogen, elixir-format
+msgid "Importar e exportar"
+msgstr "Import and export"
+
+#: lib/ledger_starter_web/live/team_live.ex:266
+#, elixir-autogen, elixir-format
+msgid "Informe ao menos um e-mail."
+msgstr "Enter at least one email."
+
+#: lib/ledger_starter_web/components/layouts.ex:103
+#: lib/ledger_starter_web/live/dashboard_live.ex:15
+#: lib/ledger_starter_web/live/dashboard_live.ex:153
+#, elixir-autogen, elixir-format
+msgid "Início"
+msgstr "Home"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:87
+#, elixir-autogen, elixir-format
+msgid "Já tem conta?"
+msgstr "Already have an account?"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:141
+#: lib/ledger_starter_web/live/dashboard_live.ex:211
+#, elixir-autogen, elixir-format
+msgid "Lead"
+msgstr "Lead"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:98
+#, elixir-autogen, elixir-format
+msgid "Leads"
+msgstr "Leads"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:45
+#, elixir-autogen, elixir-format
+msgid "Ledger UI"
+msgstr "Ledger UI"
+
+#: lib/ledger_starter/permissions.ex:181
+#: lib/ledger_starter_web/components/layouts.ex:123
+#, elixir-autogen, elixir-format
+msgid "Leitura"
+msgstr "Viewer"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:66
+#, elixir-autogen, elixir-format
+msgid "Li e aceito os"
+msgstr "I have read and accept the"
+
+#: lib/ledger_starter_web/live/team_live.ex:273
+#, elixir-autogen, elixir-format
+msgid "Limite de assentos atingido. Remova convites ou aumente o plano."
+msgstr "Seat limit reached. Remove invitations or upgrade the plan."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:40
+#, elixir-autogen, elixir-format
+msgid "Limite por assento"
+msgstr "Per-seat limit"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:22
+#, elixir-autogen, elixir-format
+msgid "Link de uso único"
+msgstr "One-time link"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:64
+#, elixir-autogen, elixir-format
+msgid "Link enviado"
+msgstr "Link sent"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:106
+#, elixir-autogen, elixir-format
+msgid "Link reenviado."
+msgstr "Link sent again."
+
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:15
+#, elixir-autogen, elixir-format
+msgid "Link válido"
+msgstr "Valid link"
+
+#: lib/ledger_starter_web/controllers/google_auth_controller.ex:18
+#, elixir-autogen, elixir-format
+msgid "Login com Google não está configurado."
+msgstr "Google sign-in is not configured."
+
+#: lib/ledger_starter_web/controllers/page_html.ex:62
+#, elixir-autogen, elixir-format
+msgid "Mais escolhido"
+msgstr "Most popular"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:30
+#, elixir-autogen, elixir-format
+msgid "Mandamos um link de acesso para o seu e-mail. Ele vale por 15 minutos e entra direto no seu workspace."
+msgstr "We will send an access link to your email. It is valid for 15 minutes and takes you straight into your workspace."
+
+#: lib/ledger_starter_web/live/user_live/login.ex:71
+#, elixir-autogen, elixir-format
+msgid "Manter conectado"
+msgstr "Stay signed in"
+
+#: lib/ledger_starter_web/live/roles_live.ex:69
+#, elixir-autogen, elixir-format
+msgid "Matriz de permissões"
+msgstr "Permission matrix"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:131
+#, elixir-autogen, elixir-format
+msgid "Membro"
+msgstr "Member"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:56
+#, elixir-autogen, elixir-format
+msgid "Meta de novembro"
+msgstr "November goal"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:26
+#, elixir-autogen, elixir-format
+msgid "Meus workspaces"
+msgstr "My workspaces"
+
+#: lib/ledger_starter_web/components/layouts.ex:70
+#: lib/ledger_starter_web/live/user_live/settings.ex:33
+#, elixir-autogen, elixir-format
+msgid "Minha conta"
+msgstr "My account"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:66
+#: lib/ledger_starter_web/live/user_live/registration.ex:59
+#: lib/ledger_starter_web/live/user_live/settings.ex:95
+#: lib/ledger_starter_web/live/user_live/settings.ex:103
+#, elixir-autogen, elixir-format
+msgid "Mostrar a senha"
+msgstr "Show password"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:104
+#, elixir-autogen, elixir-format
+msgid "Multi-tenant de verdade"
+msgstr "Truly multi-tenant"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:23
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Multiempresa"
+msgstr "Multi-company"
+
+#: lib/ledger_starter/permissions.ex:50
+#, elixir-autogen, elixir-format
+msgid "Negócios e funil"
+msgstr "Deals and pipeline"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:85
+#, elixir-autogen, elixir-format
+msgid "Nenhum contato ainda"
+msgstr "No contacts yet"
+
+#: lib/ledger_starter_web/live/roles_live.ex:336
+#, elixir-autogen, elixir-format
+msgid "Nenhum papel editável"
+msgstr "No editable roles"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:39
+#: lib/ledger_starter_web/live/contact_live/index.ex:114
+#: lib/ledger_starter_web/live/dashboard_live.ex:133
+#, elixir-autogen, elixir-format
+msgid "Nome"
+msgstr "Name"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:49
+#, elixir-autogen, elixir-format
+msgid "Nome da empresa"
+msgstr "Company name"
+
+#: lib/ledger_starter_web/live/roles_live.ex:111
+#, elixir-autogen, elixir-format
+msgid "Nome do papel"
+msgstr "Role name"
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Nome, e-mail e, ao entrar com o Google, a foto do seu perfil. Usamos esses dados somente para criar sua conta e autenticar seu acesso. Os dados de contatos que você cadastra pertencem ao seu workspace e ficam isolados dos demais."
+msgstr "Name, email and, when you sign in with Google, your profile picture. We use this data only to create your account and authenticate your access. The contact data you add belongs to your workspace and is isolated from all others."
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:93
+#, elixir-autogen, elixir-format
+msgid "Nova senha"
+msgstr "New password"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:55
+#, elixir-autogen, elixir-format
+msgid "Novembro está 12% acima de outubro"
+msgstr "November is 12% ahead of October"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:65
+#: lib/ledger_starter_web/live/contact_live/index.ex:26
+#: lib/ledger_starter_web/live/contact_live/index.ex:101
+#: lib/ledger_starter_web/live/dashboard_live.ex:48
+#: lib/ledger_starter_web/live/dashboard_live.ex:59
+#, elixir-autogen, elixir-format
+msgid "Novo contato"
+msgstr "New contact"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:67
+#, elixir-autogen, elixir-format
+msgid "Novo negócio"
+msgstr "New deal"
+
+#: lib/ledger_starter_web/live/roles_live.ex:43
+#: lib/ledger_starter_web/live/roles_live.ex:242
+#, elixir-autogen, elixir-format
+msgid "Novo papel"
+msgstr "New role"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:77
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:52
+#, elixir-autogen, elixir-format
+msgid "Novo por aqui?"
+msgstr "New here?"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Novo · login com Google e convites por link"
+msgstr "New · Google sign-in and invitation links"
+
+#: lib/ledger_starter_web/controllers/invitation_controller.ex:38
+#, elixir-autogen, elixir-format
+msgid "Não foi possível aceitar o convite."
+msgstr "Could not accept the invitation."
+
+#: lib/ledger_starter_web/live/team_live.ex:288
+#, elixir-autogen, elixir-format
+msgid "Não foi possível cancelar o convite."
+msgstr "Could not cancel the invitation."
+
+#: lib/ledger_starter_web/controllers/google_auth_controller.ex:44
+#, elixir-autogen, elixir-format
+msgid "Não foi possível entrar com o Google. Tente novamente ou use seu e-mail."
+msgstr "Could not sign in with Google. Try again or use your email."
+
+#: lib/ledger_starter_web/live/team_live.ex:277
+#, elixir-autogen, elixir-format
+msgid "Não foi possível enviar os convites."
+msgstr "Could not send the invitations."
+
+#: lib/ledger_starter_web/controllers/google_auth_controller.ex:23
+#, elixir-autogen, elixir-format
+msgid "Não foi possível iniciar o login com Google."
+msgstr "Could not start the Google sign-in."
+
+#: lib/ledger_starter_web/live/roles_live.ex:307
+#, elixir-autogen, elixir-format
+msgid "Não foi possível salvar o papel."
+msgstr "Could not save the role."
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Não vendemos nem cedemos seus dados a terceiros. Usamos provedores de infraestrutura e de envio de e-mail apenas para operar o serviço."
+msgstr "We do not sell or hand your data to third parties. We use infrastructure and email providers only to run the service."
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:48
+#, elixir-autogen, elixir-format
+msgid "Não é você?"
+msgstr "Not you?"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:28
+#, elixir-autogen, elixir-format
+msgid "O CRM da sua empresa, com o time inteiro no mesmo funil."
+msgstr "Your company's CRM, with the whole team on the same pipeline."
+
+#: lib/ledger_starter_web/controllers/page_controller.ex:8
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:24
+#, elixir-autogen, elixir-format
+msgid "O CRM pronto para virar o seu SaaS"
+msgstr "The CRM ready to become your SaaS"
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "O StartKit é um aplicativo de demonstração operado pela DevAction Labs. Ao criar uma conta você concorda com estes termos."
+msgstr "StartKit is a demo application operated by DevAction Labs. By creating an account you agree to these terms."
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "O StartKit é um aplicativo de demonstração operado pela DevAction Labs. Esta política explica, de forma resumida, como tratamos seus dados."
+msgstr "StartKit is a demo application operated by DevAction Labs. This policy briefly explains how we handle your data."
+
+#: lib/ledger_starter/companies/invitation_notifier.ex:26
+#, elixir-autogen, elixir-format
+msgid "O convite vale por 7 dias. Entre com o e-mail %{email} para aceitar."
+msgstr "The invitation is valid for 7 days. Sign in with the email %{email} to accept it."
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:146
+#, elixir-autogen, elixir-format
+msgid "O link de alteração de e-mail é inválido ou expirou."
+msgstr "The email change link is invalid or has expired."
+
+#: lib/ledger_starter_web/controllers/user_session_controller.ex:27
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:60
+#, elixir-autogen, elixir-format
+msgid "O link é inválido ou expirou."
+msgstr "The link is invalid or has expired."
+
+#: lib/ledger_starter_web/live/roles_live.ex:302
+#, elixir-autogen, elixir-format
+msgid "O nome do papel pode ter até 40 caracteres."
+msgstr "The role name can be up to 40 characters long."
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:83
+#, elixir-autogen, elixir-format
+msgid "O que vem no kit"
+msgstr "What comes in the kit"
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "O serviço é oferecido como está, sem garantia de disponibilidade, e pode ser alterado ou encerrado a qualquer momento por ser uma demonstração."
+msgstr "The service is provided as is, with no availability guarantee, and may be changed or shut down at any time since it is a demo."
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "O tratamento de dados segue a"
+msgstr "Data is handled according to the"
+
+#: lib/ledger_starter_web/live/team_live.ex:306
+#, elixir-autogen, elixir-format
+msgid "O workspace precisa de ao menos um dono."
+msgstr "The workspace needs at least one owner."
+
+#: lib/ledger_starter_web/live/user_live/login.ex:67
+#: lib/ledger_starter_web/live/user_live/registration.ex:60
+#: lib/ledger_starter_web/live/user_live/settings.ex:96
+#: lib/ledger_starter_web/live/user_live/settings.ex:104
+#, elixir-autogen, elixir-format
+msgid "Ocultar a senha"
+msgstr "Hide password"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:26
+#, elixir-autogen, elixir-format
+msgid "Olá, %{name}"
+msgstr "Hello, %{name}"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:13
+#, elixir-autogen, elixir-format
+msgid "Orbit · Bompreço · Lumen"
+msgstr "Orbit · Bompreço · Lumen"
+
+#: lib/ledger_starter/mailer.ex:43
+#, elixir-autogen, elixir-format
+msgid "Ou copie este link: %{url}"
+msgstr "Or copy this link: %{url}"
+
+#: lib/ledger_starter_web/live/team_live.ex:55
+#: lib/ledger_starter_web/live/team_live.ex:132
+#, elixir-autogen, elixir-format
+msgid "Papel"
+msgstr "Role"
+
+#: lib/ledger_starter_web/live/roles_live.ex:290
+#, elixir-autogen, elixir-format
+msgid "Papel %{name} salvo."
+msgstr "Role %{name} saved."
+
+#: lib/ledger_starter_web/live/team_live.ex:302
+#, elixir-autogen, elixir-format
+msgid "Papel atualizado."
+msgstr "Role updated."
+
+#: lib/ledger_starter_web/live/roles_live.ex:225
+#, elixir-autogen, elixir-format
+msgid "Papel não encontrado."
+msgstr "Role not found."
+
+#: lib/ledger_starter_web/components/team_components.ex:15
+#: lib/ledger_starter_web/live/forbidden_live.ex:17
+#: lib/ledger_starter_web/live/roles_live.ex:26
+#: lib/ledger_starter_web/live/roles_live.ex:29
+#: lib/ledger_starter_web/live/roles_live.ex:185
+#, elixir-autogen, elixir-format
+msgid "Papéis e permissões"
+msgstr "Roles and permissions"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:56
+#, elixir-autogen, elixir-format
+msgid "Para testar com o time"
+msgstr "To try it with the team"
+
+#: lib/ledger_starter_web/live/roles_live.ex:177
+#, elixir-autogen, elixir-format
+msgid "Parcial"
+msgstr "Partial"
+
+#: lib/ledger_starter_web/live/team_live.ex:46
+#, elixir-autogen, elixir-format
+msgid "Pessoa"
+msgstr "Person"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:88
+#, elixir-autogen, elixir-format
+msgid "Peça a um Admin ou ao dono do workspace para liberar."
+msgstr "Ask an Admin or the workspace owner to grant access."
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:179
+#, elixir-autogen, elixir-format
+msgid "Phoenix 1.8, LiveView, Ledger UI, Postgres com tenants e deploy pronto."
+msgstr "Phoenix 1.8, LiveView, Ledger UI, Postgres with tenants and deploy ready."
+
+#: lib/ledger_starter_web/controllers/page_controller.ex:18
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:1
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:22
+#: lib/ledger_starter_web/live/user_live/registration.ex:69
+#, elixir-autogen, elixir-format
+msgid "Política de Privacidade"
+msgstr "Privacy Policy"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:9
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:140
+#, elixir-autogen, elixir-format
+msgid "Preços"
+msgstr "Pricing"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:195
+#, elixir-autogen, elixir-format
+msgid "Primeiro contato"
+msgstr "First contact"
+
+#: lib/ledger_starter_web/components/auth_components.ex:41
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:204
+#: lib/ledger_starter_web/controllers/page_html/legal.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "Privacidade"
+msgstr "Privacy"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Produto"
+msgstr "Product"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:15
+#, elixir-autogen, elixir-format
+msgid "Pronto em 2 minutos"
+msgstr "Ready in 2 minutes"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:142
+#: lib/ledger_starter_web/live/dashboard_live.ex:212
+#, elixir-autogen, elixir-format
+msgid "Qualificado"
+msgstr "Qualified"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:106
+#, elixir-autogen, elixir-format
+msgid "Qualificados"
+msgstr "Qualified"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:52
+#, elixir-autogen, elixir-format
+msgid "Quem pode liberar"
+msgstr "Who can grant access"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:19
+#, elixir-autogen, elixir-format
+msgid "R$ 184 mil"
+msgstr "R$ 184k"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:57
+#, elixir-autogen, elixir-format
+msgid "R$ 184 mil de R$ 250 mil"
+msgstr "R$ 184k of R$ 250k"
+
+#: lib/ledger_starter_web/live/roles_live.ex:75
+#, elixir-autogen, elixir-format
+msgid "Recurso"
+msgstr "Resource"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:77
+#, elixir-autogen, elixir-format
+msgid "Reenviar link"
+msgstr "Resend link"
+
+#: lib/ledger_starter/permissions.ex:66
+#, elixir-autogen, elixir-format
+msgid "Relatórios"
+msgstr "Reports"
+
+#: lib/ledger_starter/permissions.ex:89
+#, elixir-autogen, elixir-format
+msgid "Remover pessoas"
+msgstr "Remove people"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:37
+#, elixir-autogen, elixir-format
+msgid "Revise os campos destacados."
+msgstr "Review the highlighted fields."
+
+#: lib/ledger_starter_web/components/layouts.ex:78
+#: lib/ledger_starter_web/live/workspace_live/index.ex:49
+#, elixir-autogen, elixir-format
+msgid "Sair"
+msgstr "Sign out"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:152
+#: lib/ledger_starter_web/live/roles_live.ex:147
+#: lib/ledger_starter_web/live/user_live/settings.ex:107
+#, elixir-autogen, elixir-format
+msgid "Salvando..."
+msgstr "Saving..."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:153
+#, elixir-autogen, elixir-format
+msgid "Salvar contato"
+msgstr "Save contact"
+
+#: lib/ledger_starter_web/live/roles_live.ex:149
+#, elixir-autogen, elixir-format
+msgid "Salvar papel"
+msgstr "Save role"
+
+#: lib/ledger_starter_web/live/user_live/settings.ex:108
+#, elixir-autogen, elixir-format
+msgid "Salvar senha"
+msgstr "Save password"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:21
+#, elixir-autogen, elixir-format
+msgid "Saímos da planilha para um funil de verdade em uma tarde."
+msgstr "We went from a spreadsheet to a real pipeline in one afternoon."
+
+#: lib/ledger_starter/accounts/user_notifier.ex:63
+#, elixir-autogen, elixir-format
+msgid "Se você não criou uma conta, ignore esta mensagem."
+msgstr "If you did not create an account, ignore this message."
+
+#: lib/ledger_starter/accounts/user_notifier.ex:45
+#, elixir-autogen, elixir-format
+msgid "Se você não pediu este e-mail, ignore-o."
+msgstr "If you did not request this email, ignore it."
+
+#: lib/ledger_starter/accounts/user_notifier.ex:20
+#, elixir-autogen, elixir-format
+msgid "Se você não pediu isso, ignore esta mensagem."
+msgstr "If you did not request this, ignore this message."
+
+#: lib/ledger_starter_web/live/team_live.ex:57
+#, elixir-autogen, elixir-format
+msgid "Sem papel"
+msgstr "No role"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:21
+#: lib/ledger_starter_web/live/forbidden_live.ex:77
+#, elixir-autogen, elixir-format
+msgid "Sem permissão"
+msgstr "No access"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:15
+#, elixir-autogen, elixir-format
+msgid "Sem senha"
+msgstr "Passwordless"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:64
+#: lib/ledger_starter_web/live/user_live/registration.ex:56
+#: lib/ledger_starter_web/live/user_live/settings.ex:71
+#, elixir-autogen, elixir-format
+msgid "Senha"
+msgstr "Password"
+
+#: lib/ledger_starter_web/controllers/user_session_controller.ex:59
+#, elixir-autogen, elixir-format
+msgid "Senha atualizada!"
+msgstr "Password updated!"
+
+#: lib/ledger_starter_web/live/team_live.ex:128
+#, elixir-autogen, elixir-format
+msgid "Separe por vírgula."
+msgstr "Separate with commas."
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:173
+#, elixir-autogen, elixir-format
+msgid "Seu CRM está quase pronto"
+msgstr "Your CRM is almost ready"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:176
+#, elixir-autogen, elixir-format
+msgid "Seu SaaS em uma tarde"
+msgstr "Your SaaS in one afternoon"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:39
+#, elixir-autogen, elixir-format
+msgid "Seu link de acesso ao StartKit"
+msgstr "Your StartKit sign-in link"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:41
+#, elixir-autogen, elixir-format
+msgid "Seu nome"
+msgstr "Your name"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:92
+#, elixir-autogen, elixir-format
+msgid "Seu papel é %{role}. Peça a um Admin ou ao dono do workspace para liberar."
+msgstr "Your role is %{role}. Ask an Admin or the workspace owner to grant access."
+
+#: lib/ledger_starter_web/live/company_live/new.ex:134
+#, elixir-autogen, elixir-format
+msgid "Seu time entra por %{host}"
+msgstr "Your team signs in at %{host}"
+
+#: lib/ledger_starter_web/components/layouts.ex:160
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:122
+#, elixir-autogen, elixir-format
+msgid "Seus workspaces"
+msgstr "Your workspaces"
+
+#: lib/ledger_starter_web/components/layouts.ex:64
+#: lib/ledger_starter_web/live/user_live/settings.ex:23
+#, elixir-autogen, elixir-format
+msgid "Sistema"
+msgstr "System"
+
+#: lib/ledger_starter_web/live/team_live.ex:60
+#, elixir-autogen, elixir-format
+msgid "Status"
+msgstr "Status"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:35
+#, elixir-autogen, elixir-format
+msgid "Sua empresa"
+msgstr "Your company"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:79
+#, elixir-autogen, elixir-format
+msgid "Suporte dedicado"
+msgstr "Dedicated support"
+
+#: lib/ledger_starter/permissions.ex:377
+#: lib/ledger_starter_web/live/roles_live.ex:132
+#, elixir-autogen, elixir-format
+msgid "Só os seus"
+msgstr "Own only"
+
+#: lib/ledger_starter/permissions.ex:58
+#, elixir-autogen, elixir-format
+msgid "Tarefas"
+msgstr "Tasks"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:130
+#, elixir-autogen, elixir-format
+msgid "Telefone"
+msgstr "Phone"
+
+#: lib/ledger_starter_web/components/layouts.ex:61
+#: lib/ledger_starter_web/live/user_live/settings.ex:20
+#, elixir-autogen, elixir-format
+msgid "Tema"
+msgstr "Theme"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:37
+#: lib/ledger_starter_web/live/team_live.ex:44
+#, elixir-autogen, elixir-format
+msgid "Tentar novamente"
+msgstr "Try again"
+
+#: lib/ledger_starter_web/components/auth_components.ex:42
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:205
+#: lib/ledger_starter_web/controllers/page_html/legal.html.heex:26
+#: lib/ledger_starter_web/live/user_live/registration.ex:67
+#, elixir-autogen, elixir-format
+msgid "Termos"
+msgstr "Terms"
+
+#: lib/ledger_starter_web/controllers/page_controller.ex:20
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:1
+#, elixir-autogen, elixir-format
+msgid "Termos de Serviço"
+msgstr "Terms of Service"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:29
+#, elixir-autogen, elixir-format
+msgid "Time e papéis"
+msgstr "Team and roles"
+
+#: lib/ledger_starter_web/live/roles_live.ex:134
+#, elixir-autogen, elixir-format
+msgid "Todos"
+msgstr "All"
+
+#: lib/ledger_starter_web/live/team_live.ex:84
+#, elixir-autogen, elixir-format
+msgid "Tornar %{role}"
+msgstr "Make %{role}"
+
+#: lib/ledger_starter_web/components/layouts.ex:148
+#, elixir-autogen, elixir-format
+msgid "Trocar de workspace"
+msgstr "Switch workspace"
+
+#: lib/ledger_starter_web/live/roles_live.ex:169
+#, elixir-autogen, elixir-format
+msgid "Tudo"
+msgstr "Full"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:181
+#, elixir-autogen, elixir-format
+msgid "Tudo pronto: o time já pode vender pelo StartKit."
+msgstr "All set: the team can now sell with StartKit."
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:86
+#, elixir-autogen, elixir-format
+msgid "Tudo que todo SaaS precisa antes da primeira venda"
+msgstr "Everything every SaaS needs before its first sale"
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:16
+#, elixir-autogen, elixir-format
+msgid "Um login, várias empresas"
+msgstr "One login, many companies"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:107
+#, elixir-autogen, elixir-format
+msgid "Uma conta, várias empresas"
+msgstr "One account, many companies"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:191
+#, elixir-autogen, elixir-format
+msgid "Usar o template"
+msgstr "Use the template"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:81
+#, elixir-autogen, elixir-format
+msgid "Usar outro"
+msgstr "Use another"
+
+#: lib/ledger_starter/accounts/user_notifier.ex:19
+#, elixir-autogen, elixir-format
+msgid "Use o botão abaixo para confirmar a alteração do e-mail da sua conta."
+msgstr "Use the button below to confirm the email change on your account."
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Uso do serviço"
+msgstr "Use of the service"
+
+#: lib/ledger_starter/permissions.ex:169
+#: lib/ledger_starter_web/components/layouts.ex:122
+#, elixir-autogen, elixir-format
+msgid "Vendas"
+msgstr "Sales"
+
+#: lib/ledger_starter/permissions.ex:34
+#: lib/ledger_starter/permissions.ex:87
+#: lib/ledger_starter/permissions.ex:98
+#: lib/ledger_starter_web/live/roles_live.ex:172
+#, elixir-autogen, elixir-format
+msgid "Ver"
+msgstr "View"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:74
+#, elixir-autogen, elixir-format
+msgid "Ver contatos"
+msgstr "View contacts"
+
+#: lib/ledger_starter_web/controllers/page_html/home.html.heex:41
+#, elixir-autogen, elixir-format
+msgid "Ver no GitHub"
+msgstr "View on GitHub"
+
+#: lib/ledger_starter_web/live/dashboard_live.ex:127
+#, elixir-autogen, elixir-format
+msgid "Ver todos"
+msgstr "See all"
+
+#: lib/ledger_starter_web/controllers/invitation_controller.ex:23
+#, elixir-autogen, elixir-format
+msgid "Você entrou em %{company}."
+msgstr "You joined %{company}."
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:24
+#, elixir-autogen, elixir-format
+msgid "Você está em %{count} empresa com %{email}."
+msgid_plural "Você está em %{count} empresas com %{email}."
+msgstr[0] "You are in %{count} company with %{email}."
+msgstr[1] "You are in %{count} companies with %{email}."
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:80
+#, elixir-autogen, elixir-format
+msgid "Você está no workspace %{name}."
+msgstr "You are in the %{name} workspace."
+
+#: lib/ledger_starter_web/live/team_live.ex:143
+#, elixir-autogen, elixir-format
+msgid "Você está usando %{used} de %{limit} assentos."
+msgstr "You are using %{used} of %{limit} seats."
+
+#: lib/ledger_starter/companies/invitation_notifier.ex:20
+#, elixir-autogen, elixir-format
+msgid "Você foi convidado para %{company}"
+msgstr "You have been invited to %{company}"
+
+#: lib/ledger_starter_web/live/roles_live.ex:305
+#, elixir-autogen, elixir-format
+msgid "Você não pode liberar permissões que o seu próprio papel não tem."
+msgstr "You cannot grant permissions that your own role does not have."
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:21
+#, elixir-autogen, elixir-format
+msgid "Você não tem acesso a esta página"
+msgstr "You do not have access to this page"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Você não tem acesso aos Contatos"
+msgstr "You do not have access to Contacts"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:17
+#, elixir-autogen, elixir-format
+msgid "Você não tem acesso aos Papéis e permissões"
+msgstr "You do not have access to Roles and permissions"
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:14
+#, elixir-autogen, elixir-format
+msgid "Você não tem acesso à Equipe"
+msgstr "You do not have access to the Team page"
+
+#: lib/ledger_starter_web/live/team_live.ex:310
+#, elixir-autogen, elixir-format
+msgid "Você não tem permissão para alterar papéis."
+msgstr "You do not have permission to change roles."
+
+#: lib/ledger_starter_web/live/team_live.ex:192
+#: lib/ledger_starter_web/live/team_live.ex:263
+#, elixir-autogen, elixir-format
+msgid "Você não tem permissão para convidar."
+msgstr "You do not have permission to invite people."
+
+#: lib/ledger_starter_web/live/roles_live.ex:211
+#: lib/ledger_starter_web/live/roles_live.ex:299
+#, elixir-autogen, elixir-format
+msgid "Você não tem permissão para editar papéis."
+msgstr "You do not have permission to edit roles."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:255
+#, elixir-autogen, elixir-format
+msgid "Você não tem permissão para excluir."
+msgstr "You do not have permission to delete."
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:213
+#, elixir-autogen, elixir-format
+msgid "Você não tem permissão para isso."
+msgstr "You do not have permission to do that."
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:22
+#, elixir-autogen, elixir-format
+msgid "Você pode pedir a exclusão da conta sob solicitação."
+msgstr "You can request the deletion of your account on demand."
+
+#: lib/ledger_starter_web/controllers/page_html/privacy.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "Você pode pedir a exclusão da sua conta e dos dados associados a qualquer momento."
+msgstr "You can ask for your account and its associated data to be deleted at any time."
+
+#: lib/ledger_starter_web/controllers/user_session_controller.ex:64
+#, elixir-autogen, elixir-format
+msgid "Você saiu da sua conta."
+msgstr "You have signed out."
+
+#: lib/ledger_starter_web/controllers/page_html/terms.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Você é responsável pelas informações que cadastra e pelo acesso à sua conta. Não use o serviço para fins ilegais nem tente acessar dados de outros workspaces."
+msgstr "You are responsible for the information you add and for access to your account. Do not use the service for illegal purposes or try to access data from other workspaces."
+
+#: lib/ledger_starter_web/live/forbidden_live.ex:43
+#, elixir-autogen, elixir-format
+msgid "Voltar ao painel"
+msgstr "Back to the dashboard"
+
+#: lib/ledger_starter_web/components/layouts.ex:109
+#, elixir-autogen, elixir-format
+msgid "Workspace"
+msgstr "Workspace"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:113
+#, elixir-autogen, elixir-format
+msgid "Workspace %{name} criado!"
+msgstr "Workspace %{name} created!"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:66
+#, elixir-autogen, elixir-format
+msgid "Workspaces ilimitados"
+msgstr "Unlimited workspaces"
+
+#: lib/ledger_starter/permissions.ex:152
+#, elixir-autogen, elixir-format
+msgid "acesso total"
+msgstr "full access"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:65
+#, elixir-autogen, elixir-format
+msgid "agora mesmo"
+msgstr "just now"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:16
+#, elixir-autogen, elixir-format
+msgid "conta, empresa e funil"
+msgstr "account, company and pipeline"
+
+#: lib/ledger_starter_web/live/user_live/registration.ex:68
+#, elixir-autogen, elixir-format
+msgid "e a"
+msgstr "and the"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:20
+#, elixir-autogen, elixir-format
+msgid "em negociação"
+msgstr "in negotiation"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:18
+#, elixir-autogen, elixir-format
+msgid "endereço do seu workspace"
+msgstr "your workspace address"
+
+#: lib/ledger_starter/permissions.ex:160
+#, elixir-autogen, elixir-format
+msgid "equipe e cobrança"
+msgstr "team and billing"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:23
+#, elixir-autogen, elixir-format
+msgid "expira em 15 min"
+msgstr "expires in 15 min"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:47
+#: lib/ledger_starter_web/live/workspace_live/index.ex:43
+#, elixir-autogen, elixir-format
+msgid "ou"
+msgstr "or"
+
+#: lib/ledger_starter_web/components/auth_components.ex:89
+#, elixir-autogen, elixir-format
+msgid "ou com e-mail"
+msgstr "or with email"
+
+#: lib/ledger_starter/permissions.ex:348
+#, elixir-autogen, elixir-format
+msgid "papel personalizado"
+msgstr "custom role"
+
+#: lib/ledger_starter_web/live/team_live.ex:127
+#, elixir-autogen, elixir-format
+msgid "paula@empresa.com.br, joao@empresa.com.br"
+msgstr "paula@company.com, joao@company.com"
+
+#: lib/ledger_starter_web/controllers/page_html.ex:64
+#: lib/ledger_starter_web/controllers/page_html.ex:75
+#, elixir-autogen, elixir-format
+msgid "por assento / mês"
+msgstr "per seat / month"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:25
+#, elixir-autogen, elixir-format
+msgid "por empresa"
+msgstr "per company"
+
+#: lib/ledger_starter_web/live/company_live/new.ex:129
+#, elixir-autogen, elixir-format
+msgid "seu-endereco"
+msgstr "your-address"
+
+#: lib/ledger_starter/permissions.ex:182
+#, elixir-autogen, elixir-format
+msgid "só relatórios"
+msgstr "reports only"
+
+#: lib/ledger_starter_web/live/workspace_live/index.ex:17
+#, elixir-autogen, elixir-format
+msgid "troque sem sair"
+msgstr "switch without signing out"
+
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:16
+#, elixir-autogen, elixir-format
+msgid "um clique no e-mail"
+msgstr "one click in the email"
+
+#: lib/ledger_starter_web/live/user_live/confirmation.ex:16
+#, elixir-autogen, elixir-format
+msgid "uso único"
+msgstr "single use"
+
+#: lib/ledger_starter_web/live/user_live/login.ex:56
+#: lib/ledger_starter_web/live/user_live/magic_link.ex:39
+#, elixir-autogen, elixir-format
+msgid "voce@empresa.com.br"
+msgstr "you@company.com"
+
+#: lib/ledger_starter_web/controllers/page_html/legal.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Última atualização: 22 de novembro de 2026"
+msgstr "Last updated: November 22, 2026"
+
+#: lib/ledger_starter_web/live/contact_live/index.ex:329
+#, elixir-autogen, elixir-format
+msgctxt "date format"
+msgid "%d/%m/%Y"
+msgstr "%m/%d/%Y"

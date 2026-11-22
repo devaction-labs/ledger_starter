@@ -10,6 +10,7 @@ defmodule LedgerStarterWeb.Plugs.Tenant do
   """
   import Plug.Conn
   import Phoenix.Controller
+  use Gettext, backend: LedgerStarterWeb.Gettext
 
   alias LedgerStarter.Accounts.Scope
   alias LedgerStarter.Companies
@@ -52,7 +53,7 @@ defmodule LedgerStarterWeb.Plugs.Tenant do
       _ ->
         conn
         |> put_session(:user_return_to, Tenant.company_url(company, current_path(conn)))
-        |> put_flash(:error, "Entre para acessar este workspace.")
+        |> put_flash(:error, gettext("Entre para acessar este workspace."))
         |> redirect(external: Tenant.root_url("/users/log-in"))
         |> halt()
     end

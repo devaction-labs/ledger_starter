@@ -1,0 +1,149 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "can't be blank"
+msgstr "não pode ficar em branco"
+
+msgid "has already been taken"
+msgstr "já está em uso"
+
+msgid "is invalid"
+msgstr "é inválido"
+
+msgid "must be accepted"
+msgstr "deve ser aceito"
+
+msgid "has invalid format"
+msgstr "tem formato inválido"
+
+msgid "has an invalid entry"
+msgstr "tem um item inválido"
+
+msgid "is reserved"
+msgstr "está reservado"
+
+msgid "does not match confirmation"
+msgstr "não confere com a confirmação"
+
+msgid "is still associated with this entry"
+msgstr "ainda está associado a este registro"
+
+msgid "are still associated with this entry"
+msgstr "ainda estão associados a este registro"
+
+msgid "should have %{count} item(s)"
+msgid_plural "should have %{count} item(s)"
+msgstr[0] "deve ter %{count} item"
+msgstr[1] "deve ter %{count} itens"
+
+msgid "should be %{count} character(s)"
+msgid_plural "should be %{count} character(s)"
+msgstr[0] "deve ter %{count} caractere"
+msgstr[1] "deve ter %{count} caracteres"
+
+msgid "should be %{count} byte(s)"
+msgid_plural "should be %{count} byte(s)"
+msgstr[0] "deve ter %{count} byte"
+msgstr[1] "deve ter %{count} bytes"
+
+msgid "should have at least %{count} item(s)"
+msgid_plural "should have at least %{count} item(s)"
+msgstr[0] "deve ter pelo menos %{count} item"
+msgstr[1] "deve ter pelo menos %{count} itens"
+
+msgid "should be at least %{count} character(s)"
+msgid_plural "should be at least %{count} character(s)"
+msgstr[0] "deve ter pelo menos %{count} caractere"
+msgstr[1] "deve ter pelo menos %{count} caracteres"
+
+msgid "should be at least %{count} byte(s)"
+msgid_plural "should be at least %{count} byte(s)"
+msgstr[0] "deve ter pelo menos %{count} byte"
+msgstr[1] "deve ter pelo menos %{count} bytes"
+
+msgid "should have at most %{count} item(s)"
+msgid_plural "should have at most %{count} item(s)"
+msgstr[0] "deve ter no máximo %{count} item"
+msgstr[1] "deve ter no máximo %{count} itens"
+
+msgid "should be at most %{count} character(s)"
+msgid_plural "should be at most %{count} character(s)"
+msgstr[0] "deve ter no máximo %{count} caractere"
+msgstr[1] "deve ter no máximo %{count} caracteres"
+
+msgid "should be at most %{count} byte(s)"
+msgid_plural "should be at most %{count} byte(s)"
+msgstr[0] "deve ter no máximo %{count} byte"
+msgstr[1] "deve ter no máximo %{count} bytes"
+
+msgid "must be less than %{number}"
+msgstr "deve ser menor que %{number}"
+
+msgid "must be greater than %{number}"
+msgstr "deve ser maior que %{number}"
+
+msgid "must be less than or equal to %{number}"
+msgstr "deve ser menor ou igual a %{number}"
+
+msgid "must be greater than or equal to %{number}"
+msgstr "deve ser maior ou igual a %{number}"
+
+msgid "must be equal to %{number}"
+msgstr "deve ser igual a %{number}"
+
+#: lib/ledger_starter/accounts/user.ex:34
+#, elixir-autogen, elixir-format
+msgid "aceite os termos para continuar"
+msgstr "aceite os termos para continuar"
+
+#: lib/ledger_starter/accounts/user.ex:84
+#, elixir-autogen, elixir-format
+msgid "did not change"
+msgstr "não mudou"
+
+#: lib/ledger_starter/accounts/user.ex:109
+#, elixir-autogen, elixir-format
+msgid "does not match password"
+msgstr "não confere com a senha"
+
+#: lib/ledger_starter/companies/invitation.ex:33
+#: lib/ledger_starter/contacts/contact.ex:26
+#, elixir-autogen, elixir-format
+msgid "e-mail inválido"
+msgstr "e-mail inválido"
+
+#: lib/ledger_starter/companies/company.ex:36
+#, elixir-autogen, elixir-format
+msgid "este endereço é reservado"
+msgstr "este endereço é reservado"
+
+#: lib/ledger_starter/accounts/user.ex:28
+#, elixir-autogen, elixir-format
+msgid "informe seu nome"
+msgstr "informe seu nome"
+
+#: lib/ledger_starter/companies/company.ex:43
+#: lib/ledger_starter/companies/company.ex:47
+#, elixir-autogen, elixir-format
+msgid "já está em uso"
+msgstr "já está em uso"
+
+#: lib/ledger_starter/accounts/user.ex:68
+#, elixir-autogen, elixir-format
+msgid "must have the @ sign and no spaces"
+msgstr "deve ter o @ e não pode ter espaços"
+
+#: lib/ledger_starter/companies/company.ex:33
+#, elixir-autogen, elixir-format
+msgid "use apenas letras minúsculas, números e hífen"
+msgstr "use apenas letras minúsculas, números e hífen"

@@ -40,7 +40,7 @@ defmodule LedgerStarterWeb.OnboardingLiveTest do
 
       assert change.("ocupado") =~ "já está em uso"
       assert change.("www") =~ "reservado"
-      assert change.("ab") =~ "at least 3"
+      assert change.("ab") =~ "pelo menos 3"
       assert change.("livre") =~ "Disponível"
     end
 
