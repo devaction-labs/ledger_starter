@@ -91,7 +91,7 @@ defmodule LedgerStarter.Companies do
     end)
   end
 
-  @doc "Lists members as `%{membership, user, role}`. Requires `team.read`."
+  @doc "Lists members as `%{membership, user, role, role_label}`. Requires `team:read`."
   def list_members(%Scope{company: company} = scope) do
     with :ok <- PermitEx.authorize(scope, "team:read") do
       members =
@@ -107,7 +107,8 @@ defmodule LedgerStarter.Companies do
 
       {:ok,
        for {m, u} <- members do
-         %{membership: m, user: u, role: Map.get(roles, u.id)}
+         {name, label} = Map.get(roles, u.id, {nil, nil})
+         %{membership: m, user: u, role: name, role_label: label}
        end}
     end
   end
@@ -116,16 +117,38 @@ defmodule LedgerStarter.Companies do
     for role <- PermitEx.list_roles(company_id, repo: Repo),
         user_id <- PermitEx.users_with_role(role, company_id, repo: Repo),
         into: %{},
-        do: {user_id, role.name}
+        do: {user_id, {role.name, Permissions.label(role)}}
+  end
+
+  @doc """
+  The people who can release access: owners and admins of the company, as
+  `%{user, role_label}` (owners first). No permission needed: it is what the
+  403 page shows to someone who lacks one.
+  """
+  def list_access_granters(%Company{id: company_id}) do
+    roles =
+      for name <- ~w(owner admin),
+          role = PermitEx.get_role_by_name(name, company_id, repo: Repo),
+          do: role
+
+    for role <- roles,
+        user_id <- PermitEx.users_with_role(role, company_id, repo: Repo),
+        user = Repo.get(User, user_id) do
+      %{user: user, role_label: Permissions.label(role)}
+    end
   end
 
   def count_members(%Company{id: id}),
     do: Repo.aggregate(from(m in Membership, where: m.company_id == ^id), :count)
 
-  @doc "Changes a member's role. Requires `team.manage`; the last owner cannot be demoted."
+  @doc "Names of the company's roles (templates and custom ones)."
+  def role_names(%Company{id: id}),
+    do: id |> PermitEx.roles_for_context(repo: Repo) |> Enum.map(& &1.name)
+
+  @doc "Changes a member's role. Requires `team:write`; the last owner cannot be demoted."
   def update_member_role(%Scope{company: company} = scope, user_id, role) do
-    with :ok <- PermitEx.authorize(scope, "team:manage"),
-         true <- role in Permissions.role_names() or {:error, :invalid_role},
+    with :ok <- PermitEx.authorize(scope, "team:write"),
+         true <- role in role_names(company) or {:error, :invalid_role},
          :ok <- guard_last_owner(company.id, user_id, role),
          {:ok, _} <- Permissions.assign_role(user_id, role, company.id) do
       :ok
@@ -162,12 +185,12 @@ defmodule LedgerStarter.Companies do
   end
 
   @doc """
-  Invites several e-mails. Requires `team.invite`. Returns
+  Invites several e-mails. Requires `team:write`. Returns
   `{:ok, %{sent: [...], skipped: [...]}}` or `{:error, reason}`.
   """
   def invite_people(%Scope{company: company, user: inviter} = scope, emails, role, url_fun) do
-    with :ok <- PermitEx.authorize(scope, "team:invite"),
-         true <- role in Invitation.roles() or {:error, :invalid_role},
+    with :ok <- PermitEx.authorize(scope, "team:write"),
+         true <- (role != "owner" and role in role_names(company)) or {:error, :invalid_role},
          emails = parse_emails(emails),
          true <- emails != [] or {:error, :no_emails},
          :ok <- check_seats(scope, length(emails)) do
@@ -216,7 +239,7 @@ defmodule LedgerStarter.Companies do
   end
 
   def revoke_invitation(%Scope{company: company} = scope, invitation_id) do
-    with :ok <- PermitEx.authorize(scope, "team:invite") do
+    with :ok <- PermitEx.authorize(scope, "team:write") do
       {n, _} =
         Repo.delete_all(
           from i in Invitation,

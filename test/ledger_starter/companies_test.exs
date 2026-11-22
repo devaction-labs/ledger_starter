@@ -102,7 +102,7 @@ defmodule LedgerStarter.CompaniesTest do
       roles = PermitEx.list_roles(company.id, repo: Repo)
       names = for %{context_id: id, name: name} <- roles, id == company.id, do: name
 
-      assert Enum.sort(names) == ["admin", "member", "owner"]
+      assert Enum.sort(names) == ["admin", "owner", "sales", "viewer"]
     end
 
     test "leaves nothing behind when invalid" do
@@ -122,50 +122,53 @@ defmodule LedgerStarter.CompaniesTest do
   end
 
   describe "roles and permissions are scoped by company" do
-    test "the same user is owner in one company and member in another" do
+    test "the same user is owner in one company and sales in another" do
       user = user_fixture()
       owned = company_fixture(user)
       other = company_fixture()
-      {:ok, _} = Companies.add_member(other, user, "member")
+      {:ok, _} = Companies.add_member(other, user, "sales")
 
       owner_scope = company_scope_fixture(user, owned)
       member_scope = company_scope_fixture(user, other)
 
-      assert PermitEx.can?(owner_scope, "team:manage")
-      assert PermitEx.can?(owner_scope, "company:manage")
-      refute PermitEx.can?(member_scope, "team:manage")
-      refute PermitEx.can?(member_scope, "team:invite")
-      assert PermitEx.can?(member_scope, "contacts:create")
+      assert PermitEx.can?(owner_scope, "team:write")
+      assert PermitEx.can?(owner_scope, "company:delete")
+      refute PermitEx.can?(member_scope, "team:write")
+      refute PermitEx.can?(member_scope, "team:read")
+      assert PermitEx.can?(member_scope, "contacts:write")
     end
 
-    test "member cannot invite, admin can, owner manages" do
+    test "sales cannot invite, admin and owner can" do
       owner = company_scope_fixture()
       {_, admin} = member_fixture(owner.company, "admin")
-      {_, member} = member_fixture(owner.company, "member")
+      {_, member} = member_fixture(owner.company, "sales")
 
       url_fun = &"http://example.com/convites/#{&1}"
 
       assert {:error, :unauthorized} =
-               Companies.invite_people(member, "a@example.com", "member", url_fun)
+               Companies.invite_people(member, "a@example.com", "sales", url_fun)
 
       assert {:ok, %{sent: [_]}} =
-               Companies.invite_people(admin, "b@example.com", "member", url_fun)
+               Companies.invite_people(admin, "b@example.com", "sales", url_fun)
 
       assert {:ok, %{sent: [_]}} =
                Companies.invite_people(owner, "c@example.com", "admin", url_fun)
 
-      assert PermitEx.can?(owner, "team:manage")
-      refute PermitEx.can?(admin, "team:manage")
-      refute PermitEx.can?(member, "team:manage")
+      assert PermitEx.can?(owner, "team:write")
+      assert PermitEx.can?(admin, "team:write")
+      refute PermitEx.can?(member, "team:write")
     end
 
-    test "only the owner can change roles" do
+    test "only whoever holds team:write can change roles" do
       owner = company_scope_fixture()
-      {_, admin} = member_fixture(owner.company, "admin")
-      {member_user, _} = member_fixture(owner.company, "member")
+      {_, sales} = member_fixture(owner.company, "sales")
+      {member_user, _} = member_fixture(owner.company, "viewer")
 
       assert {:error, :unauthorized} =
-               Companies.update_member_role(admin, member_user.id, "admin")
+               Companies.update_member_role(sales, member_user.id, "admin")
+
+      assert {:error, :invalid_role} =
+               Companies.update_member_role(owner, member_user.id, "inexistente")
 
       assert :ok = Companies.update_member_role(owner, member_user.id, "admin")
       assert Permissions.role_of(member_user.id, owner.company.id) == "admin"
@@ -173,7 +176,7 @@ defmodule LedgerStarter.CompaniesTest do
 
     test "the last owner cannot be demoted" do
       owner = company_scope_fixture()
-      assert {:error, :last_owner} = Companies.update_member_role(owner, owner.user.id, "member")
+      assert {:error, :last_owner} = Companies.update_member_role(owner, owner.user.id, "sales")
     end
 
     test "member lists are scoped to the company" do
@@ -213,7 +216,7 @@ defmodule LedgerStarter.CompaniesTest do
       owner: owner,
       url_fun: url_fun
     } do
-      {invitation, token} = invite!(owner, "nova@example.com", "member", url_fun)
+      {invitation, token} = invite!(owner, "nova@example.com", "sales", url_fun)
 
       assert invitation.token_hash == Invitation.hash(token)
       refute invitation.token_hash == token
@@ -229,7 +232,7 @@ defmodule LedgerStarter.CompaniesTest do
         Companies.invite_people(
           owner,
           "a@example.com, A@example.com; b@example.com #{owner.user.email}",
-          "member",
+          "sales",
           url_fun
         )
 
@@ -244,7 +247,7 @@ defmodule LedgerStarter.CompaniesTest do
 
     test "respects the seat limit", %{owner: owner, url_fun: url_fun} do
       emails = Enum.map_join(1..Companies.seats_limit(), ",", &"p#{&1}@example.com")
-      assert {:error, :seats_exceeded} = Companies.invite_people(owner, emails, "member", url_fun)
+      assert {:error, :seats_exceeded} = Companies.invite_people(owner, emails, "sales", url_fun)
       assert %{used: 1} = Companies.seats_info(owner)
     end
 
@@ -263,7 +266,7 @@ defmodule LedgerStarter.CompaniesTest do
 
     test "accept is single use", %{owner: owner, url_fun: url_fun} do
       invitee = user_fixture()
-      {_inv, token} = invite!(owner, invitee.email, "member", url_fun)
+      {_inv, token} = invite!(owner, invitee.email, "sales", url_fun)
 
       assert {:ok, _} = Companies.accept_invitation(token, invitee)
       assert {:error, :invalid} = Companies.accept_invitation(token, invitee)
@@ -271,7 +274,7 @@ defmodule LedgerStarter.CompaniesTest do
 
     test "accept requires the matching e-mail", %{owner: owner, url_fun: url_fun} do
       stranger = user_fixture()
-      {_inv, token} = invite!(owner, "someone@example.com", "member", url_fun)
+      {_inv, token} = invite!(owner, "someone@example.com", "sales", url_fun)
 
       assert {:error, :email_mismatch} = Companies.accept_invitation(token, stranger)
       refute Companies.member?(stranger, owner.company)
@@ -281,13 +284,13 @@ defmodule LedgerStarter.CompaniesTest do
 
     test "accept ignores the e-mail case", %{owner: owner, url_fun: url_fun} do
       invitee = user_fixture(%{email: "MixedCase@Example.com"})
-      {_inv, token} = invite!(owner, "mixedcase@example.com", "member", url_fun)
+      {_inv, token} = invite!(owner, "mixedcase@example.com", "sales", url_fun)
       assert {:ok, _} = Companies.accept_invitation(token, invitee)
     end
 
     test "expired and unknown tokens are invalid", %{owner: owner, url_fun: url_fun} do
       invitee = user_fixture()
-      {invitation, token} = invite!(owner, invitee.email, "member", url_fun)
+      {invitation, token} = invite!(owner, invitee.email, "sales", url_fun)
 
       invitation
       |> Ecto.Changeset.change(expires_at: DateTime.add(DateTime.utc_now(:second), -1, :hour))
@@ -303,7 +306,7 @@ defmodule LedgerStarter.CompaniesTest do
       url_fun: url_fun
     } do
       other = company_scope_fixture()
-      {invitation, _} = invite!(owner, "p@example.com", "member", url_fun)
+      {invitation, _} = invite!(owner, "p@example.com", "sales", url_fun)
 
       assert {:ok, [%{id: id}]} = Companies.list_pending_invitations(owner)
       assert id == invitation.id
@@ -316,8 +319,8 @@ defmodule LedgerStarter.CompaniesTest do
     end
 
     test "a member cannot revoke invitations", %{owner: owner, url_fun: url_fun} do
-      {_, member} = member_fixture(owner.company, "member")
-      {invitation, _} = invite!(owner, "p@example.com", "member", url_fun)
+      {_, member} = member_fixture(owner.company, "sales")
+      {invitation, _} = invite!(owner, "p@example.com", "sales", url_fun)
 
       assert {:error, :unauthorized} = Companies.revoke_invitation(member, invitation.id)
     end

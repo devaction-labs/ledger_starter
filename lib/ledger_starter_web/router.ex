@@ -76,6 +76,10 @@ defmodule LedgerStarterWeb.Router do
       live "/contatos/:id/editar", ContactLive.Index, :edit
       live "/equipe", TeamLive, :index
       live "/equipe/convidar", TeamLive, :invite
+      live "/equipe/papeis", RolesLive, :index
+      live "/equipe/papeis/novo", RolesLive, :new
+      live "/equipe/papeis/:role/editar", RolesLive, :edit
+      live "/sem-permissao", ForbiddenLive, :show
     end
   end
 

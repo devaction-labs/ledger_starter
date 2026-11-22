@@ -18,7 +18,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
       <.page_header title="Contatos" description={description(@count, @current_company)}>
         <:actions>
           <.button
-            :if={PermitEx.can?(@current_scope, "contacts:create")}
+            :if={PermitEx.can?(@current_scope, "contacts:write")}
             id="new-contact"
             patch={~p"/contatos/novo"}
             icon="plus"
@@ -46,7 +46,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
           <:col :let={{_id, c}} label="Criado" priority={4}>{format_date(c.inserted_at)}</:col>
           <:action :let={{_id, c}}>
             <.dropdown
-              :if={PermitEx.can_any?(@current_scope, ["contacts:update", "contacts:delete"])}
+              :if={PermitEx.can_any?(@current_scope, ["contacts:write", "contacts:delete"])}
               id={"contact-menu-#{c.id}"}
               trigger_style="ghost"
               part="action-menu"
@@ -55,7 +55,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
               placement="bottom-end"
             >
               <.dropdown_item
-                :if={PermitEx.can?(@current_scope, "contacts:update")}
+                :if={PermitEx.can?(@current_scope, "contacts:write")}
                 patch={~p"/contatos/#{c.id}/editar"}
               >
                 <:icon><.icon name="edit" /></:icon>
@@ -120,25 +120,19 @@ defmodule LedgerStarterWeb.ContactLive.Index do
     """
   end
 
+  on_mount {LedgerStarterWeb.UserAuth, {:require_permission, "contacts:read", :contatos}}
+
   @impl true
   def mount(_params, _session, socket) do
     scope = socket.assigns.current_scope
+    if connected?(socket), do: Contacts.subscribe_contacts(scope)
 
-    if PermitEx.can?(scope, "contacts:read") do
-      if connected?(socket), do: Contacts.subscribe_contacts(scope)
-
-      {:ok,
-       socket
-       |> assign(page_title: "Contatos", loading: true, count: nil)
-       |> assign_new(:companies, fn -> Companies.list_companies_for_user(scope.user) end)
-       |> stream(:contacts, [])
-       |> load_contacts()}
-    else
-      {:ok,
-       socket
-       |> put_flash(:error, "Você não tem permissão para ver contatos.")
-       |> push_navigate(to: ~p"/painel")}
-    end
+    {:ok,
+     socket
+     |> assign(page_title: "Contatos", loading: true, count: nil)
+     |> assign_new(:companies, fn -> Companies.list_companies_for_user(scope.user) end)
+     |> stream(:contacts, [])
+     |> load_contacts()}
   end
 
   @impl true
@@ -150,7 +144,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
   defp apply_action(socket, :new, _params) do
     scope = socket.assigns.current_scope
 
-    if PermitEx.can?(scope, "contacts:create") do
+    if PermitEx.can?(scope, "contacts:write") do
       assign_form(socket, scope, %Contact{company_id: scope.company.id, stage: :lead})
     else
       deny(socket)
@@ -160,7 +154,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     scope = socket.assigns.current_scope
 
-    with true <- PermitEx.can?(scope, "contacts:update"),
+    with true <- PermitEx.can?(scope, "contacts:write"),
          %Contact{} = contact <- Contacts.get_contact(scope, id) do
       assign_form(socket, scope, contact)
     else

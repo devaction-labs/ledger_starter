@@ -128,13 +128,13 @@ defmodule LedgerStarterWeb.CrmLiveTest do
       assert Contacts.get_contact!(other, foreign.id)
     end
 
-    test "a member sees the button but cannot delete", %{
+    test "a sales user sees the button but cannot delete", %{
       conn: conn,
       owner: owner,
       company: company
     } do
       contact = contact_fixture(owner)
-      {conn, _user, _scope} = login_as(conn, company, "member")
+      {conn, _user, _scope} = login_as(conn, company, "sales")
 
       {:ok, lv, _} = live(conn, ~p"/contatos")
       html = render_async(lv)
@@ -165,9 +165,9 @@ defmodule LedgerStarterWeb.CrmLiveTest do
       other = company_scope_fixture()
 
       {:ok, _} =
-        Companies.invite_people(owner, "pendente@example.com", "member", &"http://x/#{&1}")
+        Companies.invite_people(owner, "pendente@example.com", "sales", &"http://x/#{&1}")
 
-      {:ok, _} = Companies.invite_people(other, "alheio@example.com", "member", &"http://x/#{&1}")
+      {:ok, _} = Companies.invite_people(other, "alheio@example.com", "sales", &"http://x/#{&1}")
 
       conn = conn |> log_in_user(owner.user) |> on_host(company)
       {:ok, lv, _} = live(conn, ~p"/equipe")
@@ -214,45 +214,50 @@ defmodule LedgerStarterWeb.CrmLiveTest do
       assert Enum.all?(invitations, &(&1.role == "admin"))
     end
 
-    test "a member sees the team but not the invite button and cannot open the drawer", %{
+    test "someone who only reads the team sees it but cannot invite", %{
       conn: conn,
+      owner: owner,
       company: company
     } do
-      {conn, _user, _scope} = login_as(conn, company, "member")
+      role = role_fixture(owner, "Só equipe", ["team:read"])
+      {conn, _user, scope} = login_as(conn, company, role.name)
 
       {:ok, lv, _} = live(conn, ~p"/equipe")
       html = render_async(lv)
       refute html =~ "Convidar pessoas"
 
       assert {:error, {:live_redirect, %{to: "/equipe"}}} = live(conn, ~p"/equipe/convidar")
+
+      render_hook(lv, "invite", %{"invite" => %{"emails" => "x@example.com", "role" => "sales"}})
+      assert {:ok, []} = Companies.list_pending_invitations(scope)
     end
 
-    test "a member cannot invite by forging the event", %{conn: conn, company: company} do
-      {conn, _user, scope} = login_as(conn, company, "member")
-      {:ok, lv, _} = live(conn, ~p"/equipe")
-      render_async(lv)
+    test "a role without team:read is sent to the 403 page", %{conn: conn, company: company} do
+      {conn, _user, _scope} = login_as(conn, company, "sales")
 
-      render_hook(lv, "invite", %{"invite" => %{"emails" => "x@example.com", "role" => "member"}})
-
-      assert {:ok, []} =
-               Companies.list_pending_invitations(%{
-                 scope
-                 | permissions: MapSet.new(["team:read"])
-               })
+      assert {:error, {:live_redirect, %{to: "/sem-permissao?pagina=equipe"}}} =
+               live(conn, ~p"/equipe")
     end
 
-    test "owner changes a member's role; admin cannot", %{
+    test "owner and admin change a member's role; read-only cannot", %{
       conn: conn,
       owner: owner,
       company: company
     } do
-      {member, _} = member_fixture(company, "member")
-      {admin_conn, _admin, _} = login_as(build_conn(), company, "admin")
+      {member, _} = member_fixture(company, "viewer")
+      role = role_fixture(owner, "Só equipe", ["team:read"])
+      {ro_conn, _ro, _} = login_as(build_conn(), company, role.name)
 
-      {:ok, lv, _} = live(admin_conn, ~p"/equipe")
+      {:ok, lv, _} = live(ro_conn, ~p"/equipe")
       render_async(lv)
       render_click(lv, "set_role", %{"user-id" => member.id, "role" => "admin"})
-      assert LedgerStarter.Permissions.role_of(member.id, company.id) == "member"
+      assert LedgerStarter.Permissions.role_of(member.id, company.id) == "viewer"
+
+      {admin_conn, _admin, _} = login_as(build_conn(), company, "admin")
+      {:ok, lv, _} = live(admin_conn, ~p"/equipe")
+      render_async(lv)
+      render_click(lv, "set_role", %{"user-id" => member.id, "role" => "sales"})
+      assert LedgerStarter.Permissions.role_of(member.id, company.id) == "sales"
 
       conn = conn |> log_in_user(owner.user) |> on_host(company)
       {:ok, lv, _} = live(conn, ~p"/equipe")

@@ -103,7 +103,7 @@ defmodule LedgerStarter.Contacts do
 
   """
   def create_contact(%Scope{} = scope, attrs) do
-    with :ok <- PermitEx.authorize(scope, "contacts:create"),
+    with :ok <- PermitEx.authorize(scope, "contacts:write"),
          {:ok, contact = %Contact{}} <-
            %Contact{}
            |> Contact.changeset(attrs, scope)
@@ -128,7 +128,7 @@ defmodule LedgerStarter.Contacts do
   def update_contact(%Scope{} = scope, %Contact{} = contact, attrs) do
     true = contact.company_id == scope.company.id
 
-    with :ok <- PermitEx.authorize(scope, "contacts:update"),
+    with :ok <- PermitEx.authorize(scope, "contacts:write"),
          {:ok, contact = %Contact{}} <-
            contact
            |> Contact.changeset(attrs, scope)

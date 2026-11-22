@@ -100,9 +100,9 @@ defmodule LedgerStarter.ContactsTest do
   end
 
   describe "authorization (PermitEx, per company)" do
-    test "a member can create and update but not delete" do
+    test "a sales user can create and update but not delete" do
       owner = company_scope_fixture()
-      {_user, member} = member_fixture(owner.company, "member")
+      {_user, member} = member_fixture(owner.company, "sales")
 
       assert {:ok, contact} =
                Contacts.create_contact(member, %{name: "A", email: "a@example.com", stage: :lead})

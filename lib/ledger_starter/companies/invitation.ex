@@ -3,14 +3,13 @@ defmodule LedgerStarter.Companies.Invitation do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @roles ~w(admin member)
   @validity_days 7
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "invitations" do
     field :email, :string
-    field :role, :string, default: "member"
+    field :role, :string, default: "sales"
     field :token_hash, :binary
     field :expires_at, :utc_datetime
     field :accepted_at, :utc_datetime
@@ -21,8 +20,6 @@ defmodule LedgerStarter.Companies.Invitation do
     timestamps(type: :utc_datetime)
   end
 
-  def roles, do: @roles
-
   @doc "Builds `{raw_token, changeset}`. The raw token is only sent by e-mail."
   def build(company, invited_by, email, role) do
     token = :crypto.strong_rand_bytes(32) |> Base.url_encode64(padding: false)
@@ -32,7 +29,6 @@ defmodule LedgerStarter.Companies.Invitation do
       |> cast(%{email: email, role: role}, [:email, :role])
       |> validate_required([:email, :role])
       |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/, message: "e-mail inválido")
-      |> validate_inclusion(:role, @roles)
       |> put_change(:token_hash, hash(token))
       |> put_change(:expires_at, DateTime.add(DateTime.utc_now(:second), @validity_days, :day))
 
