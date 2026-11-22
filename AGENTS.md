@@ -508,3 +508,9 @@ And **never** do this:
 <!-- phoenix:liveview-end -->
 
 <!-- usage-rules-end -->
+
+<!-- ledger_ui -->
+## UI
+
+UI is Ledger UI. Load `.claude/skills/ledger-ui/SKILL.md` before writing or changing HEEx, and read
+the component's reference before using it. Regenerate it with `mix ledger_ui.gen.skill` after upgrading.

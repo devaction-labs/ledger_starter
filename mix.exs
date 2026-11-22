@@ -40,6 +40,7 @@ defmodule LedgerStarter.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.8.16"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.13"},
@@ -54,8 +55,6 @@ defmodule LedgerStarter.MixProject do
       {:ledger_ui, "~> 0.6.0"},
       {:permit_ex, "~> 0.3.1"},
       {:assent, "~> 0.3"},
-      {:bcrypt_elixir, "~> 3.0"},
-      {:bcrypt_elixir, "~> 3.0"},
       {:swoosh, "~> 1.16"},
       {:req, "~> 0.5"},
       {:telemetry_metrics, "~> 1.0"},

@@ -1,0 +1,39 @@
+# LedgerUI.Components.FormSection
+
+A group of fields under a small title, laid out in a grid.
+
+    <.form_section title="Contato">
+      <.input field={@form[:email]} label="E-mail" />
+      <.input field={@form[:phone]} label="Telefone" />
+    </.form_section>
+
+    <.form_section title="Endereco" description="Usado na NF-e" layout="aside" columns={3}>
+      <.input field={@form[:zip]} label="CEP" />
+    </.form_section>
+
+`stacked` (default) puts the title over the fields and closes the section with a line
+(`divider={false}` drops it); `aside` puts the title and description in a column at the left.
+The fields go in `columns` columns (two by default). The `:action` slot sits at the right of a
+stacked title.
+
+## `<.form_section>`
+
+Renders a form section; the inner block is its fields.
+
+| Attr | Type | Default | Values / notes |
+|---|---|---|---|
+| `title` (required) | `:string` |  |  |
+| `description` | `:string` | `nil` |  |
+| `layout` | `:string` | `"stacked"` | `stacked`, `aside` |
+| `variant` | `:string` | `nil` | `nil`, `stacked`, `aside` - The same as `layout`; it wins when given. |
+| `columns` | `:integer` | `2` | `1`, `2`, `3` |
+| `divider` | `:boolean` | `nil` | On by default for `stacked`, off for `aside`. |
+| `id` | `:string` | `nil` |  |
+| `class` | `:any` | `nil` |  |
+
+Any other HTML/phx attribute goes to the root element.
+
+Slots:
+
+- `<:action>` - At the right of a stacked title (a link, a toggle).
+- `<:inner_block>` (required)

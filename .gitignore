@@ -35,3 +35,8 @@ ledger_starter-*.tar
 npm-debug.log
 /assets/node_modules/
 
+
+# local secrets
+.env
+.env.*
+!.env.example
