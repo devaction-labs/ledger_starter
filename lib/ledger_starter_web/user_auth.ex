@@ -6,16 +6,27 @@ defmodule LedgerStarterWeb.UserAuth do
 
   alias LedgerStarter.Accounts
   alias LedgerStarter.Accounts.Scope
+  alias LedgerStarter.Companies
+  alias LedgerStarterWeb.Tenant
 
   # Make the remember me cookie valid for 14 days. This should match
   # the session validity setting in UserToken.
   @max_cookie_age_in_days 14
   @remember_me_cookie "_ledger_starter_web_user_remember_me"
-  @remember_me_options [
-    sign: true,
-    max_age: @max_cookie_age_in_days * 24 * 60 * 60,
-    same_site: "Lax"
-  ]
+  # The cookie domain is runtime config so the remember-me cookie, like the
+  # session cookie, is shared across tenant subdomains.
+  defp remember_me_options(conn) do
+    base = [
+      sign: true,
+      max_age: @max_cookie_age_in_days * 24 * 60 * 60,
+      same_site: "Lax"
+    ]
+
+    case Tenant.cookie_domain_for(conn.host) do
+      nil -> base
+      domain -> Keyword.put(base, :domain, domain)
+    end
+  end
 
   # How old the session token should be before a new one is issued. When a request is made
   # with a session token older than this value, then a new session token will be created
@@ -38,7 +49,33 @@ defmodule LedgerStarterWeb.UserAuth do
     conn
     |> create_or_extend_session(user, params)
     |> delete_session(:user_return_to)
-    |> redirect(to: user_return_to || signed_in_path(conn))
+    |> redirect_after_login(user, user_return_to)
+  end
+
+  defp redirect_after_login(conn, _user, "/" <> _ = path) when not is_nil(path) do
+    if String.starts_with?(path, "//"),
+      do: redirect(conn, external: after_login_url(conn)),
+      else: redirect(conn, external: Tenant.root_url(path))
+  end
+
+  defp redirect_after_login(conn, user, return_to) do
+    if Tenant.trusted_url?(return_to),
+      do: redirect(conn, external: return_to),
+      else: redirect(conn, external: after_login_url(conn, user))
+  end
+
+  @doc """
+  Where to go after logging in: no company goes to company creation,
+  one goes to its subdomain dashboard, several go to the chooser.
+  """
+  def after_login_url(conn, user \\ nil) do
+    user = user || conn.assigns.current_scope.user
+
+    case Companies.list_companies_for_user(user) do
+      [] -> Tenant.root_url("/empresas/nova")
+      [company] -> Tenant.company_url(company, "/painel")
+      _ -> Tenant.root_url("/workspaces")
+    end
   end
 
   @doc """
@@ -56,8 +93,8 @@ defmodule LedgerStarterWeb.UserAuth do
 
     conn
     |> renew_session(nil)
-    |> delete_resp_cookie(@remember_me_cookie, @remember_me_options)
-    |> redirect(to: ~p"/")
+    |> delete_resp_cookie(@remember_me_cookie, remember_me_options(conn))
+    |> redirect(external: Tenant.root_url("/"))
   end
 
   @doc """
@@ -160,7 +197,7 @@ defmodule LedgerStarterWeb.UserAuth do
   defp write_remember_me_cookie(conn, token) do
     conn
     |> put_session(:user_remember_me, true)
-    |> put_resp_cookie(@remember_me_cookie, token, @remember_me_options)
+    |> put_resp_cookie(@remember_me_cookie, token, remember_me_options(conn))
   end
 
   defp put_token_in_session(conn, token) do
@@ -224,10 +261,26 @@ defmodule LedgerStarterWeb.UserAuth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
+        |> Phoenix.LiveView.put_flash(:error, "Entre para acessar esta página.")
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
       {:halt, socket}
+    end
+  end
+
+  @doc false
+  def on_mount(:require_company, _params, session, socket) do
+    socket = mount_current_scope(socket, session)
+    scope = socket.assigns.current_scope
+    company = session["company_id"] && Companies.get_company!(session["company_id"])
+
+    if scope && scope.user && company && Companies.member?(scope.user, company) do
+      {:cont,
+       socket
+       |> Phoenix.Component.assign(:current_scope, Scope.put_company(scope, company))
+       |> Phoenix.Component.assign(:current_company, company)}
+    else
+      {:halt, Phoenix.LiveView.redirect(socket, external: Tenant.root_url("/users/log-in"))}
     end
   end
 
@@ -265,6 +318,17 @@ defmodule LedgerStarterWeb.UserAuth do
 
   def signed_in_path(_), do: ~p"/"
 
+  @doc "Redirects authenticated users away from guest pages (login, register)."
+  def redirect_if_authenticated(conn, _opts) do
+    case conn.assigns.current_scope do
+      %Scope{user: %Accounts.User{}} ->
+        conn |> redirect(external: after_login_url(conn)) |> halt()
+
+      _ ->
+        conn
+    end
+  end
+
   @doc """
   Plug for routes that require the user to be authenticated.
   """
@@ -273,7 +337,7 @@ defmodule LedgerStarterWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "You must log in to access this page.")
+      |> put_flash(:error, "Entre para acessar esta página.")
       |> maybe_store_return_to()
       |> redirect(to: ~p"/users/log-in")
       |> halt()

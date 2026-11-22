@@ -5,11 +5,11 @@ defmodule LedgerStarterWeb.UserSessionController do
   alias LedgerStarterWeb.UserAuth
 
   def create(conn, %{"_action" => "confirmed"} = params) do
-    create(conn, params, "User confirmed successfully.")
+    create(conn, params, "Conta confirmada!")
   end
 
   def create(conn, params) do
-    create(conn, params, "Welcome back!")
+    create(conn, params, "Bem-vindo de volta!")
   end
 
   # magic link login
@@ -24,8 +24,8 @@ defmodule LedgerStarterWeb.UserSessionController do
 
       _ ->
         conn
-        |> put_flash(:error, "The link is invalid or it has expired.")
-        |> redirect(to: ~p"/users/log-in")
+        |> put_flash(:error, "O link é inválido ou expirou.")
+        |> redirect(to: ~p"/users/log-in/link")
     end
   end
 
@@ -40,7 +40,7 @@ defmodule LedgerStarterWeb.UserSessionController do
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
-      |> put_flash(:error, "Invalid email or password")
+      |> put_flash(:error, "E-mail ou senha inválidos.")
       |> put_flash(:email, String.slice(email, 0, 160))
       |> redirect(to: ~p"/users/log-in")
     end
@@ -56,12 +56,12 @@ defmodule LedgerStarterWeb.UserSessionController do
 
     conn
     |> put_session(:user_return_to, ~p"/users/settings")
-    |> create(params, "Password updated successfully!")
+    |> create(params, "Senha atualizada!")
   end
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "Logged out successfully.")
+    |> put_flash(:info, "Você saiu da sua conta.")
     |> UserAuth.log_out_user()
   end
 end

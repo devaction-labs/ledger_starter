@@ -8,64 +8,90 @@ defmodule LedgerStarterWeb.UserLive.Settings do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="text-center">
-        <.header>
-          Account Settings
-          <:subtitle>Manage your account email address and password settings</:subtitle>
-        </.header>
-      </div>
+    <div class="min-h-screen bg-page">
+      <.navbar>
+        <.navbar_brand name="StartKit" logo="S" />
+        <:end>
+          <.theme_switch id="theme" variant="icons" size="sm" />
+          <.button navigate={~p"/workspaces"} variant="ghost" size="sm">Meus workspaces</.button>
+        </:end>
+      </.navbar>
+      <main class="mx-auto flex max-w-[560px] flex-col gap-5 px-6 py-10">
+        <div>
+          <h1 class="m-0 font-display text-[28px] font-[650] tracking-[-.03em]">Minha conta</h1>
+          <p class="m-0 mt-1 text-muted">Gerencie seu e-mail e sua senha.</p>
+        </div>
 
-      <.form for={@email_form} id="email_form" phx-submit="update_email" phx-change="validate_email">
-        <.input
-          field={@email_form[:email]}
-          type="email"
-          label="Email"
-          autocomplete="username"
-          spellcheck="false"
-          required
-        />
-        <.button variant="primary" phx-disable-with="Changing...">Change Email</.button>
-      </.form>
+        <.card>
+          <.card_header>
+            <.card_heading>E-mail</.card_heading>
+          </.card_header>
+          <.card_body>
+            <.form
+              for={@email_form}
+              id="email_form"
+              phx-submit="update_email"
+              phx-change="validate_email"
+              class="flex flex-col gap-4"
+            >
+              <.input
+                field={@email_form[:email]}
+                type="email"
+                label="E-mail"
+                autocomplete="username"
+                spellcheck="false"
+                required
+              />
+              <div>
+                <.button type="submit" phx-disable-with="Alterando...">Alterar e-mail</.button>
+              </div>
+            </.form>
+          </.card_body>
+        </.card>
 
-      <div class="divider" />
-
-      <.form
-        for={@password_form}
-        id="password_form"
-        action={~p"/users/update-password"}
-        method="post"
-        phx-change="validate_password"
-        phx-submit="update_password"
-        phx-trigger-action={@trigger_submit}
-      >
-        <input
-          name={@password_form[:email].name}
-          type="hidden"
-          id="hidden_user_email"
-          spellcheck="false"
-          value={@current_email}
-        />
-        <.input
-          field={@password_form[:password]}
-          type="password"
-          label="New password"
-          autocomplete="new-password"
-          spellcheck="false"
-          required
-        />
-        <.input
-          field={@password_form[:password_confirmation]}
-          type="password"
-          label="Confirm new password"
-          autocomplete="new-password"
-          spellcheck="false"
-        />
-        <.button variant="primary" phx-disable-with="Saving...">
-          Save Password
-        </.button>
-      </.form>
-    </Layouts.app>
+        <.card>
+          <.card_header>
+            <.card_heading>Senha</.card_heading>
+          </.card_header>
+          <.card_body>
+            <.form
+              for={@password_form}
+              id="password_form"
+              action={~p"/users/update-password"}
+              method="post"
+              phx-change="validate_password"
+              phx-submit="update_password"
+              phx-trigger-action={@trigger_submit}
+              class="flex flex-col gap-4"
+            >
+              <input
+                name={@password_form[:email].name}
+                type="hidden"
+                id="hidden_user_email"
+                spellcheck="false"
+                value={@current_email}
+              />
+              <.password_input
+                field={@password_form[:password]}
+                label="Nova senha"
+                autocomplete="new-password"
+                show_label="Mostrar a senha"
+                hide_label="Ocultar a senha"
+                required
+              />
+              <.password_input
+                field={@password_form[:password_confirmation]}
+                label="Confirmar nova senha"
+                autocomplete="new-password"
+                show_label="Mostrar a senha"
+                hide_label="Ocultar a senha"
+              />
+              <div><.button type="submit" phx-disable-with="Salvando...">Salvar senha</.button></div>
+            </.form>
+          </.card_body>
+        </.card>
+      </main>
+    </div>
     """
   end
 
@@ -74,10 +100,10 @@ defmodule LedgerStarterWeb.UserLive.Settings do
     socket =
       case Accounts.update_user_email(socket.assigns.current_scope.user, token) do
         {:ok, _user} ->
-          put_flash(socket, :info, "Email changed successfully.")
+          put_flash(socket, :info, "E-mail alterado.")
 
         {:error, _} ->
-          put_flash(socket, :error, "Email change link is invalid or it has expired.")
+          put_flash(socket, :error, "O link de alteração de e-mail é inválido ou expirou.")
       end
 
     {:ok, push_navigate(socket, to: ~p"/users/settings")}
@@ -124,7 +150,7 @@ defmodule LedgerStarterWeb.UserLive.Settings do
           &url(~p"/users/settings/confirm-email/#{&1}")
         )
 
-        info = "A link to confirm your email change has been sent to the new address."
+        info = "Enviamos um link de confirmação para o novo e-mail."
         {:noreply, socket |> put_flash(:info, info)}
 
       changeset ->

@@ -86,6 +86,7 @@ defmodule LedgerStarterWeb do
       import Phoenix.HTML
       # Core UI components
       import LedgerStarterWeb.CoreComponents
+      use LedgerUI
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS

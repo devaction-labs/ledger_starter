@@ -23,6 +23,11 @@ end
 config :ledger_starter, LedgerStarterWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
+# Google OAuth (the button is hidden when these are unset)
+config :ledger_starter, :google_oauth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
 if config_env() == :dev do
   # Reload browser tabs when matching files change.
   config :ledger_starter, LedgerStarterWeb.Endpoint,
@@ -70,12 +75,29 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("PHX_HOST") || "starter.ledger.devaction.com.br"
+  base_host = System.get_env("BASE_HOST") || host
+
+  # Tenants live on <subdomain>.<base_host>; the session cookie is shared
+  # across them (domain: ".<base_host>").
+  config :ledger_starter,
+    base_host: base_host,
+    session_cookie_domain: "." <> base_host,
+    mail_from:
+      (case Regex.run(~r/^\s*(.*?)\s*<([^>]+)>\s*$/, System.get_env("MAIL_FROM") || "") do
+         [_, name, address] -> {name, address}
+         _ -> {"StartKit", "no-reply@ledger.devaction.com.br"}
+       end)
+
+  config :ledger_starter, LedgerStarter.Mailer,
+    adapter: Swoosh.Adapters.Resend,
+    api_key: System.get_env("RESEND_API_KEY")
 
   config :ledger_starter, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :ledger_starter, LedgerStarterWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
+    check_origin: ["https://#{base_host}", "https://*.#{base_host}"],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.

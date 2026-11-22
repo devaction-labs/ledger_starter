@@ -50,6 +50,6 @@ defmodule LedgerStarterWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-  plug Plug.Session, @session_options
+  plug LedgerStarterWeb.Plugs.Session, @session_options
   plug LedgerStarterWeb.Router
 end

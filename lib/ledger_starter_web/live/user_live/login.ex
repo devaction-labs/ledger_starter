@@ -1,134 +1,95 @@
 defmodule LedgerStarterWeb.UserLive.Login do
   use LedgerStarterWeb, :live_view
 
-  alias LedgerStarter.Accounts
+  import LedgerStarterWeb.AuthComponents
 
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="mx-auto max-w-sm space-y-4">
-        <div class="text-center">
-          <.header>
-            <p>Log in</p>
-            <:subtitle>
-              <%= if @current_scope do %>
-                You need to reauthenticate to perform sensitive actions on your account.
-              <% else %>
-                Don't have an account? <.link
-                  navigate={~p"/users/register"}
-                  class="font-semibold text-brand hover:underline"
-                  phx-no-format
-                >Sign up</.link> for an account now.
-              <% end %>
-            </:subtitle>
-          </.header>
+    <.auth_screen id="login">
+      <:chip
+        icon="building"
+        title="3 workspaces"
+        subtitle="Orbit · Bompreço · Lumen"
+        top="64px"
+        left="56px"
+      />
+      <:chip icon="kanban" title="R$ 184 mil" subtitle="em negociação" top="150px" right="48px" />
+      <:quote author="Marina Costa" role="Comercial · Orbit Cloud" initials="MC">
+        Configuramos o funil e convidamos o time no mesmo dia.
+      </:quote>
+      <h1>Entrar no StartKit</h1>
+      <p class="sub">O CRM da sua empresa, com o time inteiro no mesmo funil.</p>
+
+      <.google_button label="Continuar com Google" />
+      <.button
+        navigate={~p"/users/log-in/link"}
+        icon="mail"
+        class="w-full"
+        size="lg"
+        variant="outline"
+      >
+        Entrar com link mágico
+      </.button>
+      <.or_divider />
+
+      <.form
+        :let={f}
+        for={@form}
+        id="login_form_password"
+        action={~p"/users/log-in"}
+        phx-submit="submit"
+        phx-trigger-action={@trigger_submit}
+        class="flex flex-col gap-4"
+      >
+        <.auth_alert :if={@error}>E-mail ou senha inválidos.</.auth_alert>
+        <.input
+          field={f[:email]}
+          type="email"
+          label="E-mail de trabalho"
+          placeholder="voce@empresa.com.br"
+          autocomplete="username"
+          spellcheck="false"
+          required
+          phx-mounted={JS.focus()}
+        />
+        <.password_input
+          field={@form[:password]}
+          label="Senha"
+          autocomplete="current-password"
+          show_label="Mostrar a senha"
+          hide_label="Ocultar a senha"
+          required
+        />
+        <div class="flex items-center justify-between">
+          <.checkbox field={@form[:remember_me]} label="Manter conectado" />
         </div>
+        <.auth_submit>Entrar</.auth_submit>
+      </.form>
 
-        <div :if={local_mail_adapter?()} class="alert alert-info">
-          <.icon name="hero-information-circle" class="size-6 shrink-0" />
-          <div>
-            <p>You are running the local mail adapter.</p>
-            <p>
-              To see sent emails, visit <.link href="/dev/mailbox" class="underline">the mailbox page</.link>.
-            </p>
-          </div>
-        </div>
-
-        <.form
-          :let={f}
-          for={@form}
-          id="login_form_magic"
-          action={~p"/users/log-in"}
-          phx-submit="submit_magic"
-        >
-          <.input
-            readonly={!!@current_scope}
-            field={f[:email]}
-            type="email"
-            label="Email"
-            autocomplete="username"
-            spellcheck="false"
-            required
-            phx-mounted={JS.focus()}
-          />
-          <.button class="btn btn-primary w-full">
-            Log in with email <span aria-hidden="true">→</span>
-          </.button>
-        </.form>
-
-        <div class="divider">or</div>
-
-        <.form
-          :let={f}
-          for={@form}
-          id="login_form_password"
-          action={~p"/users/log-in"}
-          phx-submit="submit_password"
-          phx-trigger-action={@trigger_submit}
-        >
-          <.input
-            readonly={!!@current_scope}
-            field={f[:email]}
-            type="email"
-            label="Email"
-            autocomplete="username"
-            spellcheck="false"
-            required
-          />
-          <.input
-            field={@form[:password]}
-            type="password"
-            label="Password"
-            autocomplete="current-password"
-            spellcheck="false"
-          />
-          <.button class="btn btn-primary w-full" name={@form[:remember_me].name} value="true">
-            Log in and stay logged in <span aria-hidden="true">→</span>
-          </.button>
-          <.button class="btn btn-primary btn-soft w-full mt-2">
-            Log in only this time
-          </.button>
-        </.form>
-      </div>
-    </Layouts.app>
+      <p class="text-center text-[13.5px] text-muted">
+        Novo por aqui? <.link navigate={~p"/users/register"}>Criar conta grátis</.link>
+      </p>
+    </.auth_screen>
     """
   end
 
   @impl true
   def mount(_params, _session, socket) do
-    email =
-      Phoenix.Flash.get(socket.assigns.flash, :email) ||
-        get_in(socket.assigns, [:current_scope, Access.key(:user), Access.key(:email)])
+    email = Phoenix.Flash.get(socket.assigns.flash, :email)
+    form = to_form(%{"email" => email, "remember_me" => "true"}, as: "user")
 
-    form = to_form(%{"email" => email}, as: "user")
-
-    {:ok, assign(socket, form: form, trigger_submit: false)}
+    {:ok,
+     assign(socket,
+       page_title: "Entrar",
+       form: form,
+       trigger_submit: false,
+       error: Phoenix.Flash.get(socket.assigns.flash, :error) == "E-mail ou senha inválidos."
+     )}
   end
 
   @impl true
-  def handle_event("submit_password", _params, socket) do
-    {:noreply, assign(socket, :trigger_submit, true)}
-  end
-
-  def handle_event("submit_magic", %{"user" => %{"email" => email}}, socket) do
-    if user = Accounts.get_user_by_email(email) do
-      Accounts.deliver_login_instructions(
-        user,
-        &url(~p"/users/log-in/#{&1}")
-      )
-    end
-
-    info =
-      "If your email is in our system, you will receive instructions for logging in shortly."
-
-    {:noreply,
-     socket
-     |> put_flash(:info, info)
-     |> push_navigate(to: ~p"/users/log-in")}
-  end
-
-  defp local_mail_adapter? do
-    Application.get_env(:ledger_starter, LedgerStarter.Mailer)[:adapter] == Swoosh.Adapters.Local
+  def handle_event("submit", %{"user" => _params}, socket) do
+    {:noreply, assign(socket, trigger_submit: true)}
   end
 end
