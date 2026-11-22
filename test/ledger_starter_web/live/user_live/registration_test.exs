@@ -13,7 +13,9 @@ defmodule LedgerStarterWeb.UserLive.RegistrationTest do
       assert html =~ "Crie sua conta"
       assert html =~ "Seu nome"
       assert html =~ "Forte: 12+"
-      assert html =~ "Li e aceito os Termos"
+      assert html =~ "Li e aceito os"
+      assert html =~ ~s(href="/termos")
+      assert html =~ ~s(href="/privacidade")
       refute html =~ "Cadastrar com Google"
     end
 

@@ -13,4 +13,7 @@ defmodule LedgerStarterWeb.PageController do
         redirect(conn, to: ~p"/painel")
     end
   end
+
+  def privacy(conn, _params), do: render(conn, :privacy, page_title: "Política de Privacidade")
+  def terms(conn, _params), do: render(conn, :terms, page_title: "Termos de Serviço")
 end

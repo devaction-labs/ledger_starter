@@ -7,7 +7,7 @@ defmodule LedgerStarterWeb.AuthComponents do
   floating chips (and optionally a testimonial) on the right.
   """
   attr :id, :string, required: true, doc: "prefix of the art ids (one per page)"
-  attr :footer_right, :string, default: "Privacidade · Termos"
+  attr :footer_right, :string, default: nil
   attr :flash, :map, default: %{}
 
   slot :inner_block, required: true
@@ -36,7 +36,11 @@ defmodule LedgerStarterWeb.AuthComponents do
         {render_slot(@inner_block)}
         <:footer>
           <span>© 2026 StartKit</span>
-          <span>{@footer_right}</span>
+          <span :if={@footer_right}>{@footer_right}</span>
+          <span :if={!@footer_right}>
+            <.link href={~p"/privacidade"}>Privacidade</.link>
+            · <.link href={~p"/termos"}>Termos</.link>
+          </span>
         </:footer>
         <:art>
           <.auth_art id={"#{@id}-art"}>

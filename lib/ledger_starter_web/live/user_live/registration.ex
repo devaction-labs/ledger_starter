@@ -60,7 +60,10 @@ defmodule LedgerStarterWeb.UserLive.Registration do
           phx-debounce="200"
           required
         />
-        <.checkbox field={@form[:terms]} label="Li e aceito os Termos e a Política de Privacidade" />
+        <.checkbox field={@form[:terms]}>
+          Li e aceito os <.link href={~p"/termos"} target="_blank">Termos</.link>
+          e a <.link href={~p"/privacidade"} target="_blank">Política de Privacidade</.link>
+        </.checkbox>
         <.auth_submit>Criar conta</.auth_submit>
       </.form>
 

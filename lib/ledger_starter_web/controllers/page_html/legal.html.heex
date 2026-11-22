@@ -1,0 +1,25 @@
+<div class="min-h-screen bg-page text-ink">
+  <.toaster flash={@flash} />
+  <.landing_nav id="legal-nav" brand={%{name: "StartKit", logo: "S", navigate: ~p"/"}}>
+    <:actions>
+      <.landing_login navigate={~p"/users/log-in"}>Entrar</.landing_login>
+      <.landing_cta navigate={~p"/users/register"}>Começar grátis</.landing_cta>
+    </:actions>
+  </.landing_nav>
+  <main class="mx-auto flex max-w-[720px] flex-col gap-4 px-8 py-16 [&_h2]:mt-6 [&_h2]:mb-0 [&_h2]:font-display [&_h2]:text-[20px] [&_h2]:font-semibold [&_p]:m-0 [&_p]:leading-relaxed [&_p]:text-muted">
+    <h1 class="m-0 font-display text-[38px] leading-[1.1] font-bold tracking-[-.03em]">
+      {@title}
+    </h1>
+    <p class="text-[13px]">Última atualização: 22 de novembro de 2026</p>
+    {render_slot(@inner_block)}
+  </main>
+  <footer class="border-t border-line">
+    <div class="mx-auto flex max-w-[1180px] items-center justify-between px-8 py-8 text-[13px] text-muted">
+      <span class="flex items-center gap-2.5"><.logo name="StartKit" size={22} /> © 2026</span>
+      <span class="flex gap-5">
+        <a href={~p"/privacidade"}>Privacidade</a>
+        <a href={~p"/termos"}>Termos</a>
+      </span>
+    </div>
+  </footer>
+</div>

@@ -37,6 +37,14 @@ defmodule LedgerStarterWeb.Router do
     get "/", PageController, :home
   end
 
+  # Public legal pages (root host).
+  scope "/", LedgerStarterWeb do
+    pipe_through [:browser, :root_host]
+
+    get "/privacidade", PageController, :privacy
+    get "/termos", PageController, :terms
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:ledger_starter, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put

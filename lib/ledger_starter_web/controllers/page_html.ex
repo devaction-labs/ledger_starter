@@ -1,6 +1,11 @@
 defmodule LedgerStarterWeb.PageHTML do
   use LedgerStarterWeb, :html
 
+  attr :flash, :map, default: %{}
+  attr :title, :string, required: true
+  slot :inner_block, required: true
+  def legal(assigns)
+
   embed_templates "page_html/*"
 
   defp features do
