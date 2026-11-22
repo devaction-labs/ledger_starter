@@ -11,7 +11,7 @@ defmodule LedgerStarterWeb.UserLive.Settings do
     <div class="min-h-screen bg-page">
       <.toaster flash={@flash} />
       <.navbar>
-        <.navbar_brand name="StartKit" logo="S" />
+        <.brand_logo />
         <:end>
           <.theme_switch id="theme-settings" size="sm" />
           <.button navigate={~p"/workspaces"} variant="ghost" size="sm">Meus workspaces</.button>

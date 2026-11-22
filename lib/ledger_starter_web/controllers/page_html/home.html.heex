@@ -1,6 +1,9 @@
 <div class="bg-page text-ink">
   <.toaster flash={@flash} />
-  <.landing_nav id="sk-nav" brand={%{name: "StartKit", logo: "S", navigate: ~p"/"}}>
+  <.landing_nav id="sk-nav">
+    <:logo>
+      <.link navigate={~p"/"} aria-label="StartKit"><.brand_logo /></.link>
+    </:logo>
     <:link label="Produto" href="#recursos" />
     <:link label="Multiempresa" href="#workspaces" />
     <:link label="Preços" href="#precos" />
@@ -166,7 +169,8 @@
 
   <footer class="border-t border-line">
     <div class="mx-auto flex max-w-[1180px] items-center justify-between px-8 py-8 text-[13px] text-muted">
-      <span class="flex items-center gap-2.5"><.logo name="StartKit" size={22} /> © 2026</span>
+      <span class="flex items-center gap-2.5"><.brand_logo size={22} class="text-[15px] text-ink" />
+      © 2026</span>
       <span class="flex gap-5">
         <a href="https://github.com/devaction-labs/ledger_starter#readme">Docs</a>
         <a href="https://github.com/devaction-labs/ledger_starter">GitHub</a>

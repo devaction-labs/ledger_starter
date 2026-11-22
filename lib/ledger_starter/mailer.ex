@@ -43,7 +43,7 @@ defmodule LedgerStarter.Mailer do
 
     """
     <div style="font-family:Inter,Arial,sans-serif;max-width:480px;margin:0 auto;padding:32px 20px;color:#18181b">
-      <p style="font-weight:700;font-size:16px;margin:0 0 24px">StartKit</p>
+      <p style="font-weight:700;font-size:16px;margin:0 0 24px"><img src="#{LedgerStarterWeb.Endpoint.url()}/icon-192.png" width="28" height="28" alt="" style="vertical-align:middle;border-radius:8px;margin-right:10px">StartKit</p>
       <h1 style="font-size:22px;margin:0 0 16px">#{esc(heading)}</h1>
       #{paras}#{button}
     </div>

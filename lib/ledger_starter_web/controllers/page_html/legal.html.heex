@@ -1,6 +1,9 @@
 <div class="min-h-screen bg-page text-ink">
   <.toaster flash={@flash} />
-  <.landing_nav id="legal-nav" brand={%{name: "StartKit", logo: "S", navigate: ~p"/"}}>
+  <.landing_nav id="legal-nav">
+    <:logo>
+      <.link navigate={~p"/"} aria-label="StartKit"><.brand_logo /></.link>
+    </:logo>
     <:actions>
       <.landing_login navigate={~p"/users/log-in"}>Entrar</.landing_login>
       <.landing_cta navigate={~p"/users/register"}>Começar grátis</.landing_cta>
@@ -15,7 +18,8 @@
   </main>
   <footer class="border-t border-line">
     <div class="mx-auto flex max-w-[1180px] items-center justify-between px-8 py-8 text-[13px] text-muted">
-      <span class="flex items-center gap-2.5"><.logo name="StartKit" size={22} /> © 2026</span>
+      <span class="flex items-center gap-2.5"><.brand_logo size={22} class="text-[15px] text-ink" />
+      © 2026</span>
       <span class="flex gap-5">
         <a href={~p"/privacidade"}>Privacidade</a>
         <a href={~p"/termos"}>Termos</a>

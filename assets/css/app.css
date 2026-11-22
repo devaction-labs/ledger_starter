@@ -9,3 +9,9 @@
 @source "../../_build/dev/phoenix-colocated/ledger_starter/*/";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* StartKit brand: the kit's auth_page only takes a letter for its brand tile, so the tile
+   (rendered with an empty letter) is painted with the mark instead. */
+[data-part="auth-page-mark"] {
+  background: url("/images/mark.svg") center / cover no-repeat;
+}

@@ -32,7 +32,7 @@ defmodule LedgerStarterWeb.AuthComponents do
     ~H"""
     <div class="h-screen bg-page">
       <.toaster flash={@flash} />
-      <.auth_page brand="StartKit" mark="S">
+      <.auth_page brand="StartKit" mark="">
         {render_slot(@inner_block)}
         <:footer>
           <span>© 2026 StartKit</span>
