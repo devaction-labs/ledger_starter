@@ -25,16 +25,21 @@ defmodule LedgerStarter.Permissions do
   """
 
   import Ecto.Query, warn: false
+  use Gettext, backend: LedgerStarterWeb.Gettext
 
   alias LedgerStarter.Accounts.Scope
   alias LedgerStarter.Repo
 
-  @actions [{"read", "Ver"}, {"write", "Criar e editar"}, {"delete", "Excluir"}]
+  @actions [
+    {"read", gettext_noop("Ver")},
+    {"write", gettext_noop("Criar e editar")},
+    {"delete", gettext_noop("Excluir")}
+  ]
 
   @groups [
     %{
       key: "contacts",
-      label: "Contatos e empresas",
+      label: gettext_noop("Contatos e empresas"),
       icon: "users",
       scoped: true,
       requires_read: true,
@@ -42,7 +47,7 @@ defmodule LedgerStarter.Permissions do
     },
     %{
       key: "deals",
-      label: "Negócios e funil",
+      label: gettext_noop("Negócios e funil"),
       icon: "kanban",
       scoped: true,
       requires_read: true,
@@ -50,7 +55,7 @@ defmodule LedgerStarter.Permissions do
     },
     %{
       key: "tasks",
-      label: "Tarefas",
+      label: gettext_noop("Tarefas"),
       icon: "check-circle",
       scoped: true,
       requires_read: true,
@@ -58,7 +63,7 @@ defmodule LedgerStarter.Permissions do
     },
     %{
       key: "reports",
-      label: "Relatórios",
+      label: gettext_noop("Relatórios"),
       icon: "bar",
       scoped: true,
       requires_read: true,
@@ -66,45 +71,57 @@ defmodule LedgerStarter.Permissions do
     },
     %{
       key: "data",
-      label: "Importar e exportar",
+      label: gettext_noop("Importar e exportar"),
       icon: "download",
       scoped: false,
       requires_read: false,
-      actions: [{"read", "Exportar"}, {"write", "Importar"}]
+      actions: [{"read", gettext_noop("Exportar")}, {"write", gettext_noop("Importar")}]
     },
     %{
       key: "team",
-      label: "Equipe e convites",
+      label: gettext_noop("Equipe e convites"),
       icon: "user-plus",
       scoped: false,
       requires_read: true,
       actions: [
-        {"read", "Ver"},
-        {"write", "Convidar e editar papéis"},
-        {"delete", "Remover pessoas"}
+        {"read", gettext_noop("Ver")},
+        {"write", gettext_noop("Convidar e editar papéis")},
+        {"delete", gettext_noop("Remover pessoas")}
       ]
     },
     %{
       key: "billing",
-      label: "Cobrança e plano",
+      label: gettext_noop("Cobrança e plano"),
       icon: "card",
       scoped: false,
       requires_read: true,
-      actions: [{"read", "Ver"}, {"write", "Gerenciar plano"}]
+      actions: [{"read", gettext_noop("Ver")}, {"write", gettext_noop("Gerenciar plano")}]
     },
     %{
       key: "company",
-      label: "Excluir o workspace",
+      label: gettext_noop("Excluir o workspace"),
       icon: "trash",
       scoped: false,
       requires_read: false,
       editable: false,
-      actions: [{"delete", "Excluir"}]
+      actions: [{"delete", gettext_noop("Excluir")}]
     }
   ]
 
   @doc "The permission groups, in matrix order. Groups with `editable: false` never appear in the drawer."
-  def groups, do: Enum.map(@groups, &Map.put_new(&1, :editable, true))
+  def groups do
+    Enum.map(@groups, fn g ->
+      g
+      |> Map.put_new(:editable, true)
+      |> Map.update!(:label, &translate/1)
+      |> Map.update!(:actions, fn actions -> for {a, l} <- actions, do: {a, translate(l)} end)
+    end)
+  end
+
+  # Labels are stored as msgids (`gettext_noop`) and translated when shown, in the
+  # locale of the calling process. `permissions/0` and `templates/0` keep the
+  # msgids: they seed the database (PermitEx descriptions), not the screen.
+  defp translate(msgid), do: Gettext.gettext(LedgerStarterWeb.Gettext, msgid)
 
   @doc "Every `{name, description}` of the catalog."
   def permissions do
@@ -131,16 +148,16 @@ defmodule LedgerStarter.Permissions do
   @templates [
     %{
       name: "owner",
-      label: "Dono",
-      blurb: "acesso total",
+      label: gettext_noop("Dono"),
+      blurb: gettext_noop("acesso total"),
       tone: "primary",
       locked: true,
       permissions: :all
     },
     %{
       name: "admin",
-      label: "Admin",
-      blurb: "equipe e cobrança",
+      label: gettext_noop("Admin"),
+      blurb: gettext_noop("equipe e cobrança"),
       tone: "info",
       locked: true,
       permissions:
@@ -149,8 +166,8 @@ defmodule LedgerStarter.Permissions do
     },
     %{
       name: "sales",
-      label: "Vendas",
-      blurb: "CRM do time",
+      label: gettext_noop("Vendas"),
+      blurb: gettext_noop("CRM do time"),
       tone: "success",
       locked: false,
       permissions:
@@ -161,8 +178,8 @@ defmodule LedgerStarter.Permissions do
     },
     %{
       name: "viewer",
-      label: "Leitura",
-      blurb: "só relatórios",
+      label: gettext_noop("Leitura"),
+      blurb: gettext_noop("só relatórios"),
       tone: "neutral",
       locked: false,
       permissions:
@@ -276,8 +293,21 @@ defmodule LedgerStarter.Permissions do
   end
 
   @doc "A role's display name (its PermitEx description, falling back to the name)."
-  def label(%{description: d}) when is_binary(d) and d != "", do: d
-  def label(%{name: name}), do: name
+  def label(%{name: name, description: d}) when is_binary(d) and d != "" do
+    # a template role still carrying its seeded name is shown in the current language;
+    # a renamed one keeps whatever name it was given
+    case Enum.find(@templates, &(&1.name == name)) do
+      %{label: ^d} -> translate(d)
+      _ -> d
+    end
+  end
+
+  def label(%{name: name}) do
+    case Enum.find(@templates, &(&1.name == name)) do
+      %{label: label} -> translate(label)
+      nil -> name
+    end
+  end
 
   ## Reading roles (needs `team:read`)
 
@@ -315,7 +345,7 @@ defmodule LedgerStarter.Permissions do
       role: role,
       name: role.name,
       label: label(role),
-      blurb: (template && template.blurb) || "papel personalizado",
+      blurb: if(template, do: translate(template.blurb), else: gettext("papel personalizado")),
       tone: (template && template.tone) || "neutral",
       locked: role.locked,
       custom: is_nil(template),
@@ -337,13 +367,26 @@ defmodule LedgerStarter.Permissions do
     scope = if group.scoped, do: scope_of(group, perms)
 
     cond do
-      held == [] -> :none
-      group.scoped and not has.("read") -> :none
-      scope in ["own", "team"] -> {:scope, if(scope == "team", do: "Do time", else: "Só os seus")}
-      length(held) == length(actions) -> :all
-      held == ["read"] -> :view
-      has.("write") and not has.("delete") -> :edit
-      true -> :partial
+      held == [] ->
+        :none
+
+      group.scoped and not has.("read") ->
+        :none
+
+      scope in ["own", "team"] ->
+        {:scope, if(scope == "team", do: gettext("Do time"), else: gettext("Só os seus"))}
+
+      length(held) == length(actions) ->
+        :all
+
+      held == ["read"] ->
+        :view
+
+      has.("write") and not has.("delete") ->
+        :edit
+
+      true ->
+        :partial
     end
   end
 

@@ -1,6 +1,7 @@
 defmodule LedgerStarter.Companies.Company do
   @moduledoc "A tenant. Resolved from the request host subdomain."
   use Ecto.Schema
+  use Gettext, backend: LedgerStarterWeb.Gettext
   import Ecto.Changeset
 
   @reserved ~w(www app api admin mail static)
@@ -29,17 +30,22 @@ defmodule LedgerStarter.Companies.Company do
     |> validate_length(:name, min: 2, max: 80)
     |> validate_length(:subdomain, min: 3, max: 30)
     |> validate_format(:subdomain, @subdomain_format,
-      message: "use apenas letras minúsculas, números e hífen"
+      message: dgettext_noop("errors", "use apenas letras minúsculas, números e hífen")
     )
-    |> validate_exclusion(:subdomain, @reserved, message: "este endereço é reservado")
+    |> validate_exclusion(:subdomain, @reserved,
+      message: dgettext_noop("errors", "este endereço é reservado")
+    )
     |> maybe_unique(opts)
   end
 
   defp maybe_unique(changeset, opts) do
-    changeset = unique_constraint(changeset, :subdomain, message: "já está em uso")
+    changeset =
+      unique_constraint(changeset, :subdomain, message: dgettext_noop("errors", "já está em uso"))
 
     if Keyword.get(opts, :validate_unique, true) do
-      unsafe_validate_unique(changeset, :subdomain, LedgerStarter.Repo, message: "já está em uso")
+      unsafe_validate_unique(changeset, :subdomain, LedgerStarter.Repo,
+        message: dgettext_noop("errors", "já está em uso")
+      )
     else
       changeset
     end

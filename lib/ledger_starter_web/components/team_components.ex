@@ -10,8 +10,10 @@ defmodule LedgerStarterWeb.TeamComponents do
     ~H"""
     <div class="px-7 pb-5">
       <.tabs id="team-tabs" variant="classic" selected={to_string(@current)}>
-        <:tab name="team" navigate={~p"/equipe"} count={@count}>Equipe</:tab>
-        <:tab name="roles" navigate={~p"/equipe/papeis"}>Papéis e permissões</:tab>
+        <:tab name="team" navigate={~p"/equipe"} count={@count}>{gettext("Equipe")}</:tab>
+        <:tab name="roles" navigate={~p"/equipe/papeis"}>
+          {gettext("Papéis e permissões")}
+        </:tab>
       </.tabs>
     </div>
     """

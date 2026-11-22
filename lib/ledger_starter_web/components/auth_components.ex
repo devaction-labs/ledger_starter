@@ -31,16 +31,17 @@ defmodule LedgerStarterWeb.AuthComponents do
   def auth_screen(assigns) do
     ~H"""
     <div class="h-screen bg-page">
-      <.toaster flash={@flash} />
+      <.toaster flash={@flash} close_label={gettext("Fechar")} />
       <.auth_page brand="StartKit" mark="">
         {render_slot(@inner_block)}
         <:footer>
           <span>© 2026 StartKit</span>
           <span :if={@footer_right}>{@footer_right}</span>
           <span :if={!@footer_right}>
-            <.link href={~p"/privacidade"}>Privacidade</.link>
-            · <.link href={~p"/termos"}>Termos</.link>
+            <.link href={~p"/privacidade"}>{gettext("Privacidade")}</.link>
+            · <.link href={~p"/termos"}>{gettext("Termos")}</.link>
           </span>
+          <.locale_switcher />
         </:footer>
         <:art>
           <.auth_art id={"#{@id}-art"}>
@@ -81,11 +82,11 @@ defmodule LedgerStarterWeb.AuthComponents do
   end
 
   @doc "The `ou com e-mail` divider of the auth column."
-  attr :label, :string, default: "ou com e-mail"
+  attr :label, :string, default: nil
 
   def or_divider(assigns) do
     ~H"""
-    <div class="or">{@label}</div>
+    <div class="or">{@label || gettext("ou com e-mail")}</div>
     """
   end
 

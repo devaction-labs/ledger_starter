@@ -16,13 +16,13 @@ defmodule LedgerStarterWeb.TeamLive do
       current_scope={@current_scope}
       companies={@companies}
       current={~p"/equipe"}
-      crumb="Equipe"
+      crumb={gettext("Equipe")}
     >
       <.async_result :let={team} assign={@team}>
         <:loading>
           <div class="px-7 py-6"><.skeleton class="h-40 w-full" /></div>
         </:loading>
-        <.page_header title="Equipe" description={seats_text(team.seats)}>
+        <.page_header title={gettext("Equipe")} description={seats_text(team.seats)}>
           <:actions>
             <.button
               :if={PermitEx.can?(@current_scope, "team:write")}
@@ -30,15 +30,20 @@ defmodule LedgerStarterWeb.TeamLive do
               patch={~p"/equipe/convidar"}
               icon="user-plus"
             >
-              Convidar pessoas
+              {gettext("Convidar pessoas")}
             </.button>
           </:actions>
         </.page_header>
         <TeamComponents.team_tabs current={:team} count={length(team.rows)} />
 
         <div class="px-7 pb-8">
-          <.card_table id="team" rows={team.rows} row_id={& &1.id}>
-            <:col :let={row} label="Pessoa">
+          <.card_table
+            id="team"
+            rows={team.rows}
+            row_id={& &1.id}
+            retry_label={gettext("Tentar novamente")}
+          >
+            <:col :let={row} label={gettext("Pessoa")}>
               <span class="flex items-center gap-2.5">
                 <.avatar initials={Layouts.initials(row.name || row.email)} size="34" />
                 <span class="flex flex-col leading-tight">
@@ -47,14 +52,14 @@ defmodule LedgerStarterWeb.TeamLive do
                 </span>
               </span>
             </:col>
-            <:col :let={row} label="Papel">
+            <:col :let={row} label={gettext("Papel")}>
               <.badge color={if row.role == "owner", do: "primary", else: "neutral"}>
-                {row.role_label || "Sem papel"}
+                {row.role_label || gettext("Sem papel")}
               </.badge>
             </:col>
-            <:col :let={row} label="Status" role="status">
+            <:col :let={row} label={gettext("Status")} role="status">
               <span class={row.status == :pending && "text-muted"}>
-                {if row.status == :pending, do: "Convite enviado", else: "Ativo"}
+                {if row.status == :pending, do: gettext("Convite enviado"), else: gettext("Ativo")}
               </span>
             </:col>
             <:action :let={row}>
@@ -64,7 +69,7 @@ defmodule LedgerStarterWeb.TeamLive do
                 trigger_style="ghost"
                 part="action-menu"
                 row_mark
-                label="Ações"
+                label={gettext("Ações")}
                 placement="bottom-end"
               >
                 <%= if row.status == :active do %>
@@ -76,12 +81,12 @@ defmodule LedgerStarterWeb.TeamLive do
                     phx-value-user-id={row.user_id}
                     phx-value-role={value}
                   >
-                    Tornar {label}
+                    {gettext("Tornar %{role}", role: label)}
                   </.dropdown_item>
                 <% else %>
                   <.dropdown_item danger phx-click="revoke" phx-value-id={row.id}>
                     <:icon><.icon name="trash" /></:icon>
-                    Cancelar convite
+                    {gettext("Cancelar convite")}
                   </.dropdown_item>
                 <% end %>
               </.dropdown>
@@ -101,8 +106,12 @@ defmodule LedgerStarterWeb.TeamLive do
         >
           <:header>
             <div>
-              <h3>Convidar pessoas</h3>
-              <p>Eles recebem um link para entrar em {Tenant.company_host(@current_company)}.</p>
+              <h3>{gettext("Convidar pessoas")}</h3>
+              <p>
+                {gettext("Eles recebem um link para entrar em %{host}.",
+                  host: Tenant.company_host(@current_company)
+                )}
+              </p>
             </div>
           </:header>
           <.form
@@ -114,13 +123,13 @@ defmodule LedgerStarterWeb.TeamLive do
           >
             <.input
               field={@form[:emails]}
-              label="E-mails"
-              placeholder="paula@empresa.com.br, joao@empresa.com.br"
-              help="Separe por vírgula."
+              label={gettext("E-mails")}
+              placeholder={gettext("paula@empresa.com.br, joao@empresa.com.br")}
+              help={gettext("Separe por vírgula.")}
               phx-debounce="200"
             />
             <div class="flex flex-col gap-1.5">
-              <span class="text-[13px] font-medium">Papel</span>
+              <span class="text-[13px] font-medium">{gettext("Papel")}</span>
               <.radio_group
                 field={@form[:role]}
                 variant="card"
@@ -131,15 +140,20 @@ defmodule LedgerStarterWeb.TeamLive do
               />
             </div>
             <.alert color={if @seats_after > @seats.limit, do: "warning", else: "info"}>
-              Você está usando {@seats.used} de {@seats.limit} assentos.
+              {gettext("Você está usando %{used} de %{limit} assentos.",
+                used: @seats.used,
+                limit: @seats.limit
+              )}
               <%= if @seats_after > @seats.limit do %>
-                Estes convites passam do limite.
+                {gettext("Estes convites passam do limite.")}
               <% end %>
             </.alert>
           </.form>
           <:footer>
-            <.button type="button" variant="outline" phx-click="close_drawer">Cancelar</.button>
-            <.button type="submit" form="invite-form" phx-disable-with="Enviando...">
+            <.button type="button" variant="outline" phx-click="close_drawer">
+              {gettext("Cancelar")}
+            </.button>
+            <.button type="submit" form="invite-form" phx-disable-with={gettext("Enviando...")}>
               {send_label(@email_count)}
             </.button>
           </:footer>
@@ -158,7 +172,7 @@ defmodule LedgerStarterWeb.TeamLive do
      socket
      |> assign(
        roles: roles,
-       page_title: "Equipe",
+       page_title: gettext("Equipe"),
        seats: Companies.seats_info(scope),
        email_count: 0,
        seats_after: 0
@@ -175,7 +189,7 @@ defmodule LedgerStarterWeb.TeamLive do
     else
       {:noreply,
        socket
-       |> put_flash(:error, "Você não tem permissão para convidar.")
+       |> put_flash(:error, gettext("Você não tem permissão para convidar."))
        |> push_patch(to: ~p"/equipe")}
     end
   end
@@ -223,9 +237,17 @@ defmodule LedgerStarterWeb.TeamLive do
 
     case Companies.invite_people(scope, params["emails"] || "", params["role"], url_fun) do
       {:ok, %{sent: sent, skipped: skipped}} ->
+        sent_text =
+          ngettext("%{count} convite enviado", "%{count} convites enviados", length(sent))
+
         msg =
-          "#{length(sent)} #{if length(sent) == 1, do: "convite enviado", else: "convites enviados"}" <>
-            if(skipped == [], do: ".", else: " (#{length(skipped)} já na equipe ou inválido).")
+          if skipped == [],
+            do: sent_text <> ".",
+            else:
+              gettext("%{sent} (%{skipped} já na equipe ou inválido).",
+                sent: sent_text,
+                skipped: length(skipped)
+              )
 
         {:noreply,
          socket
@@ -238,31 +260,32 @@ defmodule LedgerStarterWeb.TeamLive do
          |> push_patch(to: ~p"/equipe")}
 
       {:error, :unauthorized} ->
-        {:noreply, put_flash(socket, :error, "Você não tem permissão para convidar.")}
+        {:noreply, put_flash(socket, :error, gettext("Você não tem permissão para convidar."))}
 
       {:error, :no_emails} ->
-        {:noreply, put_flash(socket, :error, "Informe ao menos um e-mail.")}
+        {:noreply, put_flash(socket, :error, gettext("Informe ao menos um e-mail."))}
 
       {:error, :seats_exceeded} ->
         {:noreply,
          put_flash(
            socket,
            :error,
-           "Limite de assentos atingido. Remova convites ou aumente o plano."
+           gettext("Limite de assentos atingido. Remova convites ou aumente o plano.")
          )}
 
       {:error, _} ->
-        {:noreply, put_flash(socket, :error, "Não foi possível enviar os convites.")}
+        {:noreply, put_flash(socket, :error, gettext("Não foi possível enviar os convites."))}
     end
   end
 
   def handle_event("revoke", %{"id" => id}, socket) do
     case Companies.revoke_invitation(socket.assigns.current_scope, id) do
       :ok ->
-        {:noreply, socket |> put_toast("Convite cancelado.", color: "success") |> load_team()}
+        {:noreply,
+         socket |> put_toast(gettext("Convite cancelado."), color: "success") |> load_team()}
 
       {:error, _} ->
-        {:noreply, put_flash(socket, :error, "Não foi possível cancelar o convite.")}
+        {:noreply, put_flash(socket, :error, gettext("Não foi possível cancelar o convite."))}
     end
   end
 
@@ -276,21 +299,26 @@ defmodule LedgerStarterWeb.TeamLive do
         {:noreply,
          socket
          |> assign(current_scope: scope)
-         |> put_toast("Papel atualizado.", color: "success")
+         |> put_toast(gettext("Papel atualizado."), color: "success")
          |> load_team()}
 
       {:error, :last_owner} ->
-        {:noreply, put_flash(socket, :error, "O workspace precisa de ao menos um dono.")}
+        {:noreply, put_flash(socket, :error, gettext("O workspace precisa de ao menos um dono."))}
 
       {:error, _} ->
-        {:noreply, put_flash(socket, :error, "Você não tem permissão para alterar papéis.")}
+        {:noreply,
+         put_flash(socket, :error, gettext("Você não tem permissão para alterar papéis."))}
     end
   end
 
   defp load_team(socket) do
     scope = socket.assigns.current_scope
+    locale = LedgerStarter.Locale.current()
 
     assign_async(socket, :team, fn ->
+      # the async task is another process: carry the Gettext locale over (role labels)
+      LedgerStarter.Locale.put(locale)
+
       with {:ok, roles} <- Permissions.list_roles(scope),
            labels = Map.new(roles, &{&1.name, &1.label}),
            {:ok, members} <- Companies.list_members(scope),
@@ -326,9 +354,11 @@ defmodule LedgerStarterWeb.TeamLive do
     end)
   end
 
-  defp seats_text(%{used: used, limit: limit}), do: "#{used} de #{limit} assentos em uso."
+  defp seats_text(%{used: used, limit: limit}),
+    do: gettext("%{used} de %{limit} assentos em uso.", used: used, limit: limit)
 
-  defp send_label(0), do: "Enviar convites"
-  defp send_label(1), do: "Enviar 1 convite"
-  defp send_label(n), do: "Enviar #{n} convites"
+  defp send_label(0), do: gettext("Enviar convites")
+
+  defp send_label(n),
+    do: ngettext("Enviar %{count} convite", "Enviar %{count} convites", n)
 end

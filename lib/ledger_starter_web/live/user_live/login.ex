@@ -9,19 +9,25 @@ defmodule LedgerStarterWeb.UserLive.Login do
     <.auth_screen flash={@flash} id="login">
       <:chip
         icon="building"
-        title="3 workspaces"
-        subtitle="Orbit · Bompreço · Lumen"
+        title={gettext("3 workspaces")}
+        subtitle={gettext("Orbit · Bompreço · Lumen")}
         top="64px"
         left="56px"
       />
-      <:chip icon="kanban" title="R$ 184 mil" subtitle="em negociação" top="150px" right="48px" />
-      <:quote author="Marina Costa" role="Comercial · Orbit Cloud" initials="MC">
-        Configuramos o funil e convidamos o time no mesmo dia.
+      <:chip
+        icon="kanban"
+        title={gettext("R$ 184 mil")}
+        subtitle={gettext("em negociação")}
+        top="150px"
+        right="48px"
+      />
+      <:quote author="Marina Costa" role={gettext("Comercial · Orbit Cloud")} initials="MC">
+        {gettext("Configuramos o funil e convidamos o time no mesmo dia.")}
       </:quote>
-      <h1>Entrar no StartKit</h1>
-      <p class="sub">O CRM da sua empresa, com o time inteiro no mesmo funil.</p>
+      <h1>{gettext("Entrar no StartKit")}</h1>
+      <p class="sub">{gettext("O CRM da sua empresa, com o time inteiro no mesmo funil.")}</p>
 
-      <.google_button label="Continuar com Google" />
+      <.google_button label={gettext("Continuar com Google")} />
       <.button
         navigate={~p"/users/log-in/link"}
         icon="mail"
@@ -29,7 +35,7 @@ defmodule LedgerStarterWeb.UserLive.Login do
         size="lg"
         variant="outline"
       >
-        Entrar com link mágico
+        {gettext("Entrar com link mágico")}
       </.button>
       <.or_divider />
 
@@ -42,12 +48,12 @@ defmodule LedgerStarterWeb.UserLive.Login do
         phx-trigger-action={@trigger_submit}
         class="flex flex-col gap-4"
       >
-        <.auth_alert :if={@error}>E-mail ou senha inválidos.</.auth_alert>
+        <.auth_alert :if={@error}>{gettext("E-mail ou senha inválidos.")}</.auth_alert>
         <.input
           field={f[:email]}
           type="email"
-          label="E-mail de trabalho"
-          placeholder="voce@empresa.com.br"
+          label={gettext("E-mail de trabalho")}
+          placeholder={gettext("voce@empresa.com.br")}
           autocomplete="username"
           spellcheck="false"
           required
@@ -55,20 +61,21 @@ defmodule LedgerStarterWeb.UserLive.Login do
         />
         <.password_input
           field={@form[:password]}
-          label="Senha"
+          label={gettext("Senha")}
           autocomplete="current-password"
-          show_label="Mostrar a senha"
-          hide_label="Ocultar a senha"
+          show_label={gettext("Mostrar a senha")}
+          hide_label={gettext("Ocultar a senha")}
           required
         />
         <div class="flex items-center justify-between">
-          <.checkbox field={@form[:remember_me]} label="Manter conectado" />
+          <.checkbox field={@form[:remember_me]} label={gettext("Manter conectado")} />
         </div>
-        <.auth_submit>Entrar</.auth_submit>
+        <.auth_submit>{gettext("Entrar")}</.auth_submit>
       </.form>
 
       <p class="text-center text-[13.5px] text-muted">
-        Novo por aqui? <.link navigate={~p"/users/register"}>Criar conta grátis</.link>
+        {gettext("Novo por aqui?")}
+        <.link navigate={~p"/users/register"}>{gettext("Criar conta grátis")}</.link>
       </p>
     </.auth_screen>
     """
@@ -81,10 +88,11 @@ defmodule LedgerStarterWeb.UserLive.Login do
 
     {:ok,
      assign(socket,
-       page_title: "Entrar",
+       page_title: gettext("Entrar"),
        form: form,
        trigger_submit: false,
-       error: Phoenix.Flash.get(socket.assigns.flash, :error) == "E-mail ou senha inválidos."
+       error:
+         Phoenix.Flash.get(socket.assigns.flash, :error) == gettext("E-mail ou senha inválidos.")
      )}
   end
 

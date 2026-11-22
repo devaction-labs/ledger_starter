@@ -12,18 +12,18 @@ defmodule LedgerStarterWeb.UserLive.Registration do
     <.auth_screen flash={@flash} id="register">
       <:chip
         icon="sparkles"
-        title="Pronto em 2 minutos"
-        subtitle="conta, empresa e funil"
+        title={gettext("Pronto em 2 minutos")}
+        subtitle={gettext("conta, empresa e funil")}
         top="64px"
         left="56px"
       />
-      <:quote author="Rafael Lima" role="Fundador · Lumen Studio" initials="RL">
-        Saímos da planilha para um funil de verdade em uma tarde.
+      <:quote author="Rafael Lima" role={gettext("Fundador · Lumen Studio")} initials="RL">
+        {gettext("Saímos da planilha para um funil de verdade em uma tarde.")}
       </:quote>
-      <h1>Crie sua conta</h1>
-      <p class="sub">14 dias grátis, sem cartão. Você convida o time depois.</p>
+      <h1>{gettext("Crie sua conta")}</h1>
+      <p class="sub">{gettext("14 dias grátis, sem cartão. Você convida o time depois.")}</p>
 
-      <.google_button label="Cadastrar com Google" />
+      <.google_button label={gettext("Cadastrar com Google")} />
       <.or_divider :if={LedgerStarter.Auth.Google.enabled?()} />
 
       <.form
@@ -33,10 +33,12 @@ defmodule LedgerStarterWeb.UserLive.Registration do
         phx-change="validate"
         class="flex flex-col gap-4"
       >
-        <.auth_alert :if={@check_errors}>Revise os campos destacados.</.auth_alert>
+        <.auth_alert :if={@check_errors}>
+          {gettext("Revise os campos destacados.")}
+        </.auth_alert>
         <.input
           field={@form[:name]}
-          label="Seu nome"
+          label={gettext("Seu nome")}
           autocomplete="name"
           required
           phx-mounted={JS.focus()}
@@ -44,27 +46,29 @@ defmodule LedgerStarterWeb.UserLive.Registration do
         <.input
           field={@form[:email]}
           type="email"
-          label="E-mail de trabalho"
+          label={gettext("E-mail de trabalho")}
           autocomplete="username"
           spellcheck="false"
           required
         />
         <.password_input
           field={@form[:password]}
-          label="Senha"
+          label={gettext("Senha")}
           autocomplete="new-password"
           strength={@strength}
-          show_label="Mostrar a senha"
-          hide_label="Ocultar a senha"
-          help="Forte: 12+ caracteres com número e símbolo."
+          show_label={gettext("Mostrar a senha")}
+          hide_label={gettext("Ocultar a senha")}
+          help={gettext("Forte: 12+ caracteres com número e símbolo.")}
           phx-debounce="200"
           required
         />
         <.checkbox field={@form[:terms]}>
-          Li e aceito os <.link href={~p"/termos"} target="_blank">Termos</.link>
-          e a <.link href={~p"/privacidade"} target="_blank">Política de Privacidade</.link>
+          {gettext("Li e aceito os")}
+          <.link href={~p"/termos"} target="_blank">{gettext("Termos")}</.link>
+          {gettext("e a")}
+          <.link href={~p"/privacidade"} target="_blank">{gettext("Política de Privacidade")}</.link>
         </.checkbox>
-        <.auth_submit>Criar conta</.auth_submit>
+        <.auth_submit>{gettext("Criar conta")}</.auth_submit>
       </.form>
 
       <form
@@ -80,7 +84,8 @@ defmodule LedgerStarterWeb.UserLive.Registration do
       </form>
 
       <p class="text-center text-[13.5px] text-muted">
-        Já tem conta? <.link navigate={~p"/users/log-in"}>Entrar</.link>
+        {gettext("Já tem conta?")}
+        <.link navigate={~p"/users/log-in"}>{gettext("Entrar")}</.link>
       </p>
     </.auth_screen>
     """
@@ -98,7 +103,7 @@ defmodule LedgerStarterWeb.UserLive.Registration do
 
     {:ok,
      socket
-     |> assign(page_title: "Criar conta")
+     |> assign(page_title: gettext("Criar conta"))
      |> assign(
        trigger_submit: false,
        registered_password: nil,
@@ -110,7 +115,7 @@ defmodule LedgerStarterWeb.UserLive.Registration do
 
   @impl true
   def handle_event("save", %{"user" => user_params}, socket) do
-    case Accounts.register_user(user_params) do
+    case Accounts.register_user(Map.put(user_params, "locale", socket.assigns.locale)) do
       {:ok, _user} ->
         {:noreply,
          socket
@@ -141,6 +146,6 @@ defmodule LedgerStarterWeb.UserLive.Registration do
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
-    assign(socket, form: to_form(changeset, as: "user"))
+    assign(socket, form: translated_form(changeset, as: "user"))
   end
 end

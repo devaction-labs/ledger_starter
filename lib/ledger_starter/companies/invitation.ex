@@ -1,6 +1,7 @@
 defmodule LedgerStarter.Companies.Invitation do
   @moduledoc "An invitation to join a company. Only the token hash is stored."
   use Ecto.Schema
+  use Gettext, backend: LedgerStarterWeb.Gettext
   import Ecto.Changeset
 
   @validity_days 7
@@ -28,7 +29,9 @@ defmodule LedgerStarter.Companies.Invitation do
       %__MODULE__{company_id: company.id, invited_by_id: invited_by && invited_by.id}
       |> cast(%{email: email, role: role}, [:email, :role])
       |> validate_required([:email, :role])
-      |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/, message: "e-mail inválido")
+      |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/,
+        message: dgettext_noop("errors", "e-mail inválido")
+      )
       |> put_change(:token_hash, hash(token))
       |> put_change(:expires_at, DateTime.add(DateTime.utc_now(:second), @validity_days, :day))
 

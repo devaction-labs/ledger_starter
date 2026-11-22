@@ -10,9 +10,17 @@ defmodule LedgerStarterWeb.UserLive.Confirmation do
   def render(assigns) do
     ~H"""
     <.auth_screen flash={@flash} id="confirm">
-      <:chip icon="check" title="Link válido" subtitle="uso único" top="64px" left="56px" />
+      <:chip
+        icon="check"
+        title={gettext("Link válido")}
+        subtitle={gettext("uso único")}
+        top="64px"
+        left="56px"
+      />
 
-      <h1>{if @user.confirmed_at, do: "Bem-vindo de volta", else: "Confirme sua conta"}</h1>
+      <h1>
+        {if @user.confirmed_at, do: gettext("Bem-vindo de volta"), else: gettext("Confirme sua conta")}
+      </h1>
       <p class="sub">{@user.email}</p>
       <.form
         for={@form}
@@ -27,7 +35,7 @@ defmodule LedgerStarterWeb.UserLive.Confirmation do
         <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
         <input type="hidden" name={@form[:remember_me].name} value="true" />
         <.auth_submit>
-          {if @user.confirmed_at, do: "Entrar", else: "Confirmar e entrar"}
+          {if @user.confirmed_at, do: gettext("Entrar"), else: gettext("Confirmar e entrar")}
         </.auth_submit>
       </.form>
     </.auth_screen>
@@ -39,11 +47,17 @@ defmodule LedgerStarterWeb.UserLive.Confirmation do
     if user = Accounts.get_user_by_magic_link_token(token) do
       form = to_form(%{"token" => token}, as: "user")
 
-      {:ok, assign(socket, page_title: "Entrar", user: user, form: form, trigger_submit: false)}
+      {:ok,
+       assign(socket,
+         page_title: gettext("Entrar"),
+         user: user,
+         form: form,
+         trigger_submit: false
+       )}
     else
       {:ok,
        socket
-       |> put_flash(:error, "O link é inválido ou expirou.")
+       |> put_flash(:error, gettext("O link é inválido ou expirou."))
        |> push_navigate(to: ~p"/users/log-in/link")}
     end
   end

@@ -11,23 +11,31 @@ defmodule LedgerStarterWeb.CompanyLive.New do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen flash={@flash} id="company" footer_right="Ajuda">
+    <.auth_screen flash={@flash} id="company" footer_right={gettext("Ajuda")}>
       <:chip
         icon="globe"
         title={@host_preview}
-        subtitle="endereço do seu workspace"
+        subtitle={gettext("endereço do seu workspace")}
         top="64px"
         left="56px"
       />
-      <:chip icon="shield" title="Dados isolados" subtitle="por empresa" top="150px" right="48px" />
+      <:chip
+        icon="shield"
+        title={gettext("Dados isolados")}
+        subtitle={gettext("por empresa")}
+        top="150px"
+        right="48px"
+      />
 
       <.stepper current={1}>
-        <:step label="Conta" />
-        <:step label="Empresa" />
-        <:step label="Convites" />
+        <:step label={gettext("Conta")} />
+        <:step label={gettext("Empresa")} />
+        <:step label={gettext("Convites")} />
       </.stepper>
-      <h1>Sua empresa</h1>
-      <p class="sub">Cada empresa é um workspace separado: dados, time e permissões próprios.</p>
+      <h1>{gettext("Sua empresa")}</h1>
+      <p class="sub">
+        {gettext("Cada empresa é um workspace separado: dados, time e permissões próprios.")}
+      </p>
 
       <.form
         for={@form}
@@ -38,7 +46,7 @@ defmodule LedgerStarterWeb.CompanyLive.New do
       >
         <.input
           field={@form[:name]}
-          label="Nome da empresa"
+          label={gettext("Nome da empresa")}
           placeholder="Orbit Cloud"
           autocomplete="organization"
           required
@@ -47,7 +55,7 @@ defmodule LedgerStarterWeb.CompanyLive.New do
         />
         <.input
           field={@form[:subdomain]}
-          label="Endereço do workspace"
+          label={gettext("Endereço do workspace")}
           placeholder="orbit"
           suffix={"." <> @base_host}
           autocomplete="off"
@@ -57,7 +65,7 @@ defmodule LedgerStarterWeb.CompanyLive.New do
           required
           phx-debounce="200"
         />
-        <.auth_submit>Criar workspace</.auth_submit>
+        <.auth_submit>{gettext("Criar workspace")}</.auth_submit>
       </.form>
     </.auth_screen>
     """
@@ -68,7 +76,7 @@ defmodule LedgerStarterWeb.CompanyLive.New do
     {:ok,
      socket
      |> assign(
-       page_title: "Criar empresa",
+       page_title: gettext("Criar empresa"),
        base_host: Tenant.base_host(),
        subdomain_touched: false
      )
@@ -102,7 +110,7 @@ defmodule LedgerStarterWeb.CompanyLive.New do
       {:ok, company} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Workspace #{company.name} criado!")
+         |> put_flash(:info, gettext("Workspace %{name} criado!", name: company.name))
          |> redirect(external: Tenant.company_url(company, "/painel"))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -113,21 +121,28 @@ defmodule LedgerStarterWeb.CompanyLive.New do
     end
   end
 
-  defp assign_form(socket, changeset), do: assign(socket, form: to_form(changeset, as: "company"))
+  defp assign_form(socket, changeset),
+    do: assign(socket, form: translated_form(changeset, as: "company"))
 
   defp assign_availability(socket, subdomain) do
-    host = "#{if subdomain == "", do: "seu-endereco", else: subdomain}.#{Tenant.base_host()}"
+    host =
+      "#{if subdomain == "", do: gettext("seu-endereco"), else: subdomain}.#{Tenant.base_host()}"
 
     {state, help} =
       case subdomain do
         "" ->
-          {nil, "Seu time entra por #{host}"}
+          {nil, gettext("Seu time entra por %{host}", host: host)}
 
         sub ->
           case Companies.subdomain_status(sub) do
-            :available -> {"success", "Disponível: seu time entra por #{host}"}
-            :taken -> {"error", "Este endereço já está em uso."}
-            {:invalid, msg} -> {"error", msg}
+            :available ->
+              {"success", gettext("Disponível: seu time entra por %{host}", host: host)}
+
+            :taken ->
+              {"error", gettext("Este endereço já está em uso.")}
+
+            {:invalid, msg} ->
+              {"error", translate_error({msg, []})}
           end
       end
 

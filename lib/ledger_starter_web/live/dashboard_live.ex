@@ -12,7 +12,7 @@ defmodule LedgerStarterWeb.DashboardLive do
       current_scope={@current_scope}
       companies={@companies}
       current={~p"/painel"}
-      crumb="Início"
+      crumb={gettext("Início")}
     >
       <.async_result :let={data} assign={@data}>
         <:loading>
@@ -23,7 +23,7 @@ defmodule LedgerStarterWeb.DashboardLive do
         <div class="flex flex-col gap-5 px-7 py-6">
           <.hero_card
             id="dashboard-hero"
-            eyebrow={"Olá, #{first_name(@current_scope.user)}"}
+            eyebrow={gettext("Olá, %{name}", name: first_name(@current_scope.user))}
             title={hero_title(data)}
             description={hero_description(data)}
             steps={hero_steps(data)}
@@ -36,7 +36,7 @@ defmodule LedgerStarterWeb.DashboardLive do
                 size="lg"
                 icon="user-plus"
               >
-                Convidar o time
+                {gettext("Convidar o time")}
               </.button>
               <.button
                 :if={PermitEx.can?(@current_scope, "contacts:write")}
@@ -45,7 +45,7 @@ defmodule LedgerStarterWeb.DashboardLive do
                 size="lg"
                 icon="plus"
               >
-                Novo contato
+                {gettext("Novo contato")}
               </.button>
             </:actions>
           </.hero_card>
@@ -56,7 +56,7 @@ defmodule LedgerStarterWeb.DashboardLive do
               surface="card"
               icon="user-plus"
               tone="accent"
-              label="Novo contato"
+              label={gettext("Novo contato")}
               navigate={~p"/contatos/novo"}
             />
             <.mini_card
@@ -64,14 +64,14 @@ defmodule LedgerStarterWeb.DashboardLive do
               surface="card"
               icon="users"
               tone="info"
-              label="Convidar pessoas"
+              label={gettext("Convidar pessoas")}
               navigate={~p"/equipe/convidar"}
             />
             <.mini_card
               surface="card"
               icon="kanban"
               tone="success"
-              label="Ver contatos"
+              label={gettext("Ver contatos")}
               navigate={~p"/contatos"}
             />
             <.mini_card
@@ -79,21 +79,31 @@ defmodule LedgerStarterWeb.DashboardLive do
               surface="card"
               icon="building"
               tone="warning"
-              label="Equipe"
+              label={gettext("Equipe")}
               navigate={~p"/equipe"}
             />
           </div>
 
           <div class="grid grid-cols-4 gap-3 max-lg:grid-cols-2" id="metrics">
-            <.kpi_card id="kpi-total" label="Contatos" value={to_string(data.total)} trend="flat">
+            <.kpi_card
+              id="kpi-total"
+              label={gettext("Contatos")}
+              value={to_string(data.total)}
+              trend="flat"
+            >
               <:icon><.icon name="users" /></:icon>
             </.kpi_card>
-            <.kpi_card id="kpi-lead" label="Leads" value={to_string(data.stages.lead)} trend="flat">
+            <.kpi_card
+              id="kpi-lead"
+              label={gettext("Leads")}
+              value={to_string(data.stages.lead)}
+              trend="flat"
+            >
               <:icon><.icon name="user-plus" /></:icon>
             </.kpi_card>
             <.kpi_card
               id="kpi-qualified"
-              label="Qualificados"
+              label={gettext("Qualificados")}
               value={to_string(data.stages.qualified)}
               trend="flat"
             >
@@ -101,7 +111,7 @@ defmodule LedgerStarterWeb.DashboardLive do
             </.kpi_card>
             <.kpi_card
               id="kpi-customer"
-              label="Clientes"
+              label={gettext("Clientes")}
               value={to_string(data.stages.customer)}
               trend="flat"
             >
@@ -111,16 +121,18 @@ defmodule LedgerStarterWeb.DashboardLive do
 
           <.card>
             <.card_header>
-              <.card_heading>Contatos recentes</.card_heading>
+              <.card_heading>{gettext("Contatos recentes")}</.card_heading>
               <.card_actions>
-                <.button navigate={~p"/contatos"} size="sm" variant="ghost">Ver todos</.button>
+                <.button navigate={~p"/contatos"} size="sm" variant="ghost">
+                  {gettext("Ver todos")}
+                </.button>
               </.card_actions>
             </.card_header>
             <.card_body>
               <.table id="recent-contacts" rows={data.recent}>
-                <:col :let={c} label="Nome">{c.name}</:col>
-                <:col :let={c} label="Empresa">{c.company_name || "—"}</:col>
-                <:col :let={c} label="Etapa">
+                <:col :let={c} label={gettext("Nome")}>{c.name}</:col>
+                <:col :let={c} label={gettext("Empresa")}>{c.company_name || "—"}</:col>
+                <:col :let={c} label={gettext("Etapa")}>
                   <.badge color={stage_color(c.stage)} dot>{stage_label(c.stage)}</.badge>
                 </:col>
               </.table>
@@ -138,7 +150,7 @@ defmodule LedgerStarterWeb.DashboardLive do
 
     {:ok,
      socket
-     |> assign(page_title: "Início")
+     |> assign(page_title: gettext("Início"))
      |> assign_new(:companies, fn -> Companies.list_companies_for_user(scope.user) end)
      |> assign_async(:data, fn -> {:ok, %{data: load(scope)}} end)}
   end
@@ -158,26 +170,30 @@ defmodule LedgerStarterWeb.DashboardLive do
   defp first_name(user),
     do: (user.name || user.email) |> String.split(~r/[\s@]/, parts: 2) |> hd()
 
-  defp hero_title(%{total: 0}), do: "Seu CRM está quase pronto"
+  defp hero_title(%{total: 0}), do: gettext("Seu CRM está quase pronto")
 
   defp hero_title(%{total: n}),
-    do: "#{n} #{if n == 1, do: "contato", else: "contatos"} no seu funil"
+    do: ngettext("%{count} contato no seu funil", "%{count} contatos no seu funil", n)
 
   defp hero_description(data) do
     case Enum.count(hero_steps(data), &(&1.state != "done")) do
       0 ->
-        "Tudo pronto: o time já pode vender pelo StartKit."
+        gettext("Tudo pronto: o time já pode vender pelo StartKit.")
 
       n ->
-        "Faltam #{n} #{if n == 1, do: "passo", else: "passos"} para o time vender pelo StartKit."
+        ngettext(
+          "Falta %{count} passo para o time vender pelo StartKit.",
+          "Faltam %{count} passos para o time vender pelo StartKit.",
+          n
+        )
     end
   end
 
   defp hero_steps(data) do
     steps = [
-      %{label: "Empresa", done: true},
-      %{label: "Primeiro contato", done: data.total > 0},
-      %{label: "Convidar o time", done: data.members > 1}
+      %{label: gettext("Empresa"), done: true},
+      %{label: gettext("Primeiro contato"), done: data.total > 0},
+      %{label: gettext("Convidar o time"), done: data.members > 1}
     ]
 
     {steps, _} =
@@ -192,9 +208,9 @@ defmodule LedgerStarterWeb.DashboardLive do
     steps
   end
 
-  def stage_label(:lead), do: "Lead"
-  def stage_label(:qualified), do: "Qualificado"
-  def stage_label(:customer), do: "Cliente"
+  def stage_label(:lead), do: gettext("Lead")
+  def stage_label(:qualified), do: gettext("Qualificado")
+  def stage_label(:customer), do: gettext("Cliente")
   def stage_label(_), do: "—"
 
   def stage_color(:lead), do: "info"

@@ -134,7 +134,7 @@ defmodule LedgerStarter.Companies do
     for role <- roles,
         user_id <- PermitEx.users_with_role(role, company_id, repo: Repo),
         user = Repo.get(User, user_id) do
-      %{user: user, role_label: Permissions.label(role)}
+      %{user: user, role_label: Permissions.label(role), owner?: role.name == "owner"}
     end
   end
 

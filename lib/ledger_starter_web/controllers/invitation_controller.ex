@@ -13,34 +13,41 @@ defmodule LedgerStarterWeb.InvitationController do
     case {Companies.get_invitation_by_token(token), conn.assigns.current_scope} do
       {nil, _} ->
         conn
-        |> put_flash(:error, "Este convite é inválido ou expirou.")
+        |> put_flash(:error, gettext("Este convite é inválido ou expirou."))
         |> redirect(to: ~p"/")
 
       {invitation, %Scope{user: %{} = user}} ->
         case Companies.accept_invitation(token, user) do
           {:ok, company} ->
             conn
-            |> put_flash(:info, "Você entrou em #{company.name}.")
+            |> put_flash(:info, gettext("Você entrou em %{company}.", company: company.name))
             |> redirect(external: Tenant.company_url(company, "/painel"))
 
           {:error, :email_mismatch} ->
             conn
             |> put_flash(
               :error,
-              "Este convite é para #{invitation.email}. Entre com esse e-mail para aceitar."
+              gettext("Este convite é para %{email}. Entre com esse e-mail para aceitar.",
+                email: invitation.email
+              )
             )
             |> redirect(to: ~p"/workspaces")
 
           {:error, _} ->
             conn
-            |> put_flash(:error, "Não foi possível aceitar o convite.")
+            |> put_flash(:error, gettext("Não foi possível aceitar o convite."))
             |> redirect(to: ~p"/workspaces")
         end
 
       {invitation, _} ->
         conn
         |> put_session(:user_return_to, ~p"/convites/#{token}")
-        |> put_flash(:info, "Crie sua conta ou entre para entrar em #{invitation.company.name}.")
+        |> put_flash(
+          :info,
+          gettext("Crie sua conta ou entre para entrar em %{company}.",
+            company: invitation.company.name
+          )
+        )
         |> redirect(to: ~p"/users/register?#{[email: invitation.email]}")
     end
   end

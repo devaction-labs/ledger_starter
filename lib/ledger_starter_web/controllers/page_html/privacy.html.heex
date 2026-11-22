@@ -1,23 +1,27 @@
-<.legal flash={@flash} title="Política de Privacidade">
+<.legal flash={@flash} title={gettext("Política de Privacidade")}>
   <p>
-    O StartKit é um aplicativo de demonstração operado pela DevAction Labs. Esta política explica,
-    de forma resumida, como tratamos seus dados.
+    {gettext(
+      "O StartKit é um aplicativo de demonstração operado pela DevAction Labs. Esta política explica, de forma resumida, como tratamos seus dados."
+    )}
   </p>
-  <h2>Dados que usamos</h2>
+  <h2>{gettext("Dados que usamos")}</h2>
   <p>
-    Nome, e-mail e, ao entrar com o Google, a foto do seu perfil. Usamos esses dados somente para
-    criar sua conta e autenticar seu acesso. Os dados de contatos que você cadastra pertencem ao
-    seu workspace e ficam isolados dos demais.
+    {gettext(
+      "Nome, e-mail e, ao entrar com o Google, a foto do seu perfil. Usamos esses dados somente para criar sua conta e autenticar seu acesso. Os dados de contatos que você cadastra pertencem ao seu workspace e ficam isolados dos demais."
+    )}
   </p>
-  <h2>Compartilhamento</h2>
+  <h2>{gettext("Compartilhamento")}</h2>
   <p>
-    Não vendemos nem cedemos seus dados a terceiros. Usamos provedores de infraestrutura e de
-    envio de e-mail apenas para operar o serviço.
+    {gettext(
+      "Não vendemos nem cedemos seus dados a terceiros. Usamos provedores de infraestrutura e de envio de e-mail apenas para operar o serviço."
+    )}
   </p>
-  <h2>Exclusão</h2>
+  <h2>{gettext("Exclusão")}</h2>
   <p>
-    Você pode pedir a exclusão da sua conta e dos dados associados a qualquer momento.
+    {gettext("Você pode pedir a exclusão da sua conta e dos dados associados a qualquer momento.")}
   </p>
-  <h2>Contato</h2>
-  <p>Escreva para <a href="mailto:alex@devaction.com.br">alex@devaction.com.br</a>.</p>
+  <h2>{gettext("Contato")}</h2>
+  <p>
+    {gettext("Escreva para")} <a href="mailto:alex@devaction.com.br">alex@devaction.com.br</a>.
+  </p>
 </.legal>

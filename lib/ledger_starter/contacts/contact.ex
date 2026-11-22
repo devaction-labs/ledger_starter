@@ -1,5 +1,6 @@
 defmodule LedgerStarter.Contacts.Contact do
   use Ecto.Schema
+  use Gettext, backend: LedgerStarterWeb.Gettext
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -21,7 +22,9 @@ defmodule LedgerStarter.Contacts.Contact do
     contact
     |> cast(attrs, [:name, :email, :phone, :company_name, :stage])
     |> validate_required([:name, :email, :stage])
-    |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/, message: "e-mail inválido")
+    |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/,
+      message: dgettext_noop("errors", "e-mail inválido")
+    )
     |> validate_length(:name, max: 120)
     |> put_change(:company_id, company_scope.company.id)
     |> maybe_put_owner(company_scope)

@@ -107,3 +107,50 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+#: lib/ledger_starter/accounts/user.ex:34
+#, elixir-autogen, elixir-format
+msgid "aceite os termos para continuar"
+msgstr ""
+
+#: lib/ledger_starter/accounts/user.ex:84
+#, elixir-autogen, elixir-format
+msgid "did not change"
+msgstr ""
+
+#: lib/ledger_starter/accounts/user.ex:109
+#, elixir-autogen, elixir-format
+msgid "does not match password"
+msgstr ""
+
+#: lib/ledger_starter/companies/invitation.ex:33
+#: lib/ledger_starter/contacts/contact.ex:26
+#, elixir-autogen, elixir-format
+msgid "e-mail inválido"
+msgstr ""
+
+#: lib/ledger_starter/companies/company.ex:36
+#, elixir-autogen, elixir-format
+msgid "este endereço é reservado"
+msgstr ""
+
+#: lib/ledger_starter/accounts/user.ex:28
+#, elixir-autogen, elixir-format
+msgid "informe seu nome"
+msgstr ""
+
+#: lib/ledger_starter/companies/company.ex:43
+#: lib/ledger_starter/companies/company.ex:47
+#, elixir-autogen, elixir-format
+msgid "já está em uso"
+msgstr ""
+
+#: lib/ledger_starter/accounts/user.ex:68
+#, elixir-autogen, elixir-format
+msgid "must have the @ sign and no spaces"
+msgstr ""
+
+#: lib/ledger_starter/companies/company.ex:33
+#, elixir-autogen, elixir-format
+msgid "use apenas letras minúsculas, números e hífen"
+msgstr ""
