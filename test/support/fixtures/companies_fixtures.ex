@@ -29,9 +29,20 @@ defmodule LedgerStarter.CompaniesFixtures do
   end
 
   @doc "Adds a new user to the company with the given role; returns `{user, scope}`."
-  def member_fixture(company, role \\ "member") do
+  def member_fixture(company, role \\ "sales") do
     user = AccountsFixtures.user_fixture()
     {:ok, _} = Companies.add_member(company, user, role)
     {user, company_scope_fixture(user, company)}
+  end
+
+  @doc "A custom company role (created by `owner`) with the given permission names."
+  def role_fixture(owner_scope, label, permissions) do
+    {:ok, role} =
+      LedgerStarter.Permissions.create_role(owner_scope, %{
+        "label" => label,
+        "permissions" => permissions
+      })
+
+    role
   end
 end

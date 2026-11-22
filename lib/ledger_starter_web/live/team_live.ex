@@ -3,12 +3,10 @@ defmodule LedgerStarterWeb.TeamLive do
 
   alias LedgerStarter.Companies
   alias LedgerStarter.Accounts.Scope
-  alias LedgerStarterWeb.{Layouts, Tenant}
+  alias LedgerStarter.Permissions
+  alias LedgerStarterWeb.{Layouts, TeamComponents, Tenant}
 
-  @roles [
-    {"admin", "Admin", "Gerencia contatos e convida pessoas."},
-    {"member", "Membro", "Cria e edita contatos."}
-  ]
+  on_mount {LedgerStarterWeb.UserAuth, {:require_permission, "team:read", :equipe}}
 
   @impl true
   def render(assigns) do
@@ -27,7 +25,7 @@ defmodule LedgerStarterWeb.TeamLive do
         <.page_header title="Equipe" description={seats_text(team.seats)}>
           <:actions>
             <.button
-              :if={PermitEx.can?(@current_scope, "team:invite")}
+              :if={PermitEx.can?(@current_scope, "team:write")}
               id="invite-people"
               patch={~p"/equipe/convidar"}
               icon="user-plus"
@@ -36,6 +34,7 @@ defmodule LedgerStarterWeb.TeamLive do
             </.button>
           </:actions>
         </.page_header>
+        <TeamComponents.team_tabs current={:team} count={length(team.rows)} />
 
         <div class="px-7 pb-8">
           <.card_table id="team" rows={team.rows} row_id={& &1.id}>
@@ -50,7 +49,7 @@ defmodule LedgerStarterWeb.TeamLive do
             </:col>
             <:col :let={row} label="Papel">
               <.badge color={if row.role == "owner", do: "primary", else: "neutral"}>
-                {Layouts.role_label(row.role)}
+                {row.role_label || "Sem papel"}
               </.badge>
             </:col>
             <:col :let={row} label="Status" role="status">
@@ -70,8 +69,8 @@ defmodule LedgerStarterWeb.TeamLive do
               >
                 <%= if row.status == :active do %>
                   <.dropdown_item
-                    :for={{value, label, _} <- roles()}
-                    :if={PermitEx.can?(@current_scope, "team:manage") and row.role != "owner"}
+                    :for={{value, label, _} <- @roles}
+                    :if={PermitEx.can?(@current_scope, "team:write") and row.role != "owner"}
                     selected={row.role == value}
                     phx-click="set_role"
                     phx-value-user-id={row.user_id}
@@ -126,7 +125,7 @@ defmodule LedgerStarterWeb.TeamLive do
                 field={@form[:role]}
                 variant="card"
                 options={
-                  for {value, label, description} <- roles(),
+                  for {value, label, description} <- @roles,
                       do: %{label: label, value: value, description: description}
                 }
               />
@@ -153,30 +152,25 @@ defmodule LedgerStarterWeb.TeamLive do
   @impl true
   def mount(_params, _session, socket) do
     scope = socket.assigns.current_scope
+    roles = role_options(scope)
 
-    if PermitEx.can?(scope, "team:read") do
-      {:ok,
-       socket
-       |> assign(
-         page_title: "Equipe",
-         seats: Companies.seats_info(scope),
-         email_count: 0,
-         seats_after: 0
-       )
-       |> assign(form: invite_form(%{"role" => "member"}))
-       |> assign_new(:companies, fn -> Companies.list_companies_for_user(scope.user) end)
-       |> load_team()}
-    else
-      {:ok,
-       socket
-       |> put_flash(:error, "Você não tem permissão para ver a equipe.")
-       |> push_navigate(to: ~p"/painel")}
-    end
+    {:ok,
+     socket
+     |> assign(
+       roles: roles,
+       page_title: "Equipe",
+       seats: Companies.seats_info(scope),
+       email_count: 0,
+       seats_after: 0
+     )
+     |> assign(form: invite_form(%{"role" => default_role(roles)}))
+     |> assign_new(:companies, fn -> Companies.list_companies_for_user(scope.user) end)
+     |> load_team()}
   end
 
   @impl true
   def handle_params(_params, _uri, %{assigns: %{live_action: :invite}} = socket) do
-    if PermitEx.can?(socket.assigns.current_scope, "team:invite") do
+    if PermitEx.can?(socket.assigns.current_scope, "team:write") do
       {:noreply, assign(socket, seats: Companies.seats_info(socket.assigns.current_scope))}
     else
       {:noreply,
@@ -188,10 +182,23 @@ defmodule LedgerStarterWeb.TeamLive do
 
   def handle_params(_params, _uri, socket), do: {:noreply, socket}
 
-  defp roles, do: @roles
+  # The roles an invitation or "Tornar ..." can give: every company role but the owner.
+  defp role_options(scope) do
+    case Permissions.list_roles(scope) do
+      {:ok, roles} -> for r <- roles, r.name != "owner", do: {r.name, r.label, r.blurb}
+      _ -> []
+    end
+  end
 
-  defp menu?(scope, %{status: :pending}), do: PermitEx.can?(scope, "team:invite")
-  defp menu?(scope, %{role: role}), do: role != "owner" and PermitEx.can?(scope, "team:manage")
+  defp default_role(roles) do
+    case Enum.find(roles, fn {name, _, _} -> name == "sales" end) || List.first(roles) do
+      {name, _, _} -> name
+      nil -> nil
+    end
+  end
+
+  defp menu?(scope, %{status: :pending}), do: PermitEx.can?(scope, "team:write")
+  defp menu?(scope, %{role: role}), do: role != "owner" and PermitEx.can?(scope, "team:write")
 
   defp invite_form(params), do: to_form(Map.take(params, ["emails", "role"]), as: "invite")
 
@@ -223,7 +230,10 @@ defmodule LedgerStarterWeb.TeamLive do
         {:noreply,
          socket
          |> put_flash(:info, msg)
-         |> assign(email_count: 0, form: invite_form(%{"role" => "member"}))
+         |> assign(
+           email_count: 0,
+           form: invite_form(%{"role" => default_role(socket.assigns.roles)})
+         )
          |> load_team()
          |> push_patch(to: ~p"/equipe")}
 
@@ -281,7 +291,9 @@ defmodule LedgerStarterWeb.TeamLive do
     scope = socket.assigns.current_scope
 
     assign_async(socket, :team, fn ->
-      with {:ok, members} <- Companies.list_members(scope),
+      with {:ok, roles} <- Permissions.list_roles(scope),
+           labels = Map.new(roles, &{&1.name, &1.label}),
+           {:ok, members} <- Companies.list_members(scope),
            {:ok, invites} <- Companies.list_pending_invitations(scope) do
         rows =
           Enum.map(members, fn m ->
@@ -291,11 +303,20 @@ defmodule LedgerStarterWeb.TeamLive do
               name: m.user.name,
               email: m.user.email,
               role: m.role,
+              role_label: m.role_label,
               status: :active
             }
           end) ++
             Enum.map(invites, fn i ->
-              %{id: i.id, user_id: nil, name: nil, email: i.email, role: i.role, status: :pending}
+              %{
+                id: i.id,
+                user_id: nil,
+                name: nil,
+                email: i.email,
+                role: i.role,
+                role_label: Map.get(labels, i.role, i.role),
+                status: :pending
+              }
             end)
 
         {:ok, %{team: %{rows: rows, seats: Companies.seats_info(scope)}}}

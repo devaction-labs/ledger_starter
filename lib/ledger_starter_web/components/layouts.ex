@@ -97,14 +97,16 @@ defmodule LedgerStarterWeb.Layouts do
 
   defp user_map(user, scope) do
     name = user.name || user.email
-    role = LedgerStarter.Permissions.role_of(user.id, scope.company.id)
+    role = scope.roles |> List.first() |> then(&(&1 && LedgerStarter.Permissions.label(&1)))
 
-    %{name: name, email: user.email, initials: initials(name), role: role && role_label(role)}
+    %{name: name, email: user.email, initials: initials(name), role: role}
   end
 
+  @doc "Display name of a role template (custom roles show their own name)."
   def role_label("owner"), do: "Dono"
   def role_label("admin"), do: "Admin"
-  def role_label("member"), do: "Membro"
+  def role_label("sales"), do: "Vendas"
+  def role_label("viewer"), do: "Leitura"
   def role_label(other), do: other
 
   def initials(name) when is_binary(name) do

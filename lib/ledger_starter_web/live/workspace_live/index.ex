@@ -5,7 +5,7 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
   import LedgerStarterWeb.AuthComponents
 
   alias LedgerStarter.{Companies, Permissions}
-  alias LedgerStarterWeb.{Layouts, Tenant}
+  alias LedgerStarterWeb.Tenant
 
   @impl true
   def render(assigns) do
@@ -32,7 +32,7 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
           label={company.name}
           href={Tenant.company_url(company, "/painel")}
         >
-          {Tenant.company_host(company)} · {Layouts.role_label(role)}
+          {Tenant.company_host(company)} · {role}
         </.mini_card>
       </div>
       <.or_divider label="ou" />
@@ -52,7 +52,7 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
 
     companies =
       for c <- Companies.list_companies_for_user(user),
-          do: {c, Permissions.role_of(user.id, c.id)}
+          do: {c, Permissions.role_label_of(user.id, c.id)}
 
     {:ok,
      assign(socket, page_title: "Escolher workspace", companies: companies, email: user.email)}

@@ -278,9 +278,30 @@ defmodule LedgerStarterWeb.UserAuth do
       {:cont,
        socket
        |> Phoenix.Component.assign(:current_scope, Scope.put_company(scope, company))
-       |> Phoenix.Component.assign(:current_company, company)}
+       |> Phoenix.Component.assign(:current_company, company)
+       |> Phoenix.LiveView.attach_hook(
+         :refresh_permissions,
+         :handle_event,
+         &refresh_permissions/3
+       )}
     else
       {:halt, Phoenix.LiveView.redirect(socket, external: Tenant.root_url("/users/log-in"))}
+    end
+  end
+
+  @doc """
+  `on_mount {LedgerStarterWeb.UserAuth, {:require_permission, "team:read", :equipe}}` in a
+  tenant LiveView: without the permission the user is taken to the 403 page
+  (`/sem-permissao?pagina=equipe`) instead of a flash.
+  """
+  def on_mount({:require_permission, permission, page}, _params, _session, socket) do
+    if Scope.can?(socket.assigns.current_scope, permission) do
+      {:cont, socket}
+    else
+      {:halt,
+       Phoenix.LiveView.push_navigate(socket,
+         to: ~p"/sem-permissao?#{[pagina: to_string(page)]}"
+       )}
     end
   end
 
@@ -297,6 +318,15 @@ defmodule LedgerStarterWeb.UserAuth do
 
       {:halt, socket}
     end
+  end
+
+  # Role edits apply "on the next click": every event reloads the roles and
+  # permissions of the user in this company (PermitEx), so a role changed by
+  # someone else takes effect without a new mount. Authorization checks in the
+  # event handlers therefore see fresh permissions.
+  defp refresh_permissions(_event, _params, socket) do
+    {:cont,
+     Phoenix.Component.assign(socket, :current_scope, Scope.reload(socket.assigns.current_scope))}
   end
 
   defp mount_current_scope(socket, session) do

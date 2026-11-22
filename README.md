@@ -14,10 +14,16 @@ CRM multiempresa pronto para virar o seu SaaS: Phoenix 1.8 + LiveView + [Ledger 
 - **Scopes do Phoenix 1.8**: `LedgerStarter.Accounts.Scope` carrega `user`, `company` e os papéis/permissões do usuário
   na empresa. Todo contexto tenant (`Contacts`, `Companies`) recebe o `scope` e filtra por `company_id`
   (gerado com `mix phx.gen.live ... --scope company`).
-- **Papéis e permissões** (PermitEx, contexto = id da empresa): `owner`, `admin`, `member` com `contacts:read|create|update|delete`,
-  `team:read|invite|manage` e `company:manage`. Os templates são semeados e clonados para cada empresa criada.
+- **Papéis e permissões** (PermitEx, contexto = id da empresa): papéis `owner` (Dono), `admin`, `sales` (Vendas) e
+  `viewer` (Leitura), mais papéis personalizados por empresa. As permissões seguem a matriz do StartKit, em grupos
+  (`contacts`, `deals`, `tasks`, `reports`, `data`, `team`, `billing`, `company`) com as ações `read|write|delete`
+  (`contacts:write` = criar e editar; `company:delete` = excluir o workspace) e o escopo `recurso:team|all` (sem nenhum
+  dos dois = "só os seus"; o escopo é gravado e exibido, ainda não filtra dados). Os templates são semeados e clonados
+  **uma vez** para cada empresa criada; depois cada empresa é dona dos seus papéis. `owner` e `admin` são `locked`
+  (PermitEx) e o resto edita em **Equipe → Papéis e permissões** (`team:write`; ninguém libera o que o próprio papel não
+  tem). Sem a permissão de uma página, o usuário cai na página 403 `/sem-permissao` (via `on_mount`).
 - **CRM**: contatos (lead / qualificado / cliente) com lista, modal "Novo contato", edição e exclusão; equipe com membros,
-  convites pendentes, gaveta "Convidar pessoas" e limite de assentos.
+  convites pendentes, gaveta "Convidar pessoas", limite de assentos, matriz "Papéis e permissões" e gaveta "Editar papel".
 - **E-mail**: Swoosh; `Local` em dev (caixa em `/dev/mailbox`) e Resend em produção. Textos em pt-BR.
 - **Health**: `/health/live` e `/health/ready`.
 
@@ -37,7 +43,7 @@ O e-mail de convite e o link mágico aparecem em `http://lvh.me:4740/dev/mailbox
 
 ### Dados de demonstração
 
-`mix run priv/repo/seeds.exs` cria a empresa **Orbit Cloud** (`orbit.lvh.me`) com 3 membros
+`mix run priv/repo/seeds.exs` cria a empresa **Orbit Cloud** (`orbit.lvh.me`) com 5 membros
 (`demo@ledger.devaction.com.br` dono, `marina@...` admin, `rafael@...` membro) e 25 contatos.
 A senha dos três vem de `DEMO_PASSWORD` (há um valor padrão só para dev em `priv/repo/seeds.exs`).
 Em produção defina `DEMO_PASSWORD` antes de rodar `LedgerStarter.Release.seed_demo/0`, ou não rode a seed.
@@ -114,12 +120,16 @@ lib/ledger_starter_web/
 
 Host raiz: `/`, `/users/register`, `/users/log-in`, `/users/log-in/link`, `/users/log-in/:token`, `/users/settings`,
 `/auth/google`, `/auth/google/callback`, `/convites/:token`, `/empresas/nova`, `/workspaces`.
-Host do tenant: `/painel`, `/contatos` (`/novo`, `/:id/editar`), `/equipe` (`/convidar`).
+Host do tenant: `/painel`, `/contatos` (`/novo`, `/:id/editar`), `/equipe` (`/convidar`), `/equipe/papeis` (`/novo`, `/:papel/editar`), `/sem-permissao`.
 Qualquer host: `/health/live`, `/health/ready`.
 
 ## Notas
 
 - Permissões do PermitEx precisam seguir `recurso:acao`, e **um nome com exatamente 16 bytes é lido como UUID**
-  (por isso `company:manage` e não `company:settings`).
+  (por isso `company:delete` e não `company:destroy`/`workspace:delete`, que têm 16 bytes). Papéis do PermitEx são
+  *slugs* e não têm rótulo: o nome exibido ("Vendas") fica em `description`.
+- Migração dos dados: `member` virou `sales` (Vendas) no próprio registro do PermitEx, então ninguém perde o papel;
+  convites pendentes de `member` viram `sales`; os templates são re-clonados e as permissões antigas
+  (`contacts:create|update`, `team:invite|manage`, `company:manage`) são removidas. O Admin agora tem `team:write`.
 - Um usuário que se cadastrou com senha e nunca confirmou o e-mail perde a senha ao entrar por link mágico ou Google
   (o link prova a posse do e-mail; evita *pre-hijacking*). Ele pode definir outra em `/users/settings`.

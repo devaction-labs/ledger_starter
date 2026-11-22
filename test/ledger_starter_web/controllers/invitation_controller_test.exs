@@ -19,7 +19,7 @@ defmodule LedgerStarterWeb.InvitationControllerTest do
     end
   end
 
-  defp invite(owner, email, role \\ "member") do
+  defp invite(owner, email, role \\ "sales") do
     flush_emails()
 
     {:ok, %{sent: [_]}} =

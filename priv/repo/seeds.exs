@@ -1,4 +1,4 @@
-# Demo data: the "Orbit Cloud" workspace (orbit.<base_host>) with 3 members and ~25 contacts.
+# Demo data: the "Orbit Cloud" workspace (orbit.<base_host>) with 5 members (Dono, Admin, 2x Vendas, Leitura) and ~25 contacts.
 #
 #     mix run priv/repo/seeds.exs
 #
@@ -36,6 +36,8 @@ end
 demo = ensure_user.("demo@ledger.devaction.com.br", "Alex Demo")
 marina = ensure_user.("marina@ledger.devaction.com.br", "Marina Costa")
 rafael = ensure_user.("rafael@ledger.devaction.com.br", "Rafael Lima")
+paula = ensure_user.("paula@ledger.devaction.com.br", "Paula Reis")
+davi = ensure_user.("davi@ledger.devaction.com.br", "Davi Rocha")
 
 company =
   Companies.get_company_by_subdomain("orbit") ||
@@ -45,7 +47,9 @@ company =
      end).()
 
 {:ok, _} = Companies.add_member(company, marina, "admin")
-{:ok, _} = Companies.add_member(company, rafael, "member")
+{:ok, _} = Companies.add_member(company, rafael, "sales")
+{:ok, _} = Companies.add_member(company, paula, "sales")
+{:ok, _} = Companies.add_member(company, davi, "viewer")
 
 scope = demo |> Scope.for_user() |> Scope.put_company(company)
 

@@ -30,7 +30,7 @@ defmodule LedgerStarterWeb.DashboardLive do
           >
             <:actions>
               <.button
-                :if={PermitEx.can?(@current_scope, "team:invite")}
+                :if={PermitEx.can?(@current_scope, "team:write")}
                 navigate={~p"/equipe/convidar"}
                 color="mono"
                 size="lg"
@@ -39,7 +39,7 @@ defmodule LedgerStarterWeb.DashboardLive do
                 Convidar o time
               </.button>
               <.button
-                :if={PermitEx.can?(@current_scope, "contacts:create")}
+                :if={PermitEx.can?(@current_scope, "contacts:write")}
                 navigate={~p"/contatos/novo"}
                 variant="outline"
                 size="lg"
@@ -52,7 +52,7 @@ defmodule LedgerStarterWeb.DashboardLive do
 
           <div class="grid grid-cols-4 gap-3 max-lg:grid-cols-2">
             <.mini_card
-              :if={PermitEx.can?(@current_scope, "contacts:create")}
+              :if={PermitEx.can?(@current_scope, "contacts:write")}
               surface="card"
               icon="user-plus"
               tone="accent"
@@ -60,7 +60,7 @@ defmodule LedgerStarterWeb.DashboardLive do
               navigate={~p"/contatos/novo"}
             />
             <.mini_card
-              :if={PermitEx.can?(@current_scope, "team:invite")}
+              :if={PermitEx.can?(@current_scope, "team:write")}
               surface="card"
               icon="users"
               tone="info"
