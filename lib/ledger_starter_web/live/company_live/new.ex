@@ -141,8 +141,8 @@ defmodule LedgerStarterWeb.CompanyLive.New do
             :taken ->
               {"error", gettext("Este endereço já está em uso.")}
 
-            {:invalid, msg} ->
-              {"error", translate_error({msg, []})}
+            {:invalid, error} ->
+              {"error", translate_error(error)}
           end
       end
 
