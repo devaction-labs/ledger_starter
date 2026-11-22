@@ -1,6 +1,7 @@
 defmodule LedgerStarter.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  use Gettext, backend: LedgerStarterWeb.Gettext
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -12,6 +13,7 @@ defmodule LedgerStarter.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
+    field :locale, :string, default: "pt_BR"
     field :authenticated_at, :utc_datetime, virtual: true
 
     timestamps(type: :utc_datetime)
@@ -22,12 +24,23 @@ defmodule LedgerStarter.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:name, :email, :password, :terms])
-    |> validate_required([:name], message: "informe seu nome")
+    |> cast(attrs, [:name, :email, :password, :terms, :locale])
+    |> validate_required([:name], message: dgettext_noop("errors", "informe seu nome"))
     |> validate_length(:name, min: 2, max: 120)
     |> validate_email(opts)
     |> validate_password(opts)
-    |> validate_acceptance(:terms, message: "aceite os termos para continuar")
+    |> validate_inclusion(:locale, LedgerStarter.Locale.locales())
+    |> validate_acceptance(:terms,
+      message: dgettext_noop("errors", "aceite os termos para continuar")
+    )
+  end
+
+  @doc "Changeset for the language preference (`pt_BR` or `en`)."
+  def locale_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:locale])
+    |> validate_required([:locale])
+    |> validate_inclusion(:locale, LedgerStarter.Locale.locales())
   end
 
   @doc """
@@ -52,7 +65,7 @@ defmodule LedgerStarter.Accounts.User do
       changeset
       |> validate_required([:email])
       |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/,
-        message: "must have the @ sign and no spaces"
+        message: dgettext_noop("errors", "must have the @ sign and no spaces")
       )
       |> validate_length(:email, max: 160)
 
@@ -68,7 +81,7 @@ defmodule LedgerStarter.Accounts.User do
 
   defp validate_email_changed(changeset) do
     if get_field(changeset, :email) && get_change(changeset, :email) == nil do
-      add_error(changeset, :email, "did not change")
+      add_error(changeset, :email, dgettext_noop("errors", "did not change"))
     else
       changeset
     end
@@ -92,7 +105,9 @@ defmodule LedgerStarter.Accounts.User do
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
-    |> validate_confirmation(:password, message: "does not match password")
+    |> validate_confirmation(:password,
+      message: dgettext_noop("errors", "does not match password")
+    )
     |> validate_password(opts)
   end
 

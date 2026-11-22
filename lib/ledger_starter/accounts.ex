@@ -80,6 +80,14 @@ defmodule LedgerStarter.Accounts do
     |> Repo.insert()
   end
 
+  @doc "Saves the user's language preference (`pt_BR` or `en`)."
+  def update_user_locale(%User{} = user, locale) do
+    user |> User.locale_changeset(%{locale: locale}) |> Repo.update()
+  end
+
+  @doc "Changeset for the language preference."
+  def change_user_locale(%User{} = user, attrs \\ %{}), do: User.locale_changeset(user, attrs)
+
   @doc "Changeset for the registration form (name, e-mail, password, terms)."
   def change_user_registration(user \\ %User{}, attrs \\ %{}, opts \\ []) do
     User.registration_changeset(user, attrs, opts)
@@ -93,11 +101,13 @@ defmodule LedgerStarter.Accounts do
   e-mail is linked (and confirmed; an unconfirmed password is discarded);
   otherwise a new confirmed user is created. Unverified e-mails are refused.
   """
-  def find_or_create_google_user(%{"sub" => sub, "email" => email} = claims)
+  def find_or_create_google_user(claims, opts \\ [])
+
+  def find_or_create_google_user(%{"sub" => sub, "email" => email} = claims, opts)
       when is_binary(sub) and is_binary(email) do
     if claims["email_verified"] in [true, "true"] do
       case Repo.get_by(User, google_uid: sub) || Repo.get_by(User, email: email) do
-        nil -> create_google_user(sub, email, claims["name"])
+        nil -> create_google_user(sub, email, claims["name"], opts[:locale])
         %User{} = user -> link_google_user(user, sub, claims["name"])
       end
     else
@@ -105,14 +115,17 @@ defmodule LedgerStarter.Accounts do
     end
   end
 
-  def find_or_create_google_user(_), do: {:error, :invalid_claims}
+  def find_or_create_google_user(_, _opts), do: {:error, :invalid_claims}
 
-  defp create_google_user(sub, email, name) do
+  defp create_google_user(sub, email, name, locale) do
+    locale = if LedgerStarter.Locale.supported?(locale), do: locale, else: "pt_BR"
+
     %User{}
     |> Ecto.Changeset.change(
       google_uid: sub,
       email: email,
       name: name,
+      locale: locale,
       confirmed_at: DateTime.utc_now(:second)
     )
     |> Ecto.Changeset.unique_constraint(:email)

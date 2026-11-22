@@ -43,6 +43,9 @@ config :ledger_starter,
   ecto_repos: [LedgerStarter.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
 
+# Gettext: pt_BR is the default language (and the one the msgids are written in)
+config :gettext, default_locale: "pt_BR"
+
 # Configure the endpoint
 config :ledger_starter, LedgerStarterWeb.Endpoint,
   url: [host: "localhost"],
