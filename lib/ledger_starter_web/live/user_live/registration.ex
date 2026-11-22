@@ -9,7 +9,7 @@ defmodule LedgerStarterWeb.UserLive.Registration do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen id="register">
+    <.auth_screen flash={@flash} id="register">
       <:chip
         icon="sparkles"
         title="Pronto em 2 minutos"

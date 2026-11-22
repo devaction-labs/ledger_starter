@@ -82,6 +82,14 @@ defmodule LedgerStarter.Contacts do
     Repo.get_by!(Contact, id: id, company_id: scope.company.id)
   end
 
+  @doc "Like `get_contact!/2` but returns `nil` when missing or from another company."
+  def get_contact(%Scope{} = scope, id) do
+    case Ecto.UUID.cast(id) do
+      {:ok, uuid} -> Repo.get_by(Contact, id: uuid, company_id: scope.company.id)
+      :error -> nil
+    end
+  end
+
   @doc """
   Creates a contact.
 

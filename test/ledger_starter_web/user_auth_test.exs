@@ -7,6 +7,7 @@ defmodule LedgerStarterWeb.UserAuthTest do
   alias LedgerStarterWeb.UserAuth
 
   import LedgerStarter.AccountsFixtures
+  import LedgerStarter.CompaniesFixtures
 
   @remember_me_cookie "_ledger_starter_web_user_remember_me"
   @remember_me_cookie_max_age 60 * 60 * 24 * 14
@@ -25,7 +26,8 @@ defmodule LedgerStarterWeb.UserAuthTest do
       conn = UserAuth.log_in_user(conn, user)
       assert token = get_session(conn, :user_token)
       assert get_session(conn, :live_socket_id) == "users_sessions:#{Base.url_encode64(token)}"
-      assert redirected_to(conn) == ~p"/"
+      # no company yet: onboarding
+      assert redirected_to(conn) == "http://example.com/empresas/nova"
       assert Accounts.get_user_by_session_token(token)
     end
 
@@ -85,13 +87,25 @@ defmodule LedgerStarterWeb.UserAuthTest do
       assert max_age == @remember_me_cookie_max_age
     end
 
-    test "redirects to settings when user is already logged in", %{conn: conn, user: user} do
+    test "redirects to the company chooser when the user is already logged in and has several companies",
+         %{conn: conn, user: user} do
       conn =
         conn
         |> assign(:current_scope, Scope.for_user(user))
         |> UserAuth.log_in_user(user)
 
-      assert redirected_to(conn) == ~p"/users/settings"
+      assert redirected_to(conn) == "http://example.com/empresas/nova"
+
+      company_fixture(user)
+      company_fixture(user)
+
+      conn =
+        build_conn()
+        |> init_test_session(%{})
+        |> assign(:current_scope, Scope.for_user(user))
+        |> UserAuth.log_in_user(user)
+
+      assert redirected_to(conn) == "http://example.com/workspaces"
     end
 
     test "writes a cookie if remember_me was set in previous session", %{conn: conn, user: user} do
@@ -131,7 +145,7 @@ defmodule LedgerStarterWeb.UserAuthTest do
       refute get_session(conn, :user_token)
       refute conn.cookies[@remember_me_cookie]
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == "http://example.com/"
       refute Accounts.get_user_by_session_token(user_token)
     end
 
@@ -150,7 +164,7 @@ defmodule LedgerStarterWeb.UserAuthTest do
       conn = conn |> fetch_cookies() |> UserAuth.log_out_user()
       refute get_session(conn, :user_token)
       assert %{max_age: 0} = conn.resp_cookies[@remember_me_cookie]
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == "http://example.com/"
     end
   end
 
@@ -337,7 +351,7 @@ defmodule LedgerStarterWeb.UserAuthTest do
       assert redirected_to(conn) == ~p"/users/log-in"
 
       assert Phoenix.Flash.get(conn.assigns.flash, :error) ==
-               "You must log in to access this page."
+               "Entre para acessar esta página."
     end
 
     test "stores the path to redirect to on GET", %{conn: conn} do

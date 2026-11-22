@@ -55,7 +55,7 @@ defmodule LedgerStarterWeb.UserAuth do
   defp redirect_after_login(conn, _user, "/" <> _ = path) when not is_nil(path) do
     if String.starts_with?(path, "//"),
       do: redirect(conn, external: after_login_url(conn)),
-      else: redirect(conn, external: Tenant.root_url(path))
+      else: redirect(conn, to: path)
   end
 
   defp redirect_after_login(conn, user, return_to) do
@@ -292,7 +292,7 @@ defmodule LedgerStarterWeb.UserAuth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "You must re-authenticate to access this page.")
+        |> Phoenix.LiveView.put_flash(:error, "Confirme sua identidade para acessar esta página.")
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
       {:halt, socket}

@@ -11,7 +11,7 @@ defmodule LedgerStarter.ContactsFixtures do
     attrs =
       Enum.into(attrs, %{
         company_name: "some company_name",
-        email: "some email",
+        email: "contato@example.com",
         name: "some name",
         phone: "some phone",
         stage: :lead

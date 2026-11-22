@@ -87,14 +87,23 @@ defmodule LedgerStarterWeb.Router do
     post "/users/update-password", UserSessionController, :update_password
   end
 
+  # Guest pages: signed-in users go straight to their workspace(s).
+  scope "/", LedgerStarterWeb do
+    pipe_through [:browser, :root_host, :redirect_if_authenticated]
+
+    live_session :guest,
+      on_mount: [{LedgerStarterWeb.UserAuth, :mount_current_scope}] do
+      live "/users/register", UserLive.Registration, :new
+      live "/users/log-in", UserLive.Login, :new
+      live "/users/log-in/link", UserLive.MagicLink, :new
+    end
+  end
+
   scope "/", LedgerStarterWeb do
     pipe_through [:browser, :root_host]
 
     live_session :current_user,
       on_mount: [{LedgerStarterWeb.UserAuth, :mount_current_scope}] do
-      live "/users/register", UserLive.Registration, :new
-      live "/users/log-in", UserLive.Login, :new
-      live "/users/log-in/link", UserLive.MagicLink, :new
       live "/users/log-in/:token", UserLive.Confirmation, :new
     end
 

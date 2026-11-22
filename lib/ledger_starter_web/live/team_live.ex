@@ -29,7 +29,7 @@ defmodule LedgerStarterWeb.TeamLive do
             <.button
               :if={PermitEx.can?(@current_scope, "team:invite")}
               id="invite-people"
-              navigate={~p"/equipe/convidar"}
+              patch={~p"/equipe/convidar"}
               icon="user-plus"
             >
               Convidar pessoas

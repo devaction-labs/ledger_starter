@@ -11,7 +11,7 @@ defmodule LedgerStarterWeb.CompanyLive.New do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen id="company" footer_right="Ajuda">
+    <.auth_screen flash={@flash} id="company" footer_right="Ajuda">
       <:chip
         icon="globe"
         title={@host_preview}

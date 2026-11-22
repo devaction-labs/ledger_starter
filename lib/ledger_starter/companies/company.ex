@@ -36,10 +36,10 @@ defmodule LedgerStarter.Companies.Company do
   end
 
   defp maybe_unique(changeset, opts) do
+    changeset = unique_constraint(changeset, :subdomain, message: "já está em uso")
+
     if Keyword.get(opts, :validate_unique, true) do
-      changeset
-      |> unsafe_validate_unique(:subdomain, LedgerStarter.Repo, message: "já está em uso")
-      |> unique_constraint(:subdomain, message: "já está em uso")
+      unsafe_validate_unique(changeset, :subdomain, LedgerStarter.Repo, message: "já está em uso")
     else
       changeset
     end

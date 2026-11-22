@@ -9,7 +9,7 @@ defmodule LedgerStarterWeb.UserLive.MagicLink do
   @impl true
   def render(%{sent_to: nil} = assigns) do
     ~H"""
-    <.auth_screen id="magic">
+    <.auth_screen flash={@flash} id="magic">
       <:chip icon="mail" title="Sem senha" subtitle="um clique no e-mail" top="64px" left="56px" />
       <:chip
         icon="lock"
@@ -49,7 +49,7 @@ defmodule LedgerStarterWeb.UserLive.MagicLink do
 
   def render(assigns) do
     ~H"""
-    <.auth_screen id="magic-sent">
+    <.auth_screen flash={@flash} id="magic-sent">
       <:chip icon="check" title="Link enviado" subtitle="agora mesmo" top="64px" left="56px" />
 
       <h1>Confira seu e-mail</h1>

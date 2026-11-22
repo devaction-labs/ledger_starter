@@ -75,7 +75,10 @@ defmodule LedgerStarterWeb.Layouts do
         </.navbar>
       </:topbar>
       {render_slot(@inner_block)}
-      <:aside>{render_slot(@aside)}</:aside>
+      <:aside>
+        {render_slot(@aside)}
+        <.toaster flash={@flash} />
+      </:aside>
     </.shell>
     """
   end
@@ -99,8 +102,8 @@ defmodule LedgerStarterWeb.Layouts do
     %{name: name, email: user.email, initials: initials(name), role: role && role_label(role)}
   end
 
-  def role_label("owner"), do: "Proprietário"
-  def role_label("admin"), do: "Administrador"
+  def role_label("owner"), do: "Dono"
+  def role_label("admin"), do: "Admin"
   def role_label("member"), do: "Membro"
   def role_label(other), do: other
 

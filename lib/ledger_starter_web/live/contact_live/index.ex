@@ -20,7 +20,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
           <.button
             :if={PermitEx.can?(@current_scope, "contacts:create")}
             id="new-contact"
-            navigate={~p"/contatos/novo"}
+            patch={~p"/contatos/novo"}
             icon="plus"
           >
             Novo contato
@@ -56,7 +56,7 @@ defmodule LedgerStarterWeb.ContactLive.Index do
             >
               <.dropdown_item
                 :if={PermitEx.can?(@current_scope, "contacts:update")}
-                navigate={~p"/contatos/#{c.id}/editar"}
+                patch={~p"/contatos/#{c.id}/editar"}
               >
                 <:icon><.icon name="edit" /></:icon>
                 Editar
@@ -160,10 +160,18 @@ defmodule LedgerStarterWeb.ContactLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     scope = socket.assigns.current_scope
 
-    if PermitEx.can?(scope, "contacts:update") do
-      assign_form(socket, scope, Contacts.get_contact!(scope, id))
+    with true <- PermitEx.can?(scope, "contacts:update"),
+         %Contact{} = contact <- Contacts.get_contact(scope, id) do
+      assign_form(socket, scope, contact)
     else
-      deny(socket)
+      false ->
+        deny(socket)
+
+      nil ->
+        socket
+        |> put_flash(:error, "Contato não encontrado.")
+        |> push_patch(to: ~p"/contatos")
+        |> assign(form: nil)
     end
   end
 
@@ -182,6 +190,11 @@ defmodule LedgerStarterWeb.ContactLive.Index do
   def handle_event("close_modal", _params, socket),
     do: {:noreply, push_patch(socket, to: ~p"/contatos")}
 
+  # Forged events without an open form are ignored.
+  def handle_event(event, _params, %{assigns: %{form: nil}} = socket)
+      when event in ~w(validate save),
+      do: {:noreply, socket}
+
   def handle_event("validate", %{"contact" => params}, socket) do
     changeset =
       Contacts.change_contact(socket.assigns.current_scope, socket.assigns.contact, params)
@@ -194,11 +207,13 @@ defmodule LedgerStarterWeb.ContactLive.Index do
 
   def handle_event("delete", %{"id" => id}, socket) do
     scope = socket.assigns.current_scope
-    contact = Contacts.get_contact!(scope, id)
 
-    case Contacts.delete_contact(scope, contact) do
-      {:ok, _} ->
-        {:noreply, put_toast(socket, "Contato excluído.", color: "success")}
+    with %Contact{} = contact <- Contacts.get_contact(scope, id),
+         {:ok, _} <- Contacts.delete_contact(scope, contact) do
+      {:noreply, put_toast(socket, "Contato excluído.", color: "success")}
+    else
+      nil ->
+        {:noreply, put_flash(socket, :error, "Contato não encontrado.")}
 
       {:error, :unauthorized} ->
         {:noreply, put_flash(socket, :error, "Você não tem permissão para excluir.")}

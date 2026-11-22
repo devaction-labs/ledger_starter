@@ -9,7 +9,7 @@ defmodule LedgerStarterWeb.UserLive.Confirmation do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen id="confirm">
+    <.auth_screen flash={@flash} id="confirm">
       <:chip icon="check" title="Link válido" subtitle="uso único" top="64px" left="56px" />
 
       <h1>{if @user.confirmed_at, do: "Bem-vindo de volta", else: "Confirme sua conta"}</h1>

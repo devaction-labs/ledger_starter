@@ -1,113 +1,136 @@
 defmodule LedgerStarter.ContactsTest do
-  use LedgerStarter.DataCase
+  use LedgerStarter.DataCase, async: true
+
+  import LedgerStarter.CompaniesFixtures
+  import LedgerStarter.ContactsFixtures
 
   alias LedgerStarter.Contacts
+  alias LedgerStarter.Contacts.Contact
 
-  describe "contacts" do
-    alias LedgerStarter.Contacts.Contact
-
-    import LedgerStarter.CompaniesFixtures, only: [company_scope_fixture: 0]
-    import LedgerStarter.ContactsFixtures
-
-    @invalid_attrs %{name: nil, stage: nil, email: nil, phone: nil, company_name: nil}
-
-    test "list_contacts/1 returns all scoped contacts" do
+  describe "tenant scoping" do
+    test "a company never sees another company's contacts" do
       scope = company_scope_fixture()
-      other_scope = company_scope_fixture()
-      contact = contact_fixture(scope)
-      other_contact = contact_fixture(other_scope)
-      assert Contacts.list_contacts(scope) == [contact]
-      assert Contacts.list_contacts(other_scope) == [other_contact]
+      other = company_scope_fixture()
+      mine = contact_fixture(scope, %{name: "Minha"})
+      theirs = contact_fixture(other, %{name: "Deles"})
+
+      assert [%{id: id}] = Contacts.list_contacts(scope)
+      assert id == mine.id
+      assert [%{id: other_id}] = Contacts.list_contacts(other)
+      assert other_id == theirs.id
     end
 
-    test "get_contact!/2 returns the contact with given id" do
+    test "get_contact!/2 raises for a contact of another company" do
       scope = company_scope_fixture()
+      other = company_scope_fixture()
       contact = contact_fixture(scope)
-      other_scope = company_scope_fixture()
-      assert Contacts.get_contact!(scope, contact.id) == contact
-      assert_raise Ecto.NoResultsError, fn -> Contacts.get_contact!(other_scope, contact.id) end
+
+      assert Contacts.get_contact!(scope, contact.id).id == contact.id
+      assert_raise Ecto.NoResultsError, fn -> Contacts.get_contact!(other, contact.id) end
     end
 
-    test "create_contact/2 with valid data creates a contact" do
-      valid_attrs = %{
-        name: "some name",
-        stage: :lead,
-        email: "some email",
-        phone: "some phone",
-        company_name: "some company_name"
-      }
-
+    test "update/delete refuse a contact of another company" do
       scope = company_scope_fixture()
+      other = company_scope_fixture()
+      contact = contact_fixture(scope)
 
-      assert {:ok, %Contact{} = contact} = Contacts.create_contact(scope, valid_attrs)
-      assert contact.name == "some name"
-      assert contact.stage == :lead
-      assert contact.email == "some email"
-      assert contact.phone == "some phone"
-      assert contact.company_name == "some company_name"
+      assert_raise MatchError, fn -> Contacts.update_contact(other, contact, %{name: "x"}) end
+      assert_raise MatchError, fn -> Contacts.delete_contact(other, contact) end
+      assert Contacts.get_contact!(scope, contact.id).name == contact.name
+    end
+
+    test "company_id and owner come from the scope, never from the params" do
+      scope = company_scope_fixture()
+      other = company_scope_fixture()
+
+      {:ok, contact} =
+        Contacts.create_contact(scope, %{
+          name: "Ana",
+          email: "ana@example.com",
+          stage: :lead,
+          company_id: other.company.id,
+          owner_id: other.user.id
+        })
+
       assert contact.company_id == scope.company.id
+      assert contact.owner_id == scope.user.id
     end
 
-    test "create_contact/2 with invalid data returns error changeset" do
+    test "count_by_stage/1 counts only the company's contacts" do
       scope = company_scope_fixture()
-      assert {:error, %Ecto.Changeset{}} = Contacts.create_contact(scope, @invalid_attrs)
+      other = company_scope_fixture()
+      contact_fixture(scope, %{stage: :lead})
+      contact_fixture(scope, %{stage: :customer})
+      contact_fixture(other, %{stage: :customer})
+
+      assert Contacts.count_by_stage(scope) == %{lead: 1, qualified: 0, customer: 1}
     end
 
-    test "update_contact/3 with valid data updates the contact" do
+    test "each company is notified only of its own changes" do
+      scope = company_scope_fixture()
+      other = company_scope_fixture()
+      Contacts.subscribe_contacts(scope)
+
+      contact_fixture(other)
+      refute_receive {:created, _}
+
+      contact = contact_fixture(scope)
+      assert_receive {:created, %Contact{id: id}}
+      assert id == contact.id
+    end
+  end
+
+  describe "create/update/delete" do
+    test "requires name, e-mail and stage" do
+      scope = company_scope_fixture()
+      assert {:error, changeset} = Contacts.create_contact(scope, %{})
+      assert %{name: _, email: _, stage: _} = errors_on(changeset)
+    end
+
+    test "update_contact/3 and delete_contact/2" do
       scope = company_scope_fixture()
       contact = contact_fixture(scope)
 
-      update_attrs = %{
-        name: "some updated name",
-        stage: :qualified,
-        email: "some updated email",
-        phone: "some updated phone",
-        company_name: "some updated company_name"
-      }
+      assert {:ok, %Contact{name: "Novo nome"}} =
+               Contacts.update_contact(scope, contact, %{name: "Novo nome"})
 
-      assert {:ok, %Contact{} = contact} = Contacts.update_contact(scope, contact, update_attrs)
-      assert contact.name == "some updated name"
-      assert contact.stage == :qualified
-      assert contact.email == "some updated email"
-      assert contact.phone == "some updated phone"
-      assert contact.company_name == "some updated company_name"
-    end
-
-    test "update_contact/3 with invalid scope raises" do
-      scope = company_scope_fixture()
-      other_scope = company_scope_fixture()
-      contact = contact_fixture(scope)
-
-      assert_raise MatchError, fn ->
-        Contacts.update_contact(other_scope, contact, %{})
-      end
-    end
-
-    test "update_contact/3 with invalid data returns error changeset" do
-      scope = company_scope_fixture()
-      contact = contact_fixture(scope)
-      assert {:error, %Ecto.Changeset{}} = Contacts.update_contact(scope, contact, @invalid_attrs)
-      assert contact == Contacts.get_contact!(scope, contact.id)
-    end
-
-    test "delete_contact/2 deletes the contact" do
-      scope = company_scope_fixture()
-      contact = contact_fixture(scope)
-      assert {:ok, %Contact{}} = Contacts.delete_contact(scope, contact)
+      assert {:ok, _} = Contacts.delete_contact(scope, contact)
       assert_raise Ecto.NoResultsError, fn -> Contacts.get_contact!(scope, contact.id) end
     end
+  end
 
-    test "delete_contact/2 with invalid scope raises" do
-      scope = company_scope_fixture()
-      other_scope = company_scope_fixture()
-      contact = contact_fixture(scope)
-      assert_raise MatchError, fn -> Contacts.delete_contact(other_scope, contact) end
+  describe "authorization (PermitEx, per company)" do
+    test "a member can create and update but not delete" do
+      owner = company_scope_fixture()
+      {_user, member} = member_fixture(owner.company, "member")
+
+      assert {:ok, contact} =
+               Contacts.create_contact(member, %{name: "A", email: "a@example.com", stage: :lead})
+
+      assert {:ok, _} = Contacts.update_contact(member, contact, %{name: "B"})
+      assert {:error, :unauthorized} = Contacts.delete_contact(member, contact)
     end
 
-    test "change_contact/2 returns a contact changeset" do
-      scope = company_scope_fixture()
-      contact = contact_fixture(scope)
-      assert %Ecto.Changeset{} = Contacts.change_contact(scope, contact)
+    test "an admin can delete" do
+      owner = company_scope_fixture()
+      {_user, admin} = member_fixture(owner.company, "admin")
+      contact = contact_fixture(owner)
+
+      assert {:ok, _} = Contacts.delete_contact(admin, contact)
+    end
+
+    test "permissions of one company do not apply in another" do
+      owner = company_scope_fixture()
+      other = company_scope_fixture()
+      # the owner of `owner.company` is just a stranger in `other.company`
+      stranger = company_scope_fixture(owner.user, other.company)
+
+      assert {:error, :unauthorized} =
+               Contacts.create_contact(stranger, %{
+                 name: "A",
+                 email: "a@example.com",
+                 stage: :lead
+               })
     end
   end
 end

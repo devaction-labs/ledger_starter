@@ -8,6 +8,7 @@ defmodule LedgerStarterWeb.AuthComponents do
   """
   attr :id, :string, required: true, doc: "prefix of the art ids (one per page)"
   attr :footer_right, :string, default: "Privacidade · Termos"
+  attr :flash, :map, default: %{}
 
   slot :inner_block, required: true
 
@@ -30,6 +31,7 @@ defmodule LedgerStarterWeb.AuthComponents do
   def auth_screen(assigns) do
     ~H"""
     <div class="h-screen bg-page">
+      <.toaster flash={@flash} />
       <.auth_page brand="StartKit" mark="S">
         {render_slot(@inner_block)}
         <:footer>

@@ -9,6 +9,7 @@ defmodule LedgerStarterWeb.UserLive.Settings do
   def render(assigns) do
     ~H"""
     <div class="min-h-screen bg-page">
+      <.toaster flash={@flash} />
       <.navbar>
         <.navbar_brand name="StartKit" logo="S" />
         <:end>

@@ -6,7 +6,7 @@ defmodule LedgerStarterWeb.UserLive.Login do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen id="login">
+    <.auth_screen flash={@flash} id="login">
       <:chip
         icon="building"
         title="3 workspaces"

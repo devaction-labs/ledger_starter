@@ -10,7 +10,7 @@ defmodule LedgerStarterWeb.WorkspaceLive.Index do
   @impl true
   def render(assigns) do
     ~H"""
-    <.auth_screen id="workspaces" footer_right="Ajuda">
+    <.auth_screen flash={@flash} id="workspaces" footer_right="Ajuda">
       <:chip
         icon="users"
         title="Um login, várias empresas"

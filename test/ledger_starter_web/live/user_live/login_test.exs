@@ -5,46 +5,33 @@ defmodule LedgerStarterWeb.UserLive.LoginTest do
   import LedgerStarter.AccountsFixtures
 
   describe "login page" do
-    test "renders login page", %{conn: conn} do
+    test "renders password login, magic link entry and registration link", %{conn: conn} do
       {:ok, _lv, html} = live(conn, ~p"/users/log-in")
 
-      assert html =~ "Log in"
-      assert html =~ "Sign up"
-      assert html =~ "Log in with email"
+      assert html =~ "Entrar no StartKit"
+      assert html =~ "Entrar com link mágico"
+      assert html =~ "Criar conta grátis"
+      refute html =~ "Continuar com Google"
+    end
+
+    test "shows the Google button only when OAuth is configured", %{conn: conn} do
+      previous = Application.get_env(:ledger_starter, :google_oauth)
+
+      Application.put_env(:ledger_starter, :google_oauth,
+        client_id: "id",
+        client_secret: "secret"
+      )
+
+      on_exit(fn -> Application.put_env(:ledger_starter, :google_oauth, previous) end)
+
+      {:ok, _lv, html} = live(conn, ~p"/users/log-in")
+      assert html =~ "Continuar com Google"
+      assert html =~ "/auth/google"
     end
   end
 
-  describe "user login - magic link" do
-    test "sends magic link email when user exists", %{conn: conn} do
-      user = user_fixture()
-
-      {:ok, lv, _html} = live(conn, ~p"/users/log-in")
-
-      {:ok, _lv, html} =
-        form(lv, "#login_form_magic", user: %{email: user.email})
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/users/log-in")
-
-      assert html =~ "If your email is in our system"
-
-      assert LedgerStarter.Repo.get_by!(LedgerStarter.Accounts.UserToken, user_id: user.id).context ==
-               "login"
-    end
-
-    test "does not disclose if user is registered", %{conn: conn} do
-      {:ok, lv, _html} = live(conn, ~p"/users/log-in")
-
-      {:ok, _lv, html} =
-        form(lv, "#login_form_magic", user: %{email: "idonotexist@example.com"})
-        |> render_submit()
-        |> follow_redirect(conn, ~p"/users/log-in")
-
-      assert html =~ "If your email is in our system"
-    end
-  end
-
-  describe "user login - password" do
-    test "redirects if user logs in with valid credentials", %{conn: conn} do
+  describe "password login" do
+    test "redirects to the login post when submitted", %{conn: conn} do
       user = user_fixture() |> set_password()
 
       {:ok, lv, _html} = live(conn, ~p"/users/log-in")
@@ -56,36 +43,24 @@ defmodule LedgerStarterWeb.UserLive.LoginTest do
 
       conn = submit_form(form, conn)
 
-      assert redirected_to(conn) == ~p"/"
+      assert redirected_to(conn) == "http://example.com/empresas/nova"
     end
 
-    test "redirects to login page with a flash error if credentials are invalid", %{
+    test "redirects to the login page with a flash error if credentials are invalid", %{
       conn: conn
     } do
       {:ok, lv, _html} = live(conn, ~p"/users/log-in")
 
       form =
-        form(lv, "#login_form_password", user: %{email: "test@email.com", password: "123456"})
+        form(lv, "#login_form_password",
+          user: %{email: "test@email.com", password: "wrong pass 12"}
+        )
 
       render_submit(form, %{user: %{remember_me: true}})
 
       conn = follow_trigger_action(form, conn)
-      assert Phoenix.Flash.get(conn.assigns.flash, :error) == "Invalid email or password"
+      assert Phoenix.Flash.get(conn.assigns.flash, :error) == "E-mail ou senha inválidos."
       assert redirected_to(conn) == ~p"/users/log-in"
-    end
-  end
-
-  describe "login navigation" do
-    test "redirects to registration page when the Register button is clicked", %{conn: conn} do
-      {:ok, lv, _html} = live(conn, ~p"/users/log-in")
-
-      {:ok, _login_live, login_html} =
-        lv
-        |> element("main a", "Sign up")
-        |> render_click()
-        |> follow_redirect(conn, ~p"/users/register")
-
-      assert login_html =~ "Register"
     end
   end
 
@@ -95,15 +70,8 @@ defmodule LedgerStarterWeb.UserLive.LoginTest do
       %{user: user, conn: log_in_user(conn, user)}
     end
 
-    test "shows login page with email filled in", %{conn: conn, user: user} do
-      {:ok, _lv, html} = live(conn, ~p"/users/log-in")
-
-      assert html =~ "You need to reauthenticate"
-      refute html =~ "Register"
-      assert html =~ "Log in with email"
-
-      assert html =~
-               ~s(<input type="email" name="user[email]" id="login_form_magic_email" value="#{user.email}")
+    test "redirects a logged-in user to their workspaces", %{conn: conn} do
+      assert {:error, {:redirect, %{to: _}}} = live(conn, ~p"/users/register")
     end
   end
 end
