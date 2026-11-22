@@ -18,9 +18,28 @@ config :ledger_starter, :scopes,
     schema_table: :users,
     test_data_fixture: LedgerStarter.AccountsFixtures,
     test_setup_helper: :register_and_log_in_user
+  ],
+  company: [
+    module: LedgerStarter.Accounts.Scope,
+    assign_key: :current_scope,
+    access_path: [:company, :id],
+    route_prefix: "/",
+    schema_key: :company_id,
+    schema_type: :binary_id,
+    schema_table: :companies,
+    test_data_fixture: LedgerStarter.CompaniesFixtures,
+    test_setup_helper: :register_and_log_in_user_with_company
   ]
 
+config :permit_ex, repo: LedgerStarter.Repo, cache: false
+
+config :ledger_starter, :google_oauth, client_id: nil, client_secret: nil
+
 config :ledger_starter,
+  base_host: "lvh.me",
+  session_cookie_domain: ".lvh.me",
+  seats_limit: 10,
+  mail_from: {"StartKit", "no-reply@ledger.devaction.com.br"},
   ecto_repos: [LedgerStarter.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
 

@@ -76,8 +76,61 @@ defmodule LedgerStarter.Accounts do
   """
   def register_user(attrs) do
     %User{}
-    |> User.email_changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc "Changeset for the registration form (name, e-mail, password, terms)."
+  def change_user_registration(user \\ %User{}, attrs \\ %{}, opts \\ []) do
+    User.registration_changeset(user, attrs, opts)
+  end
+
+  @doc """
+  Create-or-link a user from verified Google claims (`sub`, `email`,
+  `email_verified`, `name`).
+
+  Existing user by `google_uid` wins; otherwise a user with the same verified
+  e-mail is linked (and confirmed; an unconfirmed password is discarded);
+  otherwise a new confirmed user is created. Unverified e-mails are refused.
+  """
+  def find_or_create_google_user(%{"sub" => sub, "email" => email} = claims)
+      when is_binary(sub) and is_binary(email) do
+    if claims["email_verified"] in [true, "true"] do
+      case Repo.get_by(User, google_uid: sub) || Repo.get_by(User, email: email) do
+        nil -> create_google_user(sub, email, claims["name"])
+        %User{} = user -> link_google_user(user, sub, claims["name"])
+      end
+    else
+      {:error, :email_not_verified}
+    end
+  end
+
+  def find_or_create_google_user(_), do: {:error, :invalid_claims}
+
+  defp create_google_user(sub, email, name) do
+    %User{}
+    |> Ecto.Changeset.change(
+      google_uid: sub,
+      email: email,
+      name: name,
+      confirmed_at: DateTime.utc_now(:second)
+    )
+    |> Ecto.Changeset.unique_constraint(:email)
+    |> Repo.insert()
+  end
+
+  defp link_google_user(%User{google_uid: uid} = user, sub, _name) when uid not in [nil, sub],
+    do: {:error, {:google_uid_mismatch, user}}
+
+  defp link_google_user(%User{} = user, sub, name) do
+    changes = %{google_uid: sub, name: user.name || name}
+
+    changes =
+      if is_nil(user.confirmed_at),
+        do: Map.merge(changes, %{confirmed_at: DateTime.utc_now(:second), hashed_password: nil}),
+        else: changes
+
+    user |> Ecto.Changeset.change(changes) |> Repo.update()
   end
 
   ## Settings
@@ -222,19 +275,13 @@ defmodule LedgerStarter.Accounts do
     {:ok, query} = UserToken.verify_magic_link_token_query(token)
 
     case Repo.one(query) do
-      # Prevent session fixation attacks by disallowing magic links for unconfirmed users with password
-      {%User{confirmed_at: nil, hashed_password: hash}, _token} when not is_nil(hash) ->
-        raise """
-        magic link log in is not allowed for unconfirmed users with a password set!
-
-        This cannot happen with the default implementation, which indicates that you
-        might have adapted the code to a different use case. Please make sure to read the
-        "Mixing magic link and password registration" section of `mix help phx.gen.auth`.
-        """
-
+      # Unconfirmed account: the link proves ownership of the e-mail. A password
+      # set before confirmation could have been chosen by someone else
+      # (pre-hijacking), so it is discarded; the owner can set a new one.
       {%User{confirmed_at: nil} = user, _token} ->
         user
         |> User.confirm_changeset()
+        |> Ecto.Changeset.change(hashed_password: nil)
         |> update_user_and_delete_all_tokens()
 
       {user, token} ->

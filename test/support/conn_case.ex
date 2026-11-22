@@ -57,6 +57,22 @@ defmodule LedgerStarterWeb.ConnCase do
   end
 
   @doc """
+  Registers a user, creates a company they own and logs them in.
+  """
+  def register_and_log_in_user_with_company(%{conn: conn} = context) do
+    user = LedgerStarter.AccountsFixtures.user_fixture()
+    company = LedgerStarter.CompaniesFixtures.company_fixture(user)
+    scope = LedgerStarter.CompaniesFixtures.company_scope_fixture(user, company)
+
+    opts =
+      context
+      |> Map.take([:token_authenticated_at])
+      |> Enum.into([])
+
+    %{conn: log_in_user(conn, user, opts), user: user, scope: scope, company: company}
+  end
+
+  @doc """
   Logs the given `user` into the `conn`.
 
   It returns an updated `conn`.

@@ -5,13 +5,29 @@ defmodule LedgerStarter.Accounts.User do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
+    field :name, :string
     field :email, :string
+    field :google_uid, :string
+    field :terms, :boolean, virtual: true
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
 
     timestamps(type: :utc_datetime)
+  end
+
+  @doc """
+  Registration changeset: name, e-mail, password and accepted terms.
+  """
+  def registration_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:name, :email, :password, :terms])
+    |> validate_required([:name], message: "informe seu nome")
+    |> validate_length(:name, min: 2, max: 120)
+    |> validate_email(opts)
+    |> validate_password(opts)
+    |> validate_acceptance(:terms, message: "aceite os termos para continuar")
   end
 
   @doc """
@@ -31,7 +47,7 @@ defmodule LedgerStarter.Accounts.User do
     |> validate_email(opts)
   end
 
-  defp validate_email(changeset, opts) do
+  def validate_email(changeset, opts) do
     changeset =
       changeset
       |> validate_required([:email])
@@ -80,7 +96,7 @@ defmodule LedgerStarter.Accounts.User do
     |> validate_password(opts)
   end
 
-  defp validate_password(changeset, opts) do
+  def validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 12, max: 72)

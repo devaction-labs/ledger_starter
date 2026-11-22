@@ -42,3 +42,9 @@ config :phoenix_live_view,
 # Sort query params output of verified routes for robust url comparisons
 config :phoenix,
   sort_verified_routes_query_params: true
+
+config :ledger_starter,
+  base_host: "example.com",
+  session_cookie_domain: ".example.com"
+
+config :ledger_starter, LedgerStarterWeb.Endpoint, url: [host: "example.com", port: 80]
