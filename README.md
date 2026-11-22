@@ -86,8 +86,14 @@ DNS: aponte `BASE_HOST` **e** `*.BASE_HOST` (wildcard) para a aplicação e emit
   `ghcr.io/devaction-labs/ledger_starter:sha-<sha>` e faz o deploy no Openship
   (`.github/scripts/openship-deploy.sh`). Em `release/**` ou `workflow_dispatch` com `build_image` só publica a imagem.
   `workflow_dispatch` com `deploy_version` faz rollback para uma tag existente.
-- Secrets do GitHub (somente estes): `OPENSHIP_CLOUD_API_URL`, `OPENSHIP_CLOUD_API_TOKEN`, `OPENSHIP_CLOUD_PROJECT_ID`.
-  As variáveis da tabela acima são do **ambiente do Openship**, não do GitHub.
+- Secrets do GitHub (nível do repositório): `OPENSHIP_CLOUD_API_URL`, `OPENSHIP_CLOUD_API_TOKEN`,
+  `OPENSHIP_CLOUD_PROJECT_ID`, `SECRET_KEY_BASE`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
+  `RESEND_API_KEY`, `DEMO_PASSWORD`. Variáveis opcionais do repositório (`vars`): `PHX_HOST`, `BASE_HOST`,
+  `MAIL_FROM`, `POOL_SIZE` (valores vazios são ignorados). `DATABASE_URL` não é sincronizado: o Openship injeta pela conexão do banco.
+- **Sync secrets** (`.github/workflows/sync-secrets.yml`): copia esses secrets/variáveis para o ambiente do Openship
+  (`.github/scripts/openship-sync-secrets.sh`) e redeploya `sha-<sha da main>`. Rode em Actions > Sync secrets > Run workflow
+  (opcionalmente informando `image_version`) ou mergeie um PR com o label `deploy-secrets`. Se algum dos quatro secrets
+  obrigatórios estiver vazio, nada é enviado.
 
 ## Estrutura
 
